@@ -5,7 +5,7 @@ package TriviaMaze;
 import java.util.*;
 
 public class Maze {
-/*
+
     private Room myMaze[][];
     private String myData;  //can change, probably will lol
     private int myRow;
@@ -16,7 +16,7 @@ public class Maze {
     /**
      * default maze contructor, for when no params are sent: 4 by 4 by
      * default
-     
+     */
     public Maze() {
         this(4, 4);
     }
@@ -144,7 +144,7 @@ public class Maze {
         final StringBuilder sb = new StringBuilder();
         sb.append(myMaze.toString());
         return sb.toString();
-    }*/
+    }
 
     //little note for later: do we need an openDoor() method in room?
     //another note: do we need a display String[][] for maze? to maze toString and output easier?
