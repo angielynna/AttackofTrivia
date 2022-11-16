@@ -74,7 +74,7 @@ public class DataBank {
         }
     }
 
-    /*
+
     public static void addData(String query, SQLiteDataSource ds) {
         try ( Connection conn = ds.getConnection();
               Statement stmt = conn.createStatement(); ) {
@@ -88,5 +88,5 @@ public class DataBank {
             System.exit( 0 );
         }
     }
-     */
+
 }
