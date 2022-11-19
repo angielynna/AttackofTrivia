@@ -1,3 +1,11 @@
+/*
+ * DataBank Class
+ * Version Autumn 2022
+ * 11/18/2022
+ */
+
+import java.util.*;
+import java.io.*;
 import java.sql.*;
 import org.sqlite.SQLiteDataSource;
 
