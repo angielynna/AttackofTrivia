@@ -10,91 +10,53 @@ import java.sql.*;
 import org.sqlite.SQLiteDataSource;
 
 public class DataBank {
-    public static void main(String[] theArgs) {
-        SQLiteDataSource ds = new SQLiteDataSource();
-        try {
-            //ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:AOTQuestions.db");
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.exit(0);
-        }
 
-        //Creating Question table for BollywoodQuiz
-        String queryBQ = "CREATE TABLE IF NOT EXISTS BQQuestions ( " +
-                "QID INT NOT NULL," +
-                "QUESTION TEXT NOT NULL )";
-        String queryBA = "CREATE TABLE IF NOT EXISTS BQAnswers ( " +
-                "ANSWER TEXT NOT NULL," +
-                "QID INT NOT NULL," +
-                "CORRECT_FLAG INT NOT NULL )";
+    // The Statement object.
+    private static final Statement STATEMENT = createStatement();
 
-        createTable(queryBQ, ds);
-        createTable(queryBA, ds);
+     // Initial id for all questions that will be incremented.
+    private static final int INITIAL_QUESTION_ID = 1;
 
+     // The single instance of the class.
+    private static DataBank myDataBank;
 
-        //Creating Question table for FriendsQuiz
-        String queryFQ = "CREATE TABLE IF NOT EXISTS FQQuestions ( " +
-                "QID INT NOT NULL," +
-                "QUESTION TEXT NOT NULL )";
-        String queryFA = "CREATE TABLE IF NOT EXISTS FQAnswers ( " +
-                "ANSWER TEXT NOT NULL," +
-                "QID INT NOT NULL," +
-                "CORRECT_FLAG INT NOT NULL )";
+     // Array of all the bollywood questions from the database.
+    private final Array<Question> bollywoodQuestions;
 
-        createTable(queryFQ, ds);
-        createTable(queryFA, ds);
+     // Array of all the Friends questions from the database.
 
+    private final Array<Question> friendsQuestions;
 
-        //Creating Question table for HorrorQuiz
-        String queryHQ = "CREATE TABLE IF NOT EXISTS HQQuestions ( " +
-                "QID INT NOT NULL," +
-                "QUESTION TEXT NOT NULL )";
-        String queryHA = "CREATE TABLE IF NOT EXISTS HQAnswers ( " +
-                "ANSWER TEXT NOT NULL," +
-                "QID INT NOT NULL," +
-                "CORRECT_FLAG INT NOT NULL )";
-        createTable(queryHQ, ds);
-        createTable(queryHA, ds);
+     // Array of all the horror questions from the database.
 
+    private final Array<Question> horrorQuestions;
 
-        //Creating Question table for RandomQuiz
-        String queryRQ = "CREATE TABLE IF NOT EXISTS RQQuestions ( " +
-                "QID INT NOT NULL," +
-                "QUESTION TEXT NOT NULL )";
-        String queryRA = "CREATE TABLE IF NOT EXISTS RQAnswers ( " +
-                "ANSWER TEXT NOT NULL," +
-                "QID INT NOT NULL," +
-                "CORRECT_FLAG INT NOT NULL )";
+    // Array of all the random questions from the database.
 
-        createTable(queryRQ, ds);
-        createTable(queryRA, ds);
+     // The index which keeps track of the questions in the bollywood array.
+
+    private int bollywoodIndex = 0;
+
+     // The index which keeps track of the questions in the friends array.
+    private int friendsIndex = 0;
+
+     // The index which keeps track of the questions in the horror array.
+
+    private int horrorIndex = 0;
+
+    // The index which keeps track of the questions in the random array.
+
+    /**
+     * Private Constructor, which sets up the database.
+     */
+    private Databank() {
+        //method that sets up the database
+        createDB();
+        bollywoodQuestions = makeArray("Bollywood");
+        friendsQuestions = makeArray("Friends");
+        horrorQuestions = makeArray("Horror");
+        // method closes the database
+        closeDB();
+
     }
-
-    public static void createTable(String query, SQLiteDataSource ds) {
-        try ( Connection conn = ds.getConnection();
-              Statement stmt = conn.createStatement() ) {
-            int rv = stmt.executeUpdate( query );
-            System.out.println( "executeUpdate() returned " + rv );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-            System.exit( 0 );
-        }
-    }
-
-
-    public static void addData(String query, SQLiteDataSource ds) {
-        try ( Connection conn = ds.getConnection();
-              Statement stmt = conn.createStatement(); ) {
-            int rv = stmt.executeUpdate(query);
-            //System.out.println( "1st executeUpdate() returned " + rv );
-
-            //rv = stmt.executeUpdate( query );
-            //System.out.println( "2nd executeUpdate() returned " + rv );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-            System.exit( 0 );
-        }
-    }
-
 }
