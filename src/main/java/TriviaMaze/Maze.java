@@ -2,6 +2,7 @@
 //Satisfies story AoT: 2.42.02
 package TriviaMaze;
 
+import java.io.*;
 import java.util.*;
 
 public class Maze {
@@ -14,7 +15,7 @@ public class Maze {
     //may need a separate private display maze
 
     /**
-     * default maze contructor, for when no params are sent: 4 by 4 by
+     * default maze constructor, for when no params are sent: 4 by 4 by
      * default
      */
     public Maze() {
@@ -34,33 +35,37 @@ public class Maze {
                 //break down of logic:
                 if(i==0) {                          //If top row:
                     if(j==0) {                      //at first position: S, E
-                        maze[i][j] = new Room();    //insert stuff here
+                        maze[i][j] = new Room(null, null,null, null);
+                        //insert stuff here
                     } else if (j == theCols - 1) {  // at last position: S, W
-                        maze[i][j] = new Room();    //info here again
+                        maze[i][j] = new Room(null, null,null, null);
                     } else {                        //other positions: S, W, E <- default
-                        maze[i][j] = new Room();    //info here again
+                        maze[i][j] = new Room(null, null,null, null);
                     }
                 } else if(j == 0 && i > 0) {        //If first column
                     if(i == theRows - 1) {          //if last row: N, E
-                        maze[i][j] = new Room();    //info here again
+                        maze[i][j] = new Room(null, null,null, null);
                     } else {                        //other positions: N, E, S <- default
-                        maze[i][j] = new Room();    //info here again
+                        maze[i][j] = new Room(null, null,null, null);
                     }
                 } else if(j > 0 && i == theRows - 1) { //if last row:
                     if(j == theCols - 1) {             //if last column: N, W
-                        maze[i][j] = new Room();       //info here again
+                        maze[i][j] = new Room(null, null,null, null);
                     } else {                           //other positions: N, E, W <- default
-                        maze[i][j] = new Room();       //info here again
+                        maze[i][j] = new Room(null, null,null, null);
                     }
                 } else if(j == theCols - 1 && (i > 0 && i < theRows - 1)) {// Last column
-                    maze[i][j] = new Room();            //N, S, W
+                    maze[i][j] = new Room(null, null,null, null);
+                    //N, S, W
                 } else {            //in middle of it all, has all rooms
-                    maze[i][j] = new Room();            //N, E, W, S
+                    maze[i][j] = new Room(null, null,null, null);
+                    //N, E, W, S
                 }
             }
         }
         //recall: the last room is the exit point, so there are no questions
-        maze[theRows - 1][theCols - 1] = new Room();    //stuff
+        maze[theRows - 1][theCols - 1] = new Room(null, null,null, null);
+        //stuff
         return maze;
     }
 
@@ -121,11 +126,22 @@ public class Maze {
     }
 
     public boolean atLastRoom() {
+
         return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
     }
 
-    public boolean isLocked() {
-        return myMaze[myRow][myCol].isLocked();
+    public boolean isLocked(final char theDirection) {
+        if(Character.toUpperCase(theDirection) == 'N') {
+            return myMaze[myRow][myCol].myNorth.isLocked();
+        } else if (Character.toUpperCase(theDirection) == 'E') {
+            return myMaze[myRow][myCol].myEast.isLocked();
+        }  else if (Character.toUpperCase(theDirection) == 'S') {
+            return myMaze[myRow][myCol].mySouth.isLocked();
+        } else if (Character.toUpperCase(theDirection) == 'W') {
+            return myMaze[myRow][myCol].myWest.isLocked();
+        } else {
+            throw new IllegalArgumentException("ERROR! Direction is invalid.");
+        }
     }
 
     public int getRow() {
