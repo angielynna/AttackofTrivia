@@ -6,7 +6,8 @@ public class Question {
     private String myCorrectAnswer;
     private String [] myAnswerOptions;
 
-    Question(String theQuestion, String[] theAnswerOptions, String theCorrectAnswer){
+    Question(final String theQuestion, final String[] theAnswerOptions,
+             final String theCorrectAnswer){
         if(myQuestion == null || myCorrectAnswer == null || myAnswerOptions == null){
             throw new IllegalArgumentException();
         }
@@ -17,9 +18,11 @@ public class Question {
     }
 
     public String getQuestion(){
+
         return myQuestion;
     }
     public String getAnswer() {
+
         return myCorrectAnswer;
     }
     public String getOptions() {
@@ -34,9 +37,10 @@ public class Question {
         }
         return false;
     }
+
     protected String promptQuestion(){
         StringBuilder sb = new StringBuilder();
-        sb.append(getQuestion()+"\n"+getOptions()+"\n"+getAnswer());
+        sb.append(getQuestion()+"\n"+getOptions()+"\n");
         return(sb.toString());
     }
 

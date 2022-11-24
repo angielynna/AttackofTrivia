@@ -5,24 +5,26 @@ public class Door {
 
     private boolean myStatus;
 
-    Door(String theQuestion, String[] theAnsOptions, String theCorrectAns){
+    public Door(String theQuestion, String[] theAnsOptions, String theCorrectAns){
 
         myQuestion = new Question(theQuestion,theAnsOptions,theCorrectAns);
         myStatus = false;
 
     }
 
-    void lockDoor(){
+    public void lockDoor(){
 
         myStatus = true;
     }
 
-    boolean isLocked(){
+    public boolean isLocked(){
+
         return myStatus;
     }
 
 
-    String getQuestion(){
+    public String getQuestion(){
+
         return (myQuestion.toString());
     }
 
