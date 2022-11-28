@@ -3,10 +3,10 @@ package TriviaMaze;
 import java.util.Arrays;
 
 public class Room {
-    private Door myNorth;
-    private Door myEast;
-    private Door myWest;
-    private Door mySouth;
+    protected Door myNorth;
+    protected Door myEast;
+    protected Door myWest;
+    protected Door mySouth;
 
     public Room(String[] theNorthData, String[] theEastData,
                 String[] theWestData, String[] theSouthData){
@@ -23,7 +23,7 @@ public class Room {
                     theWestData[5]);
         }
         if(theSouthData != null){
-            myNorth = new Door(theSouthData[0], Arrays.copyOfRange(theSouthData,1,5),
+            mySouth = new Door(theSouthData[0], Arrays.copyOfRange(theSouthData,1,5),
                     theSouthData[5]);
         }
     }
