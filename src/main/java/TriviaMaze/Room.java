@@ -26,6 +26,5 @@ public class Room {
             mySouth = new Door(theSouthData[0], Arrays.copyOfRange(theSouthData,1,5),
                     theSouthData[5]);
         }
-    }
-
+    } 
 }
