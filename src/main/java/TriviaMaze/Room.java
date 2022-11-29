@@ -23,7 +23,7 @@ public class Room {
                     theWestData[5]);
         }
         if(theSouthData != null){
-            myNorth = new Door(theSouthData[0], Arrays.copyOfRange(theSouthData,1,5),
+            mySouth = new Door(theSouthData[0], Arrays.copyOfRange(theSouthData,1,5),
                     theSouthData[5]);
         }
     } 

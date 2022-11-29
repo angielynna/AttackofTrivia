@@ -35,6 +35,28 @@ public class Maze {
                 //break down of logic:
                 if(i==0) {                          //If top row:
                     if(j==0) {                      //at first position: S, E
+                        maze[i][j] = new Room(null, null,null, null);    //insert stuff here
+                    } else if (j == theCols - 1) {  // at last position: S, W
+                        maze[i][j] = new Room(null, null,null, null);   //info here again
+                    } else {                        //other positions: S, W, E <- default
+                        maze[i][j] = new Room(null, null,null, null);    //info here again
+                    }
+                } else if(j == 0 && i > 0) {        //If first column
+                    if(i == theRows - 1) {          //if last row: N, E
+                        maze[i][j] = new Room(null, null,null, null);  //info here again
+                    } else {                        //other positions: N, E, S <- default
+                        maze[i][j] = new Room(null, null,null, null);   //info here again
+                    }
+                } else if(j > 0 && i == theRows - 1) { //if last row:
+                    if(j == theCols - 1) {             //if last column: N, W
+                        maze[i][j] = new Room(null, null,null, null);       //info here again
+                    } else {                           //other positions: N, E, W <- default
+                        maze[i][j] = new Room(null, null,null, null);      //info here again
+                    }
+                } else if(j == theCols - 1 && (i > 0 && i < theRows - 1)) {// Last column
+                    maze[i][j] = new Room(null, null,null, null);           //N, S, W
+                } else {            //in middle of it all, has all rooms
+                    maze[i][j] = new Room(null, null,null, null);            //N, E, W, S
                         maze[i][j] = new Room(null, null,null, null);
                         //insert stuff here
                     } else if (j == theCols - 1) {  // at last position: S, W
@@ -64,8 +86,6 @@ public class Maze {
             }
         }
         //recall: the last room is the exit point, so there are no questions
-        maze[theRows - 1][theCols - 1] = new Room(null, null,null, null);
-        //stuff
         return maze;
     }
 
