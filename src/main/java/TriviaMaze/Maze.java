@@ -1,5 +1,3 @@
-//DRAFT - Angelynna Pyeatt
-//Satisfies story AoT: 2.42.02
 package TriviaMaze;
 
 import java.io.*;
@@ -21,6 +19,7 @@ public class Maze {
     public Maze() {
         this(4, 4);
     }
+
     public Maze(final int theRows, final int theCols) {
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
