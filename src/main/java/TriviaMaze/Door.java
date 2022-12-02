@@ -11,6 +11,7 @@ import java.io.Serializable;
  * Door represents pathways between Rooms.
  * Door holds its question and locked status. When a door is locked, a player
  * can no longer access it.
+ * Model
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022

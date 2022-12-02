@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 /**
  * TriviaMaze takes in player input and runs the game
+ * Controller
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022

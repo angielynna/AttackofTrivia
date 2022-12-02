@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  * Question class holds the question, answer options, and correct answer to
  * the question.
+ * Model
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022

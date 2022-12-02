@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 /**
  * Room class instantiates Door objects (maximum of 4).
+ * Model
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022
@@ -31,6 +32,7 @@ public class Room {
     /**
      * Constructor instantiates all door objects based off of information
      * sent from parameters
+     * Model
      *
      * @param theNorthData
      * @param theEastData

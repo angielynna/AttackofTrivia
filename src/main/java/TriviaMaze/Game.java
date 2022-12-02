@@ -11,6 +11,7 @@ import java.util.Scanner;
 /**
  * Game displays all necessary information to the player (view), calls the
  * controller class, and saves and loads games
+ * View
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022

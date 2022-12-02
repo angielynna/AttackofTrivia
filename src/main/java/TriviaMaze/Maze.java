@@ -11,6 +11,7 @@ import java.util.Arrays;
 /**
  * Maze stores a 2D array of Room, the players current row and column index,
  * and a reference to the database
+ * Controller
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022
