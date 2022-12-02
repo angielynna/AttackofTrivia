@@ -51,7 +51,7 @@ public class Question {
      *
      * @return myQuestion
      */
-    public String getQuestion() {
+    protected String getQuestion() {
         return myQuestion;
     }
 
@@ -60,7 +60,7 @@ public class Question {
      *
      * @return myCorrectAnswer
      */
-    public String getAnswer() {
+    protected String getAnswer() {
 
         return myCorrectAnswer;
     }
@@ -70,7 +70,7 @@ public class Question {
      *
      * @return sb.toString()
      */
-    public String getOptions() {
+    protected String getOptions() {
         StringBuilder sb  = new StringBuilder();
         sb.append(myAnswerOptions[0] + "\n" + myAnswerOptions[1] + "\n"
                   + myAnswerOptions[2] + "\n" + myAnswerOptions[3]);

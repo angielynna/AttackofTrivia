@@ -41,7 +41,7 @@ public class Door {
     /**
      * lockDoor locks the current door.
      */
-    public void lockDoor() {
+    protected void lockDoor() {
         myStatus = true;
     }
 
@@ -50,7 +50,7 @@ public class Door {
      *
      * @return myStatus
      */
-    public boolean isLocked() {
+    protected boolean isLocked() {
         return myStatus;
     }
 
@@ -59,7 +59,7 @@ public class Door {
      *
      * @return myQuestion.toString()
      */
-    public String getQuestion() {
+    protected String getQuestion() {
         return (myQuestion.toString());
     }
 
