@@ -1,5 +1,5 @@
 # AttackofTrivia
-Trivia TriviaMaze.Maze for TCSS360
+Trivia Maze for TCSS360
 
 ## Sprint Overviews
 Current sprint: 5
