@@ -2,8 +2,18 @@
 Trivia TriviaMaze.Maze for TCSS360
 
 ## Sprint Overviews
-Current sprint: 2
+Current sprint: 5
 
+
+#### Sprint 4
+Highlights:
+Finalized entire base of code.
+
+
+#### Sprint 3
+Highlights:
+Started adding in SQLite implementation.
+Finalized Maze, Door, Question, Room classes.
 
 
 #### Sprint 2
@@ -18,4 +28,4 @@ Story number layout: 00.00.00 - Sprint Number.Team member ID.Story Number (withi
 
 
 
-Last Updated: 11/15/2022
+Last Updated: 12/1/2022
