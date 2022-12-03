@@ -67,30 +67,30 @@ public class Maze {
                 //break down of logic:
                 if (i == 0) {                          //If top row:
                     if (j == 0) {                      //at first position: S, E
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room();
                         //insert stuff here
                     } else if (j == theCols - 1) {  // at last position: S, W
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room();
                     } else {                        //other positions: S, W, E <- default
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room();
                     }
                 } else if(j == 0 && i > 0) {        //If first column
                     if(i == theRows - 1) {          //if last row: N, E
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room();
                     } else {                        //other positions: N, E, S <- default
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room();
                     }
                 } else if (j > 0 && i == theRows - 1) { //if last row:
                     if (j == theCols - 1) {             //if last column: N, W
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room();
                     } else {                           //other positions: N, E, W <- default
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room();
                     }
                 } else if (j == theCols - 1 && (i > 0 && i < theRows - 1)) {// Last column
-                    maze[i][j] = new Room(null, null,null, null);
+                    maze[i][j] = new Room();
                     //N, S, W
                 } else {            //in middle of it all, has all rooms
-                    maze[i][j] = new Room(null, null,null, null);
+                    maze[i][j] = new Room();
                     //N, E, W, S
                 }
             }

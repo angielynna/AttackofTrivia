@@ -38,6 +38,17 @@ public class Door {
 
     }
 
+    public Door(Question theQuestion) {
+        myQuestion = theQuestion;
+        myStatus = false;
+
+    }
+
+    public Door(boolean theLockedStatus) {
+        myStatus = theLockedStatus;
+        myQuestion = null;
+    }
+
     /**
      * lockDoor locks the current door.
      */
@@ -62,6 +73,5 @@ public class Door {
     public String getQuestion() {
         return (myQuestion.toString());
     }
-
 
 }
