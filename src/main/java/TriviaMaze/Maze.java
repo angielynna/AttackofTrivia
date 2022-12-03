@@ -47,6 +47,10 @@ public class Maze {
      * @param theCols
      */
     public Maze(final int theRows, final int theCols) {
+        if(theRows < 1 || theCols < 1) {
+            throw new IllegalArgumentException("ERROR! Number of rows and/or columns"
+                + " cannot be zero or less!");
+        }
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
         myCol = 0;
