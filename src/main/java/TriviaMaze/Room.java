@@ -5,7 +5,6 @@
 
 package TriviaMaze;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -40,7 +39,7 @@ public class Room {
      * @param theSouthData
      */
     public Room(String[] theNorthData, String[] theEastData,
-                String[] theWestData, String[] theSouthData) {
+                String[] theWestData, String[] theSouthData) throws Exception {
         if (!theNorthData[0].equals("null")) {
             myNorth = new Door(theNorthData[0], Arrays.copyOfRange(theNorthData, 1, 5),
                     theNorthData[5]);
@@ -67,7 +66,7 @@ public class Room {
         }
     }
     public Room(Question theNorthData, Question theEastData,
-                Question theWestData, Question theSouthData) {
+                Question theWestData, Question theSouthData) throws Exception {
         if(theNorthData != null) {
             myNorth = new Door(theNorthData);
         } else {
