@@ -51,7 +51,7 @@ public class Question {
      *
      * @return myQuestion
      */
-    protected String getQuestion() {
+    private String getQuestion() {
         return myQuestion;
     }
 
@@ -60,7 +60,7 @@ public class Question {
      *
      * @return myCorrectAnswer
      */
-    protected String getAnswer() {
+    private String getAnswer() {
 
         return myCorrectAnswer;
     }
@@ -70,7 +70,7 @@ public class Question {
      *
      * @return sb.toString()
      */
-    protected String getOptions() {
+    private String getOptions() {
         StringBuilder sb  = new StringBuilder();
         sb.append(myAnswerOptions[0] + "\n" + myAnswerOptions[1] + "\n"
                   + myAnswerOptions[2] + "\n" + myAnswerOptions[3]);
@@ -84,7 +84,7 @@ public class Question {
      * @param theAnswer
      * @return boolean
      */
-    protected boolean isCorrect(final String theAnswer) {
+    private boolean isCorrect(final String theAnswer) {
         if (theAnswer.equals(this.myCorrectAnswer)) {
             return true;
         }
@@ -96,7 +96,7 @@ public class Question {
      *
      * @return sb.toString()
      */
-    protected String promptQuestion() {
+    private String promptQuestion() {
         StringBuilder sb = new StringBuilder();
         sb.append(getQuestion() + "\n" + getOptions() + "\n");
         return (sb.toString());

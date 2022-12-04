@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Maze {
 
     /** 2D array of Room.*/
-    private Room[][] myMaze;
+    private final Room[][] myMaze;
 
     /** Holds data.*/
     private String myData;  //can change, probably will lol
@@ -107,7 +107,7 @@ public class Maze {
      * @param theRow
      * @param theCol
      */
-    protected void setLocation(final int theRow, final int theCol) {
+    void setLocation(final int theRow, final int theCol) {
         if (theRow >= myMaze.length || theCol >= myMaze.length
                 || theRow < 0 || theCol < 0) {
             throw new IllegalArgumentException("Provided invalid row or column.");
@@ -122,7 +122,7 @@ public class Maze {
      *
      * @param theDirection
      */
-    protected void move(final char theDirection) {
+    void move(final char theDirection) {
         char ch = Character.toUpperCase(theDirection);
         if (ch == 'S' && canMoveSouth()) {
             myRow++;
@@ -142,7 +142,7 @@ public class Maze {
      *
      * @return boolean
      */
-    protected boolean canMoveSouth() {
+    private boolean canMoveSouth() {
         if (myMaze[myRow + 1][myCol].mySouth != null) {  //if it contains south door
             return true;
         } else {
@@ -155,7 +155,7 @@ public class Maze {
      *
      * @return boolean
      */
-    protected boolean canMoveNorth() {
+    private boolean canMoveNorth() {
         if (myMaze[myRow + 1][myCol].myNorth != null) {  //if it contains north door
             return true;
         } else {
@@ -168,7 +168,7 @@ public class Maze {
      *
      * @return boolean
      */
-    protected boolean canMoveEast() {
+    private boolean canMoveEast() {
         if (myMaze[myRow + 1][myCol].myEast != null) {  //if it contains east door
             return true;
         } else {
@@ -181,7 +181,7 @@ public class Maze {
      *
      * @return boolean
      */
-    protected boolean canMoveWest() {
+    private boolean canMoveWest() {
         if (myMaze[myRow + 1][myCol].myWest != null) {  //if it contains west door
             return true;
         } else {
@@ -194,7 +194,7 @@ public class Maze {
      *
      * @return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
      */
-    protected boolean atLastRoom() {
+    boolean atLastRoom() {
         return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
     }
 
@@ -204,7 +204,7 @@ public class Maze {
      * @param theDirection
      * @return boolean
      */
-    protected boolean isLocked(final char theDirection) {
+    boolean isLocked(final char theDirection) {
         if (Character.toUpperCase(theDirection) == 'N') {
             return myMaze[myRow][myCol].myNorth.isLocked();
         } else if (Character.toUpperCase(theDirection) == 'E') {
@@ -223,7 +223,7 @@ public class Maze {
      *
      * @return myRow
      */
-    protected int getRow() {
+    private int getRow() {
         return myRow;
     }
 
@@ -232,7 +232,7 @@ public class Maze {
      *
      * @return myCol
      */
-    protected int getCol() {
+    private int getCol() {
         return myCol;
     }
 
@@ -241,7 +241,7 @@ public class Maze {
      *
      * @return Arrays.copyOf(myMaze, myMaze.length);
      */
-    protected Room[][] getMaze() {
+    private Room[][] getMaze() {
         return Arrays.copyOf(myMaze, myMaze.length);
     }
 

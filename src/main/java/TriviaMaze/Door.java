@@ -18,7 +18,7 @@ import java.io.Serializable;
  */
 public class Door {
     /** Holds Question object associated with this door.*/
-    private Question myQuestion;
+    private final Question myQuestion;
 
     /** Holds locked status of the door.*/
     private boolean myStatus;
@@ -41,7 +41,7 @@ public class Door {
     /**
      * lockDoor locks the current door.
      */
-    protected void lockDoor() {
+    private void lockDoor() {
         myStatus = true;
     }
 
@@ -50,7 +50,7 @@ public class Door {
      *
      * @return myStatus
      */
-    protected boolean isLocked() {
+    boolean isLocked() {
         return myStatus;
     }
 
@@ -59,7 +59,7 @@ public class Door {
      *
      * @return myQuestion.toString()
      */
-    protected String getQuestion() {
+    private String getQuestion() {
         return (myQuestion.toString());
     }
 

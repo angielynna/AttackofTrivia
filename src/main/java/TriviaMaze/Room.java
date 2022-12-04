@@ -18,16 +18,16 @@ import java.util.Arrays;
 
 public class Room {
     /** North door object.*/
-    protected Door myNorth;
+    final Door myNorth;
 
     /** East door object.*/
-    protected Door myEast;
+    final Door myEast;
 
     /** West door object.*/
-    protected Door myWest;
+    final Door myWest;
 
     /** South door object.*/
-    protected Door mySouth;
+    final Door mySouth;
 
     /**
      * Constructor instantiates all door objects based off of information
@@ -39,8 +39,8 @@ public class Room {
      * @param theWestData
      * @param theSouthData
      */
-    public Room(String[] theNorthData, String[] theEastData,
-                String[] theWestData, String[] theSouthData) {
+    public Room(final String[] theNorthData, final String[] theEastData,
+                final String[] theWestData, final String[] theSouthData) {
         if (theNorthData != null) {
             myNorth = new Door(theNorthData[0], Arrays.copyOfRange(theNorthData, 1, 5),
                     theNorthData[5]);
