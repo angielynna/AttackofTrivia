@@ -31,7 +31,7 @@ public class Door {
      * @param theAnsOptions
      * @param theCorrectAns
      */
-    public Door(final String theQuestion, final String[] theAnsOptions,
+    public Door(final String theQuestion, final String theAnsOptions,
                 final String theCorrectAns) throws Exception {
         if(theQuestion.isEmpty() || theQuestion.equals(null)) {
             throw new Exception("ERROR! Question is empty!");
@@ -39,8 +39,8 @@ public class Door {
         if(theCorrectAns.isEmpty() || theCorrectAns.equals(null)) {
             throw new Exception("ERROR! Correct answer is empty");
         }
-        if(theAnsOptions.length != 5) {
-                throw new Exception("ERROR! Too many or too few answer options!");
+        if(theAnsOptions == null) {
+            throw new Exception("ERROR! Answer options do not exist!");
         }
         myQuestion = new Question(theQuestion, theAnsOptions, theCorrectAns);
         myStatus = false;
