@@ -31,7 +31,7 @@ public class Door {
      * @param theAnsOptions
      * @param theCorrectAns
      */
-    public Door(final String theQuestion, final String[] theAnsOptions,
+    public Door(final String theQuestion, final String theAnsOptions,
                 final String theCorrectAns) throws Exception {
         if(theQuestion.isEmpty() || theQuestion.equals(null)) {
             throw new Exception("ERROR! Question is empty!");
