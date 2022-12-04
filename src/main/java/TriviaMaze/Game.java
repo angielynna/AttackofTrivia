@@ -5,7 +5,7 @@
 
 package TriviaMaze;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -57,18 +57,43 @@ public class Game {
 
     /**
      * Saves the game.
+     * @param theData
+     * @param theFileName
      */
-    protected void saveGame() {
-        //Will come with SQLite implementation.
+    static void saveGame(final Object theData, final String theFileName) {
+        try {
+            FileOutputStream file = new FileOutputStream(theFileName);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            out.writeObject(theData);
+            out.close();
+            file.close();
+        } catch (IOException e) {
+            System.out.println("I/O exception:\n");
+            e.printStackTrace();
+        }
     }
 
     /**
      * Loads a previously saved game./
+     * @param theFileName
+     * @return in.readObject();
      */
-    private void loadGame() {
-        //Will come with SQLite implementation.
+    static Object loadGame(final String theFileName) {
+        try {
+            FileInputStream file = new FileInputStream(theFileName);
+            ObjectInputStream in = new ObjectInputStream(file);
+            in.close();
+            file.close();
+            return in.readObject();
+        } catch (IOException e) {
+            System.out.println("I/O exception:\n");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found:\n");
+            e.printStackTrace();
+            }
+
+        return null;
     }
-
-
 
 }
