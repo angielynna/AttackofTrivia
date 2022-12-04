@@ -22,53 +22,53 @@ class MazeTest {
     }
 
     @Test
-    void setIllegalLocation() {
+    void setIllegalLocation() throws Exception {
         Maze m = new Maze();
         assertThrows(IllegalArgumentException.class, () -> m.setLocation(0, 0));
     }
 
     @Test
-    void moveIllegal() {
+    void moveIllegal() throws Exception {
         Maze m = new Maze();
         assertThrows(IllegalArgumentException.class, () -> m.move('P'));
     }
 
     @Test
-    void moveNorth() {
+    void moveNorth() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertThrows(IllegalArgumentException.class, () -> m.move('N'));
     }
 
     @Test
-    void moveSouth() {
+    void moveSouth() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertThrows(IllegalArgumentException.class, () -> m.move('S'));
     }
 
     @Test
-    void moveEast() {
+    void moveEast() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertThrows(IllegalArgumentException.class, () -> m.move('E'));
     }
 
     @Test
-    void moveWest() {
+    void moveWest() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertThrows(IllegalArgumentException.class, () -> m.move('W'));
     }
 
     @Test
-    void canMoveSouth() {
+    void canMoveSouth() throws Exception {
         Maze m = new Maze();
         assertEquals(true, m.canMoveSouth());
     }
 
     @Test
-    void cannotMoveSouth() {
+    void cannotMoveSouth() throws Exception {
         Maze m = new Maze();
         m.setLocation(3,0); //set to last row
         assertEquals(false, m.canMoveSouth());
@@ -76,123 +76,123 @@ class MazeTest {
 
 
     @Test
-    void canMoveNorth() {
+    void canMoveNorth() throws Exception {
         Maze m = new Maze();
         m.setLocation(3, 0); //set to last row
         assertEquals(true, m.canMoveNorth());
     }
 
     @Test
-    void cannotMoveNorth() {
+    void cannotMoveNorth() throws Exception {
         Maze m = new Maze();
         assertEquals(true, m.canMoveNorth());
     }
 
     @Test
-    void canMoveEast() {
+    void canMoveEast() throws Exception {
         Maze m = new Maze();
         assertEquals(true, m.canMoveEast());
     }
 
     @Test
-    void cannotMoveEast() {
+    void cannotMoveEast() throws Exception {
         Maze m = new Maze();
         m.setLocation(0, 3);
         assertEquals(false, m.canMoveEast());
     }
 
     @Test
-    void canMoveWest() {
+    void canMoveWest() throws Exception {
         Maze m = new Maze();
         m.setLocation(0, 3);
         assertEquals(true, m.canMoveWest());
     }
 
     @Test
-    void cannotMoveWest() {
+    void cannotMoveWest() throws Exception {
         Maze m = new Maze();
         assertEquals(false, m.canMoveWest());
     }
 
     @Test
-    void atLastRoom() {
+    void atLastRoom() throws Exception {
         Maze m = new Maze();
         m.setLocation(3, 3);
         assertEquals(true, m.atLastRoom());
     }
 
     @Test
-    void notAtLastRoom() {
+    void notAtLastRoom() throws Exception {
         Maze m = new Maze();
         assertEquals(false, m.atLastRoom());
     }
 
     @Test
-    void falseNorthLocked() {
+    void falseNorthLocked() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertEquals(false, m.isLocked('N'));
     }
 
     @Test
-    void trueNorthLocked() {
+    void trueNorthLocked() throws Exception {
         Maze m = new Maze();
         assertEquals(true, m.isLocked('N'));
     }
 
     @Test
-    void trueSouthLocked() {
+    void trueSouthLocked() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertEquals(true, m.isLocked('S'));
     }
 
     @Test
-    void falseSouthLocked() {
+    void falseSouthLocked() throws Exception {
         Maze m = new Maze();
         assertEquals(false, m.isLocked('S'));
     }
 
     @Test
-    void falseWestLocked() {
+    void falseWestLocked() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 0);
         assertEquals(false, m.isLocked('W'));
     }
 
     @Test
-    void trueWestLocked() {
+    void trueWestLocked() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 2);
         assertEquals(true, m.isLocked('W'));
     }
 
     @Test
-    void trueEastLocked() {
+    void trueEastLocked() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 0);
         assertEquals(true, m.isLocked('W'));
     }
 
     @Test
-    void falseEastLocked() {
+    void falseEastLocked() throws Exception {
         Maze m = new Maze();
         m.setLocation(2, 3);
         assertEquals(false, m.isLocked('W'));
     }
 
     @Test
-    void getRow() {
+    void getRow() throws Exception {
         Maze m = new Maze();
         m.setLocation(3, 2);
         assertEquals(3, m.getRow());
     }
 
     @Test
-    void getCol() {
+    void getCol() throws Exception {
         Maze m = new Maze();
         m.setLocation(3, 2);
         assertEquals(2, m.getRow());
     }
-    
+
 }
