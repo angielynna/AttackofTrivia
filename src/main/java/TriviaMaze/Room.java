@@ -17,16 +17,16 @@ import java.util.Arrays;
 
 public class Room {
     /** North door object.*/
-    public Door myNorth;
+    final Door myNorth;
 
     /** East door object.*/
-    public Door myEast;
+    final Door myEast;
 
     /** West door object.*/
-    public Door myWest;
+    final Door myWest;
 
     /** South door object.*/
-    public Door mySouth;
+    final Door mySouth;
 
     /**
      * Constructor instantiates all door objects based off of information
@@ -80,7 +80,7 @@ public class Room {
         if(theWestData != null) {
             myWest = new Door(theWestData);
         } else {
-            myEast = new Door(true);
+            myWest = new Door(true);
         }
         if(theSouthData != null) {
             mySouth = new Door(theSouthData);

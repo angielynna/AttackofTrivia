@@ -94,7 +94,7 @@ public class Question {
      * @param theAnswer
      * @return boolean
      */
-    protected boolean isCorrect(final String theAnswer) {
+     boolean isCorrect(final String theAnswer) {
         if (theAnswer.equals(this.myCorrectAnswer)) {
             return true;
         }
@@ -106,7 +106,7 @@ public class Question {
      *
      * @return sb.toString()
      */
-    protected String promptQuestion() {
+    public String promptQuestion() {
         StringBuilder sb = new StringBuilder();
         sb.append(getQuestion() + "\n" + getOptions() + "\n");
         return (sb.toString());

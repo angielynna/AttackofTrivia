@@ -20,22 +20,31 @@ import java.util.Scanner;
  */
 
 public class TriviaMaze {
+
+    /** 1 means start a new game.*/
+    private static final int START_GAME = 1;
+    /** 2 means load a saved game.*/
+    private static final int LOAD_GAME = 2;
+    /** 3 means exit the game.*/
+    private static final int EXIT_GAME = 3;
+
     /** holds maze.*/
     private final Maze myMaze;
     /** holds current game.*/
-    private final Game myGame = new Game();
+    private final Game myGame;
     /** holds Scanner for game.*/
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner myScanner;
 
     /**
      * Constructor starts the game and initializes the maze.
      *
      * @param theMaze
      */
-    protected TriviaMaze(final Maze theMaze) throws Exception {
+    public TriviaMaze(final Maze theMaze, final Game theGame) throws Exception {
         startGame();
         this.myMaze = theMaze;
-
+        this.myGame = theGame;
+        this.myScanner = new Scanner(System.in);
     }
 
     /**
@@ -55,18 +64,19 @@ public class TriviaMaze {
      */
     private void startGame() throws Exception {
         myGame.gameMenu();
-        int playerInput = Integer.parseInt(scanner.nextLine());
+        int playerInput = Integer.parseInt(myScanner.nextLine());
 
-        if (playerInput == 1) {
+        if (playerInput == START_GAME) {
             System.out.println("Started a new game.\n");
             newGame();
-        } else if (playerInput == 2) {
+        } else if (playerInput == LOAD_GAME) {
             System.out.println("Loaded game.");
-            //load game
-        } else if (playerInput == 3) {
+            Game.loadGame("TriviaMaze.ser");
+        } else if (playerInput == EXIT_GAME) {
             System.out.println("Thank you for playing");
         } else {
-            System.out.println("Invalid input");
+            System.out.println("Invalid input:try again");
+            myGame.gameMenu();
         }
     }
 
@@ -77,7 +87,7 @@ public class TriviaMaze {
      */
     private String getPlayerInput() {
         String input;
-        input = scanner.nextLine().toLowerCase();
+        input = myScanner.nextLine().toLowerCase();
         return input;
     }
 
@@ -93,11 +103,18 @@ public class TriviaMaze {
             case "s" -> movePlayerSouth();
             case "d" -> movePlayerEast();
             case "n" -> startGame();
-            case "l" -> myGame.saveGame();
+            case "l" -> myGame.saveGame(this.myMaze, "TriviaMaze.ser");
             case "e" -> System.out.println("Thank you for playing");
-            default -> {
-                throw new Exception("ERROR! Incorrect input!");
-            }
+            default -> System.out.println("""
+                     INVALID INPUT(Select a valid option):
+                     W:move north
+                     A:move west
+                     S:move south
+                     D:move east
+                     N:start new game
+                     L:save game
+                     E:exit game
+                     """);
         }
     }
 
