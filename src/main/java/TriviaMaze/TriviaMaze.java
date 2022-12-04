@@ -32,7 +32,7 @@ public class TriviaMaze {
      *
      * @param theMaze
      */
-    protected TriviaMaze(final Maze theMaze) {
+    protected TriviaMaze(final Maze theMaze) throws Exception {
         startGame();
         this.myMaze = theMaze;
 
@@ -53,7 +53,7 @@ public class TriviaMaze {
     /**
      * Takes player input and determines how the player will play.
      */
-    private void startGame() {
+    private void startGame() throws Exception {
         myGame.gameMenu();
         int playerInput = Integer.parseInt(scanner.nextLine());
 
