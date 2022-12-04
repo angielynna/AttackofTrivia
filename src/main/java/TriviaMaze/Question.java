@@ -24,8 +24,8 @@ public class Question {
     /** holds correct answer to the question.*/
     private String myCorrectAnswer;
 
-    /** holds array of answer options.*/
-    private String[] myAnswerOptions;
+    /** holds String of answer options that needs to be split*/
+    private String myAnswerOptions;
 
     /**
      * Constructor
@@ -34,9 +34,9 @@ public class Question {
      * @param theAnswerOptions
      * @param theCorrectAnswer
      */
-    public Question(final String theQuestion, final String[] theAnswerOptions,
-             final String theCorrectAnswer) {
-        if (myQuestion == null || myCorrectAnswer == null || myAnswerOptions.length != 4) {
+    public Question(final String theQuestion, final String theAnswerOptions,
+                    final String theCorrectAnswer) {
+        if (myQuestion == null || myCorrectAnswer == null || myAnswerOptions == null) {
             throw new IllegalArgumentException("Input is incorrect!");
         } else {
             this.myQuestion = theQuestion;
@@ -77,14 +77,15 @@ public class Question {
      * @return sb.toString()
      */
     public String getOptions() {
-        if(myAnswerOptions.length != 4) {
+        StringBuilder sb  = new StringBuilder();
+        String[] parts = myAnswerOptions.split(",");
+        if(parts.length != 4) {
             throw new IllegalArgumentException("ERROR! Not enough or too many answer options!");
         } else {
-            StringBuilder sb  = new StringBuilder();
-            sb.append(myAnswerOptions[0] + "\n" + myAnswerOptions[1] + "\n"
-                    + myAnswerOptions[2] + "\n" + myAnswerOptions[3]);
-            return (sb.toString());
+            //adds the split up string to string builder
+            sb.append(parts[0]+"\n"+parts[1]+"\n"+parts[2]+"\n"+parts[3]);
         }
+        return sb.toString();
     }
 
     /**

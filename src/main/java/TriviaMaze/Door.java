@@ -39,8 +39,8 @@ public class Door {
         if(theCorrectAns.isEmpty() || theCorrectAns.equals(null)) {
             throw new Exception("ERROR! Correct answer is empty");
         }
-        if(theAnsOptions.length != 5) {
-                throw new Exception("ERROR! Too many or too few answer options!");
+        if(theAnsOptions == null) {
+            throw new Exception("ERROR! Answer options do not exist!");
         }
         myQuestion = new Question(theQuestion, theAnsOptions, theCorrectAns);
         myStatus = false;
