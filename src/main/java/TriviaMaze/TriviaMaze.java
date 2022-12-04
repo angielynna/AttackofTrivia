@@ -32,7 +32,7 @@ public class TriviaMaze {
     /** holds current game.*/
     private final Game myGame;
     /** holds Scanner for game.*/
-    private final Scanner scanner;
+    private final Scanner myScanner;
 
     /**
      * Constructor starts the game and initializes the maze.
@@ -44,7 +44,7 @@ public class TriviaMaze {
         startGame();
         this.myMaze = theMaze;
         this.myGame = theGame;
-        this.scanner = new Scanner(System.in);
+        this.myScanner = new Scanner(System.in);
 
     }
 
@@ -65,7 +65,7 @@ public class TriviaMaze {
      */
     private void startGame() {
         myGame.gameMenu();
-        int playerInput = Integer.parseInt(scanner.nextLine());
+        int playerInput = Integer.parseInt(myScanner.nextLine());
 
         if (playerInput == START_GAME) {
             System.out.println("Started a new game.\n");
@@ -88,7 +88,7 @@ public class TriviaMaze {
      */
     private String getPlayerInput() {
         String input;
-        input = scanner.nextLine().toLowerCase();
+        input = myScanner.nextLine().toLowerCase();
         return input;
     }
 

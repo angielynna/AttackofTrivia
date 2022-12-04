@@ -70,7 +70,7 @@ public class Question {
      *
      * @return sb.toString()
      */
-    private String getOptions() {
+    public String getOptions() {
         StringBuilder sb  = new StringBuilder();
         sb.append(myAnswerOptions[0] + "\n" + myAnswerOptions[1] + "\n"
                   + myAnswerOptions[2] + "\n" + myAnswerOptions[3]);
@@ -96,7 +96,7 @@ public class Question {
      *
      * @return sb.toString()
      */
-    private String promptQuestion() {
+    public String promptQuestion() {
         StringBuilder sb = new StringBuilder();
         sb.append(getQuestion() + "\n" + getOptions() + "\n");
         return (sb.toString());

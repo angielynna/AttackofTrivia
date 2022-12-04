@@ -17,16 +17,24 @@ import java.util.Arrays;
  */
 
 public class Room {
-    /** North door object.*/
+    /**
+     * North door object.
+     */
     final Door myNorth;
 
-    /** East door object.*/
+    /**
+     * East door object.
+     */
     final Door myEast;
 
-    /** West door object.*/
+    /**
+     * West door object.
+     */
     final Door myWest;
 
-    /** South door object.*/
+    /**
+     * South door object.
+     */
     final Door mySouth;
 
     /**
@@ -39,8 +47,8 @@ public class Room {
      * @param theWestData
      * @param theSouthData
      */
-    public Room(final String[] theNorthData, final String[] theEastData,
-                final String[] theWestData, final String[] theSouthData) {
+    public Room(final String theNorthData, final String theEastData,
+                final String theWestData, final String theSouthData) {
         if (theNorthData != null) {
             myNorth = new Door(theNorthData[0], Arrays.copyOfRange(theNorthData, 1, 5),
                     theNorthData[5]);
@@ -66,4 +74,6 @@ public class Room {
             mySouth = null;
         }
     }
+
+
 }

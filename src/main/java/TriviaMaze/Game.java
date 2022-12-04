@@ -6,7 +6,7 @@
 package TriviaMaze;
 
 import java.io.*;
-import java.util.Scanner;
+
 
 /**
  * Game displays all necessary information to the player (view), calls the

@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class Maze {
 
     /** 2D array of Room.*/
-    private final Room[][] myMaze;
+    private Room[][] myMaze;
 
     /** Holds data.*/
     private String myData;  //can change, probably will lol
@@ -36,7 +36,7 @@ public class Maze {
     /**
      * default maze constructor, for when no params are sent: 4 by 4 by default
      */
-    public Maze() {
+    public Maze() throws Exception {
         this(4, 4);
     }
 
@@ -46,7 +46,11 @@ public class Maze {
      * @param theRows
      * @param theCols
      */
-    public Maze(final int theRows, final int theCols) {
+    public Maze(final int theRows, final int theCols) throws Exception {
+        if(theRows < 1 || theCols < 1) {
+            throw new IllegalArgumentException("ERROR! Number of rows and/or columns"
+                    + " cannot be zero or less!");
+        }
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
         myCol = 0;
@@ -59,7 +63,7 @@ public class Maze {
      * @param theCols
      * @return maze
      */
-    private Room[][] buildMaze(final int theRows, final int theCols) {
+    private Room[][] buildMaze(final int theRows, final int theCols) throws Exception {
         final Room[][] maze = new Room[theRows][theCols];
 
         for (int i = 0; i < theRows; i++) {
@@ -67,36 +71,36 @@ public class Maze {
                 //break down of logic:
                 if (i == 0) {                          //If top row:
                     if (j == 0) {                      //at first position: S, E
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                         //insert stuff here
                     } else if (j == theCols - 1) {  // at last position: S, W
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     } else {                        //other positions: S, W, E <- default
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     }
                 } else if(j == 0 && i > 0) {        //If first column
                     if(i == theRows - 1) {          //if last row: N, E
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     } else {                        //other positions: N, E, S <- default
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     }
                 } else if (j > 0 && i == theRows - 1) { //if last row:
                     if (j == theCols - 1) {             //if last column: N, W
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     } else {                           //other positions: N, E, W <- default
-                        maze[i][j] = new Room(null, null,null, null);
+                        maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     }
                 } else if (j == theCols - 1 && (i > 0 && i < theRows - 1)) {// Last column
-                    maze[i][j] = new Room(null, null,null, null);
+                    maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     //N, S, W
                 } else {            //in middle of it all, has all rooms
-                    maze[i][j] = new Room(null, null,null, null);
+                    maze[i][j] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
                     //N, E, W, S
                 }
             }
         }
         //recall: the last room is the exit point, so there are no questions
-        maze[theRows - 1][theCols - 1] = new Room(null, null,null, null);
+        maze[theRows - 1][theCols - 1] = new Room(new String[]{"null"}, new String[]{"null"}, new String[]{"null"}, new String[]{"null"});
         //stuff
         return maze;
     }
@@ -107,7 +111,7 @@ public class Maze {
      * @param theRow
      * @param theCol
      */
-    void setLocation(final int theRow, final int theCol) {
+    protected void setLocation(final int theRow, final int theCol) {
         if (theRow >= myMaze.length || theCol >= myMaze.length
                 || theRow < 0 || theCol < 0) {
             throw new IllegalArgumentException("Provided invalid row or column.");
@@ -122,7 +126,7 @@ public class Maze {
      *
      * @param theDirection
      */
-    void move(final char theDirection) {
+    protected void move(final char theDirection) {
         char ch = Character.toUpperCase(theDirection);
         if (ch == 'S' && canMoveSouth()) {
             myRow++;
@@ -142,7 +146,7 @@ public class Maze {
      *
      * @return boolean
      */
-    private boolean canMoveSouth() {
+    protected boolean canMoveSouth() {
         if (myMaze[myRow + 1][myCol].mySouth != null) {  //if it contains south door
             return true;
         } else {
@@ -155,7 +159,7 @@ public class Maze {
      *
      * @return boolean
      */
-    private boolean canMoveNorth() {
+    protected boolean canMoveNorth() {
         if (myMaze[myRow + 1][myCol].myNorth != null) {  //if it contains north door
             return true;
         } else {
@@ -168,7 +172,7 @@ public class Maze {
      *
      * @return boolean
      */
-    private boolean canMoveEast() {
+    protected boolean canMoveEast() {
         if (myMaze[myRow + 1][myCol].myEast != null) {  //if it contains east door
             return true;
         } else {
@@ -181,7 +185,7 @@ public class Maze {
      *
      * @return boolean
      */
-    private boolean canMoveWest() {
+    protected boolean canMoveWest() {
         if (myMaze[myRow + 1][myCol].myWest != null) {  //if it contains west door
             return true;
         } else {
@@ -194,7 +198,7 @@ public class Maze {
      *
      * @return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
      */
-    boolean atLastRoom() {
+    protected boolean atLastRoom() {
         return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
     }
 
@@ -204,7 +208,7 @@ public class Maze {
      * @param theDirection
      * @return boolean
      */
-    boolean isLocked(final char theDirection) {
+    protected boolean isLocked(final char theDirection) {
         if (Character.toUpperCase(theDirection) == 'N') {
             return myMaze[myRow][myCol].myNorth.isLocked();
         } else if (Character.toUpperCase(theDirection) == 'E') {
@@ -223,7 +227,7 @@ public class Maze {
      *
      * @return myRow
      */
-    private int getRow() {
+    protected int getRow() {
         return myRow;
     }
 
@@ -232,7 +236,7 @@ public class Maze {
      *
      * @return myCol
      */
-    private int getCol() {
+    protected int getCol() {
         return myCol;
     }
 
@@ -241,7 +245,7 @@ public class Maze {
      *
      * @return Arrays.copyOf(myMaze, myMaze.length);
      */
-    private Room[][] getMaze() {
+    protected Room[][] getMaze() {
         return Arrays.copyOf(myMaze, myMaze.length);
     }
 
@@ -252,7 +256,10 @@ public class Maze {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(myMaze.toString());
+        for (int i = 0; i < 5; i++) {
+            sb.append("-");
+        }
+
         return sb.toString();
     }
 
