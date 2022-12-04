@@ -5,7 +5,6 @@
 
 package TriviaMaze;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -18,16 +17,16 @@ import java.util.Arrays;
 
 public class Room {
     /** North door object.*/
-    protected Door myNorth;
+    public Door myNorth;
 
     /** East door object.*/
-    protected Door myEast;
+    public Door myEast;
 
     /** West door object.*/
-    protected Door myWest;
+    public Door myWest;
 
     /** South door object.*/
-    protected Door mySouth;
+    public Door mySouth;
 
     /**
      * Constructor instantiates all door objects based off of information
@@ -40,30 +39,53 @@ public class Room {
      * @param theSouthData
      */
     public Room(String[] theNorthData, String[] theEastData,
-                String[] theWestData, String[] theSouthData) {
-        if (theNorthData != null) {
+                String[] theWestData, String[] theSouthData) throws Exception {
+        if (!theNorthData[0].equals("null")) {
             myNorth = new Door(theNorthData[0], Arrays.copyOfRange(theNorthData, 1, 5),
                     theNorthData[5]);
         } else {
-            myNorth = null;
+            myNorth = new Door(true);
         }
-        if (theEastData != null) {
+        if (!theEastData[0].equals("null")) {
             myEast = new Door(theEastData[0], Arrays.copyOfRange(theEastData, 1, 5),
                     theEastData[5]);
         } else {
-            myEast = null;
+            myEast = new Door(true);
         }
-        if (theWestData != null) {
+        if (!theWestData[0].equals("null")) {
             myWest = new Door(theWestData[0], Arrays.copyOfRange(theWestData, 1, 5),
                     theWestData[5]);
         } else {
-            myWest = null;
+            myWest = new Door(true);
         }
-        if (theSouthData != null) {
+        if (!theSouthData[0].equals("null")) {
             mySouth = new Door(theSouthData[0], Arrays.copyOfRange(theSouthData, 1, 5),
                     theSouthData[5]);
         } else {
-            mySouth = null;
+            mySouth = new Door(true);
+        }
+    }
+    public Room(Question theNorthData, Question theEastData,
+                Question theWestData, Question theSouthData) throws Exception {
+        if(theNorthData != null) {
+            myNorth = new Door(theNorthData);
+        } else {
+            myNorth = new Door(true);
+        }
+        if(theEastData != null) {
+            myEast = new Door(theEastData);
+        } else {
+            myEast = new Door(true);
+        }
+        if(theWestData != null) {
+            myWest = new Door(theWestData);
+        } else {
+            myEast = new Door(true);
+        }
+        if(theSouthData != null) {
+            mySouth = new Door(theSouthData);
+        } else {
+            mySouth = new Door(true);
         }
     }
 }

@@ -36,14 +36,13 @@ public class Question {
      */
     public Question(final String theQuestion, final String[] theAnswerOptions,
              final String theCorrectAnswer) {
-        if (myQuestion == null || myCorrectAnswer == null
-                || myAnswerOptions == null) {
+        if (myQuestion == null || myCorrectAnswer == null || myAnswerOptions.length != 4) {
             throw new IllegalArgumentException("Input is incorrect!");
+        } else {
+            this.myQuestion = theQuestion;
+            this.myCorrectAnswer = theCorrectAnswer;
+            this.myAnswerOptions = theAnswerOptions;
         }
-
-        this.myQuestion = theQuestion;
-        this.myCorrectAnswer = theCorrectAnswer;
-        this.myAnswerOptions = theAnswerOptions;
     }
 
     /**
@@ -51,8 +50,12 @@ public class Question {
      *
      * @return myQuestion
      */
-    protected String getQuestion() {
-        return myQuestion;
+    public String getQuestion() {
+        if(myQuestion.isEmpty() || myQuestion.equals(null)) {
+            throw new IllegalArgumentException("ERROR! Question is empty!");
+        } else {
+            return myQuestion;
+        }
     }
 
     /**
@@ -60,9 +63,12 @@ public class Question {
      *
      * @return myCorrectAnswer
      */
-    protected String getAnswer() {
-
-        return myCorrectAnswer;
+    public String getAnswer() {
+        if(myCorrectAnswer.isEmpty() || myCorrectAnswer.equals(null)) {
+            throw new IllegalArgumentException("ERROR! Correct answer is empty!");
+        } else {
+            return myCorrectAnswer;
+        }
     }
 
     /**
@@ -70,11 +76,15 @@ public class Question {
      *
      * @return sb.toString()
      */
-    protected String getOptions() {
-        StringBuilder sb  = new StringBuilder();
-        sb.append(myAnswerOptions[0] + "\n" + myAnswerOptions[1] + "\n"
-                  + myAnswerOptions[2] + "\n" + myAnswerOptions[3]);
-        return (sb.toString());
+    public String getOptions() {
+        if(myAnswerOptions.length != 4) {
+            throw new IllegalArgumentException("ERROR! Not enough or too many answer options!");
+        } else {
+            StringBuilder sb  = new StringBuilder();
+            sb.append(myAnswerOptions[0] + "\n" + myAnswerOptions[1] + "\n"
+                    + myAnswerOptions[2] + "\n" + myAnswerOptions[3]);
+            return (sb.toString());
+        }
     }
 
     /**

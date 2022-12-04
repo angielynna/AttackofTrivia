@@ -42,7 +42,7 @@ public class TriviaMaze {
      * print maze out and the player movement instructions
      * depending on player input create a newGame,saveGame,or exitGame.
      */
-    private void newGame() {
+    private void newGame() throws Exception {
         System.out.print(this.myMaze);
         myGame.playerMovement();
         myGame.playerMenu();
@@ -86,7 +86,7 @@ public class TriviaMaze {
      *
      * @param theInput
      */
-    private void playerInput(final String theInput) {
+    private void playerInput(final String theInput) throws Exception {
         switch (theInput) {
             case "w" -> movePlayerNorth();
             case "a" -> movePlayerWest();
@@ -95,6 +95,9 @@ public class TriviaMaze {
             case "n" -> startGame();
             case "l" -> myGame.saveGame();
             case "e" -> System.out.println("Thank you for playing");
+            default -> {
+                throw new Exception("ERROR! Incorrect input!");
+            }
         }
     }
 
