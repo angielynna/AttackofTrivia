@@ -49,7 +49,7 @@ public class Maze {
     public Maze(final int theRows, final int theCols) throws Exception {
         if(theRows < 1 || theCols < 1) {
             throw new IllegalArgumentException("ERROR! Number of rows and/or columns"
-                + " cannot be zero or less!");
+                    + " cannot be zero or less!");
         }
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
@@ -159,7 +159,7 @@ public class Maze {
      *
      * @return boolean
      */
-     boolean canMoveNorth() {
+    boolean canMoveNorth() {
         if (myMaze[myRow + 1][myCol].myNorth != null) {  //if it contains north door
             return true;
         } else {
@@ -172,7 +172,7 @@ public class Maze {
      *
      * @return boolean
      */
-     boolean canMoveEast() {
+    boolean canMoveEast() {
         if (myMaze[myRow + 1][myCol].myEast != null) {  //if it contains east door
             return true;
         } else {
@@ -185,7 +185,7 @@ public class Maze {
      *
      * @return boolean
      */
-     boolean canMoveWest() {
+    boolean canMoveWest() {
         if (myMaze[myRow + 1][myCol].myWest != null) {  //if it contains west door
             return true;
         } else {
@@ -198,7 +198,7 @@ public class Maze {
      *
      * @return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
      */
-     boolean atLastRoom() {
+    boolean atLastRoom() {
         return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
     }
 

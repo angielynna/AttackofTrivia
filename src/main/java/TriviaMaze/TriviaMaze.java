@@ -31,20 +31,18 @@ public class TriviaMaze {
     /** holds maze.*/
     private final Maze myMaze;
     /** holds current game.*/
-    private final Game myGame;
+    private final Game myGame = new Game();
     /** holds Scanner for game.*/
-    private final Scanner myScanner;
+    private final Scanner myScanner = new Scanner(System.in);;
 
     /**
      * Constructor starts the game and initializes the maze.
      *
      * @param theMaze
      */
-    public TriviaMaze(final Maze theMaze, final Game theGame) throws Exception {
+    public TriviaMaze(final Maze theMaze) throws Exception {
         startGame();
         this.myMaze = theMaze;
-        this.myGame = theGame;
-        this.myScanner = new Scanner(System.in);
     }
 
     /**
