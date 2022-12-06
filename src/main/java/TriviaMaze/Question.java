@@ -78,7 +78,7 @@ public class Question {
      */
     public String getOptions() {
         StringBuilder sb  = new StringBuilder();
-        String[] parts = myAnswerOptions.split(",");
+        String[] parts = myAnswerOptions.split(", ");
         if(parts.length != 4) {
             throw new IllegalArgumentException("ERROR! Not enough or too many answer options!");
         } else {
