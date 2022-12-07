@@ -97,7 +97,7 @@ public class DataBank {
         addData("Bollywood.txt", "Bollywood");
         addData("Friends.txt", "Friends");
         addData("Horror.txt", "Horror");
-        //addData("Random.txt", "Random");
+        addData("Random.txt", "Random");
     }
 
     /**
@@ -110,21 +110,21 @@ public class DataBank {
             String query1 = "Bollywood";
             String query2 = "Friends";
             String query3 = "Horror";
-            //String query4 = "Random";
+            String query4 = "Random";
             String multiChoiceReqs = " (id integer, question string, options string, answer string)";
             // Just to make sure the table is the most updated version of itself
             // the following code will delete the table if it already exists and
             // make a new table. This is because we send all data at once to the
             // database from text files. After that we will create that table again
             // to store the data into.
-            //myStmt.executeUpdate("DROP TABLE IF EXISTS " + query1);
+            myStmt.executeUpdate("DROP TABLE IF EXISTS " + query1);
             myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + query1 + multiChoiceReqs);
-            //myStmt.executeUpdate("DROP TABLE IF EXISTS " + query2);
+            myStmt.executeUpdate("DROP TABLE IF EXISTS " + query2);
             myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query2 + multiChoiceReqs);
-            //myStmt.executeUpdate("DROP TABLE IF EXISTS " + query3);
+            myStmt.executeUpdate("DROP TABLE IF EXISTS " + query3);
             myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query3 + multiChoiceReqs);
-            //myStmt.executeUpdate("DROP TABLE IF EXISTS " + query4);
-            //myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query4 + multiChoiceReqs);
+            myStmt.executeUpdate("DROP TABLE IF EXISTS " + query4);
+            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query4 + multiChoiceReqs);
         } catch (final SQLException e) {
             System.err.println("Error: tables not created properly.");
             e.printStackTrace();
