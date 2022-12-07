@@ -33,7 +33,7 @@ public class DataBank {
     private final List<Question> horrorQuestions;
 
     // List of all the random questions from the database.
-    //private final List<Question> randomQuestions;
+    private final List<Question> randomQuestions;
 
     // The index which keeps track of the questions in the bollywood array.
     private int bollywoodIndex = 0;
@@ -45,7 +45,7 @@ public class DataBank {
     private int horrorIndex = 0;
 
     // The index which keeps track of the questions in the random array.
-    //private int randomIndex = 0;
+    private int randomIndex = 0;
 
     /**
      * Private Constructor, which sets up the database as well as creates a connection
@@ -67,7 +67,7 @@ public class DataBank {
         bollywoodQuestions = makeList("Bollywood");
         friendsQuestions = makeList("Friends");
         horrorQuestions = makeList("Horror");
-        //randomQuestions = makeList("Random")
+        randomQuestions = makeList("Random");
         // method closes the database
         closeDB();
 
@@ -272,14 +272,14 @@ public class DataBank {
     }
 
     /**
-     * @return Return a copy of the list of bollywood questions.
+     * @return Return a copy of the list of Friends questions.
      */
     public List<Question> getFriendsQuestions() {
         return new ArrayList<Question>(friendsQuestions);
     }
 
     /**
-     * @return A bollywood choice question.
+     * @return A Friends choice question.
      */
     public Question getFriendsQuestion() {
         if (friendsIndex >= friendsQuestions.size()) {
@@ -289,19 +289,35 @@ public class DataBank {
     }
 
     /**
-     * @return Return a copy of the list of bollywood questions.
+     * @return Return a copy of the list of horror questions.
      */
     public List<Question> getHorrorQuestions() {
         return new ArrayList<Question>(horrorQuestions);
     }
 
     /**
-     * @return A bollywood choice question.
+     * @return A horror choice question.
      */
     public Question getHorrorQuestion() {
         if (horrorIndex >= horrorQuestions.size()) {
             horrorIndex = 0;
         }
         return horrorQuestions.get(horrorIndex++);
+    }
+    /**
+     * @return Return a copy of the list of horror questions.
+     */
+    public List<Question> getRandomQuestions() {
+        return new ArrayList<Question>(randomQuestions);
+    }
+
+    /**
+     * @return A horror choice question.
+     */
+    public Question getRandomQuestion() {
+        if (randomIndex >= randomQuestions.size()) {
+            randomIndex = 0;
+        }
+        return randomQuestions.get(randomIndex++);
     }
 }
