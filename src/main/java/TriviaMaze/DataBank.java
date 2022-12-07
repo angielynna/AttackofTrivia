@@ -51,7 +51,7 @@ public class DataBank {
      * Private Constructor, which sets up the database as well as creates a connection
      * with the SQLiteDataSource.
      */
-    private DataBank() {
+    public DataBank() {
         try {
             myDs = new SQLiteDataSource();
             myDs.setUrl("jdbc:sqlite:AOTQuestions.db");

@@ -20,11 +20,8 @@ import java.util.Scanner;
 
 public class TriviaMaze {
 
-    /** 1 means start a new game.*/
     private static final int ONE = 1;
-    /** 2 means load a saved game.*/
     private static final int TWO = 2;
-    /** 3 means exit the game.*/
     private static final int THREE = 3;
     private static final int FOUR = 4;
 
@@ -34,7 +31,7 @@ public class TriviaMaze {
     private final Game myGame;
     /** holds Scanner for game.*/
     private final Scanner myScanner;
-    private DataBank myDataBank;
+    private final DataBank myDataBank;
 
     /**
      * Constructor starts the game and initializes the maze.
@@ -48,6 +45,7 @@ public class TriviaMaze {
         this.myGame = theGame;
         this.myScanner = theScanner;
     }
+
 
     /**
      * print maze out and the player movement instructions
@@ -131,29 +129,21 @@ public class TriviaMaze {
             case "n" -> startGame();
             case "l" -> myGame.saveGame(this.myMaze, "TriviaMaze.ser");
             case "e" -> System.out.println("Thank you for playing");
-            default -> System.out.println("""
-                     INVALID INPUT(Select a valid option):
-                     W:move north
-                     A:move west
-                     S:move south
-                     D:move east
-                     N:start new game
-                     L:save game
-                     E:exit game
-                     """);
-        }
-    }
+            default -> playerInput(theInput); //need to System.out.println("""INVALID INPUT(Select a valid option)""");
 
-    /**
-     * sets player location to default location: (0, 0).
-     */
+}
+}
+
+/**
+* sets player location to default location: (0, 0).
+*/
     private void setPlayerLocation() {
         myMaze.setLocation(0, 0);
     }
 
-    /**
-     * Moves player North.
-     */
+/**
+* Moves player North.
+*/
     private void movePlayerNorth() {
         if (myMaze.isLocked('N')) {
             System.out.println("You cannot move North");
@@ -166,9 +156,9 @@ public class TriviaMaze {
         }
     }
 
-    /**
-     * Moves player West.
-     */
+/**
+* Moves player West.
+*/
     private void movePlayerWest() {
         if (myMaze.isLocked('W')) {
             System.out.println("You cannot move West");
@@ -181,9 +171,9 @@ public class TriviaMaze {
         }
     }
 
-    /**
-     * Moves player East.
-     */
+/**
+* Moves player East.
+*/
     private void movePlayerEast() {
         if (myMaze.isLocked('E')) {
             System.out.println("You cannot move East");
@@ -196,9 +186,9 @@ public class TriviaMaze {
         }
     }
 
-    /**
-     * Moves player South.
-     */
+/**
+* Moves player South.
+*/
     private void movePlayerSouth() {
         if (myMaze.isLocked('S')) {
             System.out.println("You cannot move South");
@@ -211,11 +201,6 @@ public class TriviaMaze {
         }
     }
 
-    /**
-     * Asks the player a question.
-     *
-     * @return getPlayerInput().equals("A");
-     */
     private boolean askQuestion() {
         Question question = null;
         if (pickTopic() == 1) {
@@ -236,19 +221,19 @@ public class TriviaMaze {
     }
 
 
-    /**
-     * ends the game when the player has reached the end or lost.
-     *
-     * @return false
-     */
+/**
+* ends the game when the player has reached the end or lost.
+*
+* @return false
+*/
     private boolean endGame() {
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
         } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
-                && myMaze.isLocked('E') && myMaze.isLocked('W')) {
-            System.out.println("You've LOST the game");
-        }
-        return false;
+            && myMaze.isLocked('E') && myMaze.isLocked('W')) {
+        System.out.println("You've LOST the game");
+    }
+    return false;
 
     }
 
