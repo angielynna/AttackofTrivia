@@ -27,7 +27,7 @@ public class Game {
     /**
      * Displays menu for the TriviaMaze.
      */
-    protected void gameMenu() {
+     void gameMenu() {
         System.out.println("Welcome to Trivia Maze");
         System.out.println("Press 1: Start a new game.");
         System.out.println("Press 2: Load game.");
@@ -37,7 +37,7 @@ public class Game {
     /**
      * Displays movement prompt for the Player.
      */
-    protected void playerMovement() {
+     void playerMovement() {
         System.out.println("\n");
         System.out.println("""
                 How to move:
@@ -51,7 +51,7 @@ public class Game {
     /**
      * Displays player menu.
      */
-    protected void playerMenu() {
+     void playerMenu() {
         System.out.println("""
                 Menu:
                 N) New Game

@@ -146,7 +146,7 @@ public class Maze {
      *
      * @return boolean
      */
-    private boolean canMoveSouth() {
+     boolean canMoveSouth() {
         if (myMaze[myRow + 1][myCol].mySouth != null) {  //if it contains south door
             return true;
         } else {
