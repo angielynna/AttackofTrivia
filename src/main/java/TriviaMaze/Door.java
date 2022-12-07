@@ -33,13 +33,13 @@ public class Door {
      */
     public Door(final String theQuestion, final String theAnsOptions,
                 final String theCorrectAns) throws Exception {
-        if(theQuestion.isEmpty() || theQuestion.equals(null)) {
+        if (theQuestion.isEmpty() || theQuestion == null) {
             throw new Exception("ERROR! Question is empty!");
         }
-        if(theCorrectAns.isEmpty() || theCorrectAns.equals(null)) {
+        if (theCorrectAns.isEmpty() || theCorrectAns == null) {
             throw new Exception("ERROR! Correct answer is empty");
         }
-        if(theAnsOptions == null) {
+        if (theAnsOptions == null) {
             throw new Exception("ERROR! Answer options do not exist!");
         }
         myQuestion = new Question(theQuestion, theAnsOptions, theCorrectAns);
