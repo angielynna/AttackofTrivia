@@ -55,6 +55,16 @@ public class Game {
                 """);
     }
 
+    void triviaTopics() {
+        System.out.println("""
+                Pick a Topic:
+                1) Friends
+                2) Bollywood
+                3) Horror
+                4) Random
+                """);
+    }
+
     /**
      * Saves the game.
      * @param theData

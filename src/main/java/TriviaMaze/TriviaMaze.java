@@ -4,7 +4,6 @@
  */
 package TriviaMaze;
 
-import java.io.Serializable;
 import java.util.Scanner;
 
 //I was thinking we could connect our SQLite DataBase to TriviaMaze
@@ -22,27 +21,32 @@ import java.util.Scanner;
 public class TriviaMaze {
 
     /** 1 means start a new game.*/
-    private static final int START_GAME = 1;
+    private static final int ONE = 1;
     /** 2 means load a saved game.*/
-    private static final int LOAD_GAME = 2;
+    private static final int TWO = 2;
     /** 3 means exit the game.*/
-    private static final int EXIT_GAME = 3;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
 
     /** holds maze.*/
     private final Maze myMaze;
     /** holds current game.*/
-    private final Game myGame = new Game();
+    private final Game myGame;
     /** holds Scanner for game.*/
-    private final Scanner myScanner = new Scanner(System.in);;
+    private final Scanner myScanner;
+    private DataBank myDataBank;
 
     /**
      * Constructor starts the game and initializes the maze.
      *
      * @param theMaze
      */
-    public TriviaMaze(final Maze theMaze) throws Exception {
+    public TriviaMaze(final Maze theMaze, final DataBank theDataBank, final Game theGame, final Scanner theScanner) throws Exception {
         startGame();
         this.myMaze = theMaze;
+        this.myDataBank = theDataBank;
+        this.myGame = theGame;
+        this.myScanner = theScanner;
     }
 
     /**
@@ -50,6 +54,7 @@ public class TriviaMaze {
      * depending on player input create a newGame,saveGame,or exitGame.
      */
     private void newGame() throws Exception {
+
         System.out.print(this.myMaze);
         myGame.playerMovement();
         myGame.playerMenu();
@@ -64,18 +69,41 @@ public class TriviaMaze {
         myGame.gameMenu();
         int playerInput = Integer.parseInt(myScanner.nextLine());
 
-        if (playerInput == START_GAME) {
+        if (playerInput == ONE) {
             System.out.println("Started a new game.\n");
             newGame();
-        } else if (playerInput == LOAD_GAME) {
+        } else if (playerInput == TWO) {
             System.out.println("Loaded game.");
             Game.loadGame("TriviaMaze.ser");
-        } else if (playerInput == EXIT_GAME) {
+        } else if (playerInput == THREE) {
             System.out.println("Thank you for playing");
         } else {
             System.out.println("Invalid input:try again");
             myGame.gameMenu();
         }
+    }
+
+    private int pickTopic() {
+        myGame.triviaTopics();
+        int playerInput = Integer.parseInt(myScanner.nextLine());
+        int topicChosen = 0;
+        if (playerInput == ONE) {
+            System.out.println("Topic: Friends");
+            topicChosen = 1;
+        } else if (playerInput == TWO) {
+            System.out.println("Topic: Bollywood");
+            topicChosen = 2;
+        } else if (playerInput == THREE) {
+            System.out.println("Topic: Horror");
+            topicChosen = 3;
+        } else if (playerInput == FOUR) {
+            System.out.println("Topic: Random");
+            topicChosen = 4;
+        } else {
+            System.out.println("Invalid input:try again");
+            myGame.triviaTopics();
+        }
+        return topicChosen;
     }
 
     /**
@@ -189,11 +217,24 @@ public class TriviaMaze {
      * @return getPlayerInput().equals("A");
      */
     private boolean askQuestion() {
-        System.out.println("Is 2 an even number");
-        System.out.println("Press A: for true");
-        System.out.println("Press B: for false");
-        return getPlayerInput().equals("A");
+        Question question = null;
+        if (pickTopic() == 1) {
+            question = myDataBank.getFriendsQuestion();
+            System.out.println(question.promptQuestion());
+        } else if (pickTopic() == 2) {
+            question = myDataBank.getBollywoodQuestion();
+            System.out.println(question.promptQuestion());
+        } else if (pickTopic() == 3) {
+            question = myDataBank.getHorrorQuestion();
+            System.out.println(question.promptQuestion());
+        } else if (pickTopic() == 4) {
+            question = myDataBank.getRandomQuestion();
+            System.out.println(question.promptQuestion());
+        }
+        assert question != null;
+        return question.isCorrect(getPlayerInput());
     }
+
 
     /**
      * ends the game when the player has reached the end or lost.
