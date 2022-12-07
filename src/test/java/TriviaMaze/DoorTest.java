@@ -35,10 +35,4 @@ class DoorTest {
         assertEquals(false, door.isLocked());
     }
 
-    @Test
-    void getQuestion() throws Exception {
-        Door door = new Door("Have you ever...?",
-                "A. 1, B. 2, C. 3, D. 4", "B");
-        assertEquals("Have you ever...?", door.getQuestion());
-    }
 }

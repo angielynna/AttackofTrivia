@@ -36,12 +36,12 @@ public class Question {
      */
     public Question(final String theQuestion, final String theAnswerOptions,
                     final String theCorrectAnswer) {
-        if (myQuestion == null || myCorrectAnswer == null || myAnswerOptions == null) {
+        if (theQuestion.equals(null) || theCorrectAnswer.equals(null) || theAnswerOptions.equals(null)) {
             throw new IllegalArgumentException("Input is incorrect!");
         } else {
-            this.myQuestion = theQuestion;
-            this.myCorrectAnswer = theCorrectAnswer;
-            this.myAnswerOptions = theAnswerOptions;
+            myQuestion = theQuestion;
+            myCorrectAnswer = theCorrectAnswer;
+            myAnswerOptions = theAnswerOptions;
         }
     }
 
@@ -51,11 +51,7 @@ public class Question {
      * @return myQuestion
      */
     public String getQuestion() {
-        if(myQuestion.isEmpty() || myQuestion.equals(null)) {
-            throw new IllegalArgumentException("ERROR! Question is empty!");
-        } else {
-            return myQuestion;
-        }
+        return myQuestion;
     }
 
     /**
@@ -64,11 +60,7 @@ public class Question {
      * @return myCorrectAnswer
      */
     public String getAnswer() {
-        if(myCorrectAnswer.isEmpty() || myCorrectAnswer.equals(null)) {
-            throw new IllegalArgumentException("ERROR! Correct answer is empty!");
-        } else {
-            return myCorrectAnswer;
-        }
+        return myCorrectAnswer;
     }
 
     /**

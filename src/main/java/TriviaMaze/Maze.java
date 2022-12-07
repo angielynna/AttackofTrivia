@@ -147,10 +147,10 @@ public class Maze {
      * @return boolean
      */
      boolean canMoveSouth() {
-        if (myMaze[myRow + 1][myCol].mySouth != null) {  //if it contains south door
-            return true;
-        } else {
+        if ((myRow + 1 >= myMaze.length) || myMaze[myRow + 1][myCol].mySouth == null) {  //if it contains south door
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -160,10 +160,10 @@ public class Maze {
      * @return boolean
      */
      boolean canMoveNorth() {
-        if (myMaze[myRow + 1][myCol].myNorth != null) {  //if it contains north door
-            return true;
-        } else {
+        if ((myRow - 1 < 0) || myMaze[myRow - 1][myCol].myNorth == null) {  //if it contains north door
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -173,10 +173,10 @@ public class Maze {
      * @return boolean
      */
      boolean canMoveEast() {
-        if (myMaze[myRow + 1][myCol].myEast != null) {  //if it contains east door
-            return true;
-        } else {
+        if ((myCol + 1 >= myMaze[0].length) || myMaze[myRow][myCol + 1].myEast == null) {  //if it contains east door
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -186,10 +186,10 @@ public class Maze {
      * @return boolean
      */
      boolean canMoveWest() {
-        if (myMaze[myRow + 1][myCol].myWest != null) {  //if it contains west door
-            return true;
-        } else {
+        if ((myCol - 1 < 0) || (myMaze[myRow][myCol - 1].myWest == null)) {  //if it contains west door
             return false;
+        } else {
+            return true;
         }
     }
 

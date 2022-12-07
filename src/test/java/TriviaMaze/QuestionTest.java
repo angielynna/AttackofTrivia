@@ -8,19 +8,19 @@ class QuestionTest {
 
     @Test
     void questionExceptionConstructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Question(null,
+        assertThrows(Exception.class, () -> new Question(null,
                 "A. Hi, B. Hello, C. Bye, D. Goodbye", "B"));
     }
 
     @Test
     void ansOptionExceptionConstructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Question("Have you ever...?",
+        assertThrows(Exception.class, () -> new Question("Have you ever...?",
                 null, "B"));
     }
 
     @Test
     void answerChoiceExceptionConstructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Question("Have you ever...?",
+        assertThrows(Exception.class, () -> new Question("Have you ever...?",
                 "A. Hi, B. Hello, C. Bye, D. Goodbye", null));
     }
 
