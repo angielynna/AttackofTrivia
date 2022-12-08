@@ -36,13 +36,11 @@ public class Question {
      */
     public Question(final String theQuestion, final String theAnswerOptions,
                     final String theCorrectAnswer) {
-        if (myQuestion == null || myCorrectAnswer == null || myAnswerOptions == null) {
-            throw new IllegalArgumentException("Input is incorrect!");
-        } else {
+
             this.myQuestion = theQuestion;
             this.myCorrectAnswer = theCorrectAnswer;
             this.myAnswerOptions = theAnswerOptions;
-        }
+
     }
 
     /**

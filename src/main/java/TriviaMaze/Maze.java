@@ -256,7 +256,28 @@ public class Maze {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(myMaze.toString());
+        for (int i = 0; i < 4; i++) {
+            sb.append(" __");
+        }
+        for (int i = 0; i < 4; i++) {
+            sb.append("\n|");
+            for (int j = 0; j < 5; j++) {
+                if (myRow == i && myCol == j)
+                    sb.append(" P ");
+                else if (i >= 0 && 4 == j) {
+                    sb.append("|");
+                } else {
+                    sb.append(" ? ");
+                }
+            }
+
+        }
+        sb.append("\n");
+        for (int i = 0; i < 4; i++) {
+            sb.append(" __");
+        }
+
+
         return sb.toString();
     }
 

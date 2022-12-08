@@ -8,19 +8,19 @@ class DoorTest {
     @Test
     void questionException() {
         assertThrows(Exception.class, () -> new Door(null,
-                new String[]{"1", "2", "3", "4"}, "b"));
+                "A. 1, B. 2, C. 3, D. 4", "B"));
     }
 
     @Test
     void ansOptionException() {
         assertThrows(Exception.class, () -> new Door("Have you ever...?",
-                new String[]{"1", "2"}, "b"));
+                null, "B"));
     }
 
     @Test
     void answerChoiceException() {
         assertThrows(Exception.class, () -> new Door("Have you ever...?",
-                new String[]{"1", "2", "3", "4"}, null));
+                "A. 1, B. 2, C. 3, D. 4", null));
     }
 
     @Test
@@ -35,10 +35,4 @@ class DoorTest {
         assertEquals(false, door.isLocked());
     }
 
-    @Test
-    void getQuestion() throws Exception {
-        Door door = new Door("Have you ever...?",
-                new String[]{"1", "2", "3", "4"}, "b");
-        assertEquals("Have you ever...?", door.getQuestion());
-    }
 }
