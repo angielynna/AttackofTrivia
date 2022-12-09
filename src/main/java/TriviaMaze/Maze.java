@@ -266,34 +266,35 @@ public class Maze {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        for(int i=0; i < myRow; i++){
-            for(int j=0; j < myCol; j++){
-                System.out.print(myMaze[i][j]);
+//        for(int i=0; i < myRow; i++){
+//            for(int j=0; j < myCol; j++){
+//                System.out.print(myMaze[i][j]);
+//
+//            }
+//            System.out.println();
+//        }
+
+        for (int i = 0; i < 4; i++) {
+            sb.append(" __");
+        }
+        for (int i = 0; i < 4; i++) {
+            sb.append("\n|");
+            for (int j = 0; j < 5; j++) {
+                if (myRow == i && myCol == j)
+                    sb.append(" P ");
+                else if (i >= 0 && 4 == j) {
+                    sb.append("|");
+                } else {
+                    sb.append(" ? ");
+                }
             }
-            System.out.println();
+
+        }
+        sb.append("\n");
+        for (int i = 0; i < 4; i++) {
+            sb.append(" __");
         }
 
-//        for (int i = 0; i < 4; i++) {
-//            sb.append(" __");
-//        }
-//        for (int i = 0; i < 4; i++) {
-//            sb.append("\n|");
-//            for (int j = 0; j < 5; j++) {
-//                if (myRow == i && myCol == j)
-//                    sb.append(" P ");
-//                else if (i >= 0 && 4 == j) {
-//                    sb.append("|");
-//                } else {
-//                    sb.append(" ? ");
-//                }
-//            }
-//
-//        }
-//        sb.append("\n");
-//        for (int i = 0; i < 4; i++) {
-//            sb.append(" __");
-//        }
-//
 
         return sb.toString();
     }

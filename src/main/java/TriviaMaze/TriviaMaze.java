@@ -58,10 +58,10 @@ public class TriviaMaze {
         myGame.moreOptions();
         myGame.triviaTopics();
         List<Question> list = pickTopic(getPlayerInputInt());
-
+        this.myMaze = new Maze(list);
         do {
-                this.myMaze = new Maze(list);
-                System.out.print(this.myMaze);
+
+                System.out.print(myMaze.toString());
                 System.out.println("\nWhich direction do you want to move:");
                 playerInput(getPlayerInput());
 
@@ -95,23 +95,31 @@ public class TriviaMaze {
 
     private List<Question> pickTopic(final int theInput) {
         List<Question> list = new ArrayList<Question>();
+        int topicChosen = 0;
         switch (theInput) {
             case 1 -> {
                 System.out.println("Topic: Friends");
                 list = myDataBank.getFriendsQuestions();
-
+                topicChosen = 1;
+                chosenTopic(topicChosen);
             }
             case 2 -> {
                 System.out.println("Topic: Bollywood");
                 list = myDataBank.getBollywoodQuestions();
+                topicChosen = 2;
+                chosenTopic(topicChosen);
             }
             case 3 -> {
                 System.out.println("Topic: Horror");
                 list = myDataBank.getHorrorQuestions();
+                topicChosen = 3;
+                chosenTopic(topicChosen);
             }
             case 4 -> {
                 System.out.println("Topic: Random");
                 list = myDataBank.getRandomQuestions();
+                topicChosen = 4;
+                chosenTopic(topicChosen);
             }
             default -> {
                 System.out.println("INVALID INPUT(Select a valid option):\n");
@@ -121,6 +129,34 @@ public class TriviaMaze {
             }
         }
         return list;
+    }
+
+    private void chosenTopic(int theInput) {
+        Question question = null;
+        if (theInput == 1) {
+            question = myDataBank.getFriendsQuestion();
+            System.out.println(question.promptQuestion());
+            System.out.println("Enter your answer a,b,c,d:\n");
+
+        } else if (theInput == 2) {
+            question = myDataBank.getBollywoodQuestion();
+            System.out.println(question.promptQuestion());
+            System.out.println("Enter your answer a,b,c,d:\n");
+        }else if (theInput == 3) {
+            question = myDataBank.getHorrorQuestion();
+            System.out.println(question.promptQuestion());
+            System.out.println("Enter your answer a,b,c,d:\n");
+        } else if (theInput == 4) {
+            question = myDataBank.getRandomQuestion();
+            System.out.println(question.promptQuestion());
+            System.out.println("Enter your answer a,b,c,d:\n");
+        } else {
+            System.out.println("Invalid Input: Try Again");
+
+        }
+        assert question != null;
+        return question.isCorrect(myScanner.nextLine().toUpperCase());
+
     }
 
     /**
@@ -147,7 +183,9 @@ public class TriviaMaze {
             case "d" -> movePlayerEast();
             case "n" -> startGame();
             case "l" -> myGame.saveGame(this.myMaze, "TriviaMaze.ser");
-            case "e" -> System.out.println("Thank you for playing");
+            case "e" -> {System.out.println("Thank you for playing");
+                System.exit(0);
+            }
             default -> {playerInput(theInput);
                 System.out.println("INVALID INPUT(Select a valid option)");
             }
@@ -169,7 +207,7 @@ public class TriviaMaze {
     private void movePlayerNorth() {
         if (myMaze.isLocked('N')) {
             System.out.println("You cannot move North");
-        } else if (askQuestion()) {
+        } else if (askQuestion(getPlayerInputInt())) {
             System.out.println("You can continue");
             myMaze.move('N');
         } else {
@@ -184,7 +222,7 @@ public class TriviaMaze {
     private void movePlayerWest() {
         if (myMaze.isLocked('W')) {
             System.out.println("You cannot move West");
-        } else if (askQuestion()) {
+        } else if (askQuestion(getPlayerInputInt())) {
             System.out.println("You can continue");
             myMaze.move('W');
         } else {
@@ -199,7 +237,7 @@ public class TriviaMaze {
     private void movePlayerEast() {
         if (myMaze.isLocked('E')) {
             System.out.println("You cannot move East");
-        } else if (askQuestion()) {
+        } else if (askQuestion(getPlayerInputInt())) {
             System.out.println("You can continue");
             myMaze.move('E');
         } else {
@@ -213,28 +251,23 @@ public class TriviaMaze {
 */
     private void movePlayerSouth() {
         if (myMaze.isLocked('S')) {
-            System.out.println("You cannot move East");
-        } else if (askQuestion()) {
-            System.out.println("You can continue");
-            myMaze.move('S');
+            System.out.println("You cannot move South");
         } else {
-            System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
-            myMaze.isLocked('S');
+            if (askQuestion(getPlayerInputInt())) {
+                System.out.println("You can continue");
+                myMaze.move('S');
+            } else {
+                System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
+                myMaze.isLocked('S');
+            }
         }
     }
 
-    private boolean askQuestion() {
-        Question question = null;
-        if (question == null) {
-            question = myDataBank.getFriendsQuestion();
-            System.out.println(question.promptQuestion());
-            System.out.println("Enter your answer a,b,c,d:\n");
-        } else {
-            System.out.println("Invalid Input: Try Again");
+    private boolean askQuestion(int theInput) {
+//        myMaze.[door],.promptQuestion();
+//        playerAnswer = whatever
+//        Return playerAnswer == myMaze.[door].isCorrect();
 
-        }
-        assert question != null;
-        return question.isCorrect(myScanner.nextLine().toUpperCase());
     }
 
     private int getPlayerInputInt() {
