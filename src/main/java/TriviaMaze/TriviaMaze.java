@@ -4,6 +4,8 @@
  */
 package TriviaMaze;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 //I was thinking we could connect our SQLite DataBase to TriviaMaze
@@ -25,21 +27,20 @@ public class TriviaMaze {
     private static final int THREE = 3;
     private static final int FOUR = 4;
 
-    /** holds maze.*/
-    private final Maze myMaze;
+
+
     /** holds current game.*/
     private final Game myGame;
     /** holds Scanner for game.*/
     private final Scanner myScanner;
     private final DataBank myDataBank;
+    private Maze myMaze;
 
     /**
      * Constructor starts the game and initializes the maze.
      *
-     * @param theMaze
      */
-    public TriviaMaze(final Maze theMaze, final DataBank theDataBank, final Game theGame, final Scanner theScanner) throws Exception {
-        this.myMaze = theMaze;
+    public TriviaMaze(final DataBank theDataBank, final Game theGame, final Scanner theScanner) throws Exception {
         this.myDataBank = theDataBank;
         this.myGame = theGame;
         this.myScanner = theScanner;
@@ -52,19 +53,21 @@ public class TriviaMaze {
      * depending on player input create a newGame,saveGame,or exitGame.
      */
     private void newGame() throws Exception {
-        int input = pickTopic(getPlayerInputInt());
+
+        myGame.playerMovement();
+        myGame.playerMenu();
+        int input = getPlayerInputInt();
+        List<Question> list = pickTopic(input);
         while(!endGame()) {
-            while (input < 5 && input > 0) {
+                myMaze = new Maze(list);
                 System.out.print(this.myMaze.toString());
-                myMaze.toString();
-                myMaze.getMaze().toString();
-                myGame.playerMovement();
-                myGame.playerMenu();
+                System.out.println("\nWhich direction do you want to move:");
                 playerInput(getPlayerInput());
 
+            if(getPlayerInput() == "e"){
+                break;
+            }
 
-
-            }break;
         }
     }
 
@@ -76,44 +79,48 @@ public class TriviaMaze {
         int input = Integer.parseInt(myScanner.nextLine());
         if (input == ONE) {
             System.out.println("Started a new game.\n");
-            myGame.triviaTopics();
             newGame();
         } else if (input == TWO) {
             System.out.println("Loaded game.");
             Game.loadGame("TriviaMaze.ser");
         } else if (input == THREE) {
             System.out.println("Thank you for playing");
+            System.exit(0);
         } else {
             System.out.println("Invalid input:try again");
             myGame.gameMenu();
         }
     }
 
-    private int pickTopic(final int theInput) {
+    private List<Question> pickTopic(final int theInput) {
         myGame.triviaTopics();
+        List<Question> list = new ArrayList<Question>();
         switch (theInput) {
             case 1 -> {
                 System.out.println("Topic: Friends");
-                return theInput;
+                list = myDataBank.getFriendsQuestions();
+
             }
             case 2 -> {
                 System.out.println("Topic: Bollywood");
-                return theInput;
+                list = myDataBank.getBollywoodQuestions();
             }
             case 3 -> {
                 System.out.println("Topic: Horror");
-                return theInput;
+                list = myDataBank.getHorrorQuestions();
             }
             case 4 -> {
                 System.out.println("Topic: Random");
-                return theInput;
+                list = myDataBank.getRandomQuestions();
             }
             default -> {
-                myGame.triviaTopics(); //need to System.out.println("""INVALID INPUT(Select a valid option)""");
+                System.out.println("INVALID INPUT(Select a valid option):\n");
+                myGame.triviaTopics();
 
-                return theInput;
+
             }
         }
+        return list;
     }
 
     /**
@@ -124,11 +131,6 @@ public class TriviaMaze {
     private String getPlayerInput() {
         String input;
         input = myScanner.nextLine().toLowerCase();
-        return input;
-    }
-    private int getPlayerInputInt() {
-        int input;
-        input = Integer.parseInt(myScanner.nextLine());
         return input;
     }
 
@@ -146,10 +148,13 @@ public class TriviaMaze {
             case "n" -> startGame();
             case "l" -> myGame.saveGame(this.myMaze, "TriviaMaze.ser");
             case "e" -> System.out.println("Thank you for playing");
-            default -> playerInput(theInput); //need to System.out.println("""INVALID INPUT(Select a valid option)""");
+            default -> {playerInput(theInput);
+                System.out.println("INVALID INPUT(Select a valid option)");
+            }
+            }
 
 }
-}
+
 
 /**
 * sets player location to default location: (0, 0).
@@ -207,7 +212,9 @@ public class TriviaMaze {
 * Moves player South.
 */
     private void movePlayerSouth() {
-        if (askQuestion()) {
+        if (myMaze.isLocked('S')) {
+            System.out.println("You cannot move East");
+        } else if (askQuestion()) {
             System.out.println("You can continue");
             myMaze.move('S');
         } else {
@@ -218,29 +225,26 @@ public class TriviaMaze {
 
     private boolean askQuestion() {
         Question question = null;
-        int input = pickTopic(getPlayerInputInt());
-        if (input == 1) {
+        if (question == null) {
             question = myDataBank.getFriendsQuestion();
             System.out.println(question.promptQuestion());
-        } else if (input == 2) {
-            question = myDataBank.getBollywoodQuestion();
-            System.out.println(question.promptQuestion());
-        } else if (input == 3) {
-            question = myDataBank.getHorrorQuestion();
-            System.out.println(question.promptQuestion());
-        } else if (input == 4) {
-            question = myDataBank.getRandomQuestion();
-            System.out.println(question.promptQuestion());
+            System.out.println("Enter your answer a,b,c,d:\n");
         } else {
             System.out.println("Invalid Input: Try Again");
-            pickTopic(getPlayerInputInt());
+
         }
         assert question != null;
         return question.isCorrect(myScanner.nextLine().toUpperCase());
     }
 
+    private int getPlayerInputInt() {
+        int input;
+        input = Integer.parseInt(myScanner.nextLine());
+        return input;
+    }
 
-/**
+
+    /**
 * ends the game when the player has reached the end or lost.
 *
 * @return false
@@ -248,10 +252,11 @@ public class TriviaMaze {
     private boolean endGame() {
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
-        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
-            && myMaze.isLocked('E') && myMaze.isLocked('W')) {
-        System.out.println("You've LOST the game");
-    }
+        }
+//        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
+//            && myMaze.isLocked('E') && myMaze.isLocked('W')) {
+//        System.out.println("You've LOST the game");
+
     return false;
 
     }

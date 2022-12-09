@@ -7,6 +7,9 @@ package TriviaMaze;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 
 /**
  * Maze stores a 2D array of Room, the players current row and column index,
@@ -31,13 +34,15 @@ public class Maze {
     /** current player column index.*/
     private int myCol;
 
+    private List<Question> myQuestion;
+
     //may need a separate private display maze
 
     /**
      * default maze constructor, for when no params are sent: 4 by 4 by default
      */
-    public Maze() throws Exception {
-        this(4, 4);
+    public Maze(List<Question> theQuestions) throws Exception {
+        this(4, 4,theQuestions);
     }
 
     /**
@@ -46,14 +51,16 @@ public class Maze {
      * @param theRows
      * @param theCols
      */
-    public Maze(final int theRows, final int theCols) throws Exception {
+    public Maze(final int theRows, final int theCols, List<Question> theQuestions) throws Exception {
         if(theRows < 1 || theCols < 1) {
             throw new IllegalArgumentException("ERROR! Number of rows and/or columns"
                     + " cannot be zero or less!");
         }
+        myQuestion = theQuestions;
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
         myCol = 0;
+
     }
 
     /**
@@ -65,36 +72,36 @@ public class Maze {
      */
     private Room[][] buildMaze(final int theRows, final int theCols) throws Exception {
         final Room[][] maze = new Room[theRows][theCols];
-
+        Iterator<Question> itr = myQuestion.iterator();
         for (int i = 0; i < theRows; i++) {
             for (int j = 0; j < theCols; j++) {
                 //break down of logic:
                 if (i == 0) {                          //If top row:
                     if (j == 0) {                      //at first position: S, E
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(null, itr.next(), null, itr.next());
                         //insert stuff here
                     } else if (j == theCols - 1) {  // at last position: S, W
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(null, null, itr.next(), itr.next());
                     } else {                        //other positions: S, W, E <- default
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(null, itr.next(), itr.next(), itr.next());
                     }
                 } else if(j == 0 && i > 0) {        //If first column
                     if(i == theRows - 1) {          //if last row: N, E
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(itr.next(), itr.next(), null, null);
                     } else {                        //other positions: N, E, S <- default
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(itr.next(), itr.next(), null, itr.next());
                     }
                 } else if (j > 0 && i == theRows - 1) { //if last row:
                     if (j == theCols - 1) {             //if last column: N, W
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(itr.next(), null, itr.next(), null);
                     } else {                           //other positions: N, E, W <- default
-                        maze[i][j] = new Room(null, null, null, null);
+                        maze[i][j] = new Room(itr.next(), itr.next(), itr.next(), null);
                     }
                 } else if (j == theCols - 1 && (i > 0 && i < theRows - 1)) {// Last column
-                    maze[i][j] = new Room(null, null, null, null);
+                    maze[i][j] = new Room(itr.next(), null, itr.next(), itr.next());
                     //N, S, W
                 } else {            //in middle of it all, has all rooms
-                    maze[i][j] = new Room(null, null, null, null);
+                    maze[i][j] = new Room(itr.next(), itr.next(), itr.next(), itr.next());
                     //N, E, W, S
                 }
             }
@@ -256,27 +263,34 @@ public class Maze {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 4; i++) {
-            sb.append(" __");
-        }
-        for (int i = 0; i < 4; i++) {
-            sb.append("\n|");
-            for (int j = 0; j < 5; j++) {
-                if (myRow == i && myCol == j)
-                    sb.append(" P ");
-                else if (i >= 0 && 4 == j) {
-                    sb.append("|");
-                } else {
-                    sb.append(" ? ");
-                }
+        for(int i=0; i < myRow; i++){
+            for(int j=0; j < myCol; j++){
+                System.out.print(myMaze[i][j]);
             }
-
-        }
-        sb.append("\n");
-        for (int i = 0; i < 4; i++) {
-            sb.append(" __");
+            System.out.println();
         }
 
+//        for (int i = 0; i < 4; i++) {
+//            sb.append(" __");
+//        }
+//        for (int i = 0; i < 4; i++) {
+//            sb.append("\n|");
+//            for (int j = 0; j < 5; j++) {
+//                if (myRow == i && myCol == j)
+//                    sb.append(" P ");
+//                else if (i >= 0 && 4 == j) {
+//                    sb.append("|");
+//                } else {
+//                    sb.append(" ? ");
+//                }
+//            }
+//
+//        }
+//        sb.append("\n");
+//        for (int i = 0; i < 4; i++) {
+//            sb.append(" __");
+//        }
+//
 
         return sb.toString();
     }

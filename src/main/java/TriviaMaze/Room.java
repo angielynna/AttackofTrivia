@@ -28,6 +28,8 @@ public class Room {
     /** South door object.*/
     final Door mySouth;
 
+    private boolean visited = false;
+
     /**
      * Constructor instantiates all door objects based off of information
      * sent from parameters
@@ -87,5 +89,9 @@ public class Room {
         } else {
             mySouth = new Door(true);
         }
+    }
+
+    public boolean visited() {
+        return this.visited;
     }
 }
