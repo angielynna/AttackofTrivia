@@ -49,9 +49,9 @@ public class Game {
      void playerMenu() {
         System.out.println("""
                 Menu:
-                1) New Game
-                2) Save Game
-                3) Exit Game
+                N) New Game
+                L) Save Game
+                E) Exit Game
                 """);
     }
 
