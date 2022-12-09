@@ -45,6 +45,7 @@ public class TriviaMaze {
         this.myGame = theGame;
         this.myScanner = theScanner;
         startGame();
+
     }
 
 
@@ -56,8 +57,8 @@ public class TriviaMaze {
 
         myGame.playerMovement();
         myGame.playerMenu();
-        int input = getPlayerInputInt();
-        List<Question> list = pickTopic(input);
+        playerInput(getPlayerInput());
+        List<Question> list = pickTopic(getPlayerInputInt());
         while(!endGame()) {
                 myMaze = new Maze(list);
                 System.out.print(this.myMaze.toString());

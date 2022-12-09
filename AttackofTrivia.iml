@@ -3,7 +3,7 @@
   <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
     <option name="activeLocationsIds" />
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_19">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -33,5 +33,6 @@
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.7.2" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.32.3.2" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.34.01" level="project" />
+    <orderEntry type="library" name="sqlite-jdbc-3.34.0" level="project" />
   </component>
 </module>
