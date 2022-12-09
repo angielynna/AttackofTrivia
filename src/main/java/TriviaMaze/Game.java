@@ -46,10 +46,9 @@ public class Game {
     /**
      * Displays player menu.
      */
-     void playerMenu() {
+     void moreOptions() {
         System.out.println("""
-                Menu:
-                N) New Game
+                More Options:
                 L) Save Game
                 E) Exit Game
                 """);

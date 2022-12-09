@@ -72,39 +72,42 @@ public class Maze {
      */
     private Room[][] buildMaze(final int theRows, final int theCols) throws Exception {
         final Room[][] maze = new Room[theRows][theCols];
-        Iterator<Question> itr = myQuestion.iterator();
+        int count = 0;
+        System.out.println(myQuestion.toString());
         for (int i = 0; i < theRows; i++) {
             for (int j = 0; j < theCols; j++) {
                 //break down of logic:
                 if (i == 0) {                          //If top row:
                     if (j == 0) {                      //at first position: S, E
-                        maze[i][j] = new Room(null, itr.next(), null, itr.next());
+                        maze[i][j] = new Room(null, myQuestion.get(count), null, myQuestion.get(count++));
                         //insert stuff here
                     } else if (j == theCols - 1) {  // at last position: S, W
-                        maze[i][j] = new Room(null, null, itr.next(), itr.next());
+                        maze[i][j] = new Room(null, null, myQuestion.get(count++), myQuestion.get(count++));
                     } else {                        //other positions: S, W, E <- default
-                        maze[i][j] = new Room(null, itr.next(), itr.next(), itr.next());
+                        maze[i][j] = new Room(null, myQuestion.get(count++), myQuestion.get(count++), myQuestion.get(count++));
                     }
                 } else if(j == 0 && i > 0) {        //If first column
                     if(i == theRows - 1) {          //if last row: N, E
-                        maze[i][j] = new Room(itr.next(), itr.next(), null, null);
+                        maze[i][j] = new Room(myQuestion.get(count++), myQuestion.get(count++), null, null);
                     } else {                        //other positions: N, E, S <- default
-                        maze[i][j] = new Room(itr.next(), itr.next(), null, itr.next());
+                        maze[i][j] = new Room(myQuestion.get(count++), myQuestion.get(count++), null, myQuestion.get(count++));
                     }
                 } else if (j > 0 && i == theRows - 1) { //if last row:
                     if (j == theCols - 1) {             //if last column: N, W
-                        maze[i][j] = new Room(itr.next(), null, itr.next(), null);
+                        maze[i][j] = new Room(myQuestion.get(count++), null, myQuestion.get(count++), null);
                     } else {                           //other positions: N, E, W <- default
-                        maze[i][j] = new Room(itr.next(), itr.next(), itr.next(), null);
+                        maze[i][j] = new Room(myQuestion.get(count++), myQuestion.get(count++), myQuestion.get(count++), null);
                     }
                 } else if (j == theCols - 1 && (i > 0 && i < theRows - 1)) {// Last column
-                    maze[i][j] = new Room(itr.next(), null, itr.next(), itr.next());
+                    maze[i][j] = new Room(myQuestion.get(count++), null, myQuestion.get(count++), myQuestion.get(count++));
                     //N, S, W
                 } else {            //in middle of it all, has all rooms
-                    maze[i][j] = new Room(itr.next(), itr.next(), itr.next(), itr.next());
+                    maze[i][j] = new Room(myQuestion.get(count++), myQuestion.get(count++), myQuestion.get(count++), myQuestion.get(count++));
                     //N, E, W, S
                 }
             }
+            count++;
+            System.out.println(count);
         }
         //recall: the last room is the exit point, so there are no questions
         maze[theRows - 1][theCols - 1] = new Room(null, null, null, null);

@@ -54,14 +54,14 @@ public class TriviaMaze {
      * depending on player input create a newGame,saveGame,or exitGame.
      */
     private void newGame() throws Exception {
-
         myGame.playerMovement();
-        myGame.playerMenu();
-        playerInput(getPlayerInput());
+        myGame.moreOptions();
+        myGame.triviaTopics();
         List<Question> list = pickTopic(getPlayerInputInt());
-        while(!endGame()) {
-                myMaze = new Maze(list);
-                System.out.print(this.myMaze.toString());
+
+        do {
+                this.myMaze = new Maze(list);
+                System.out.print(this.myMaze);
                 System.out.println("\nWhich direction do you want to move:");
                 playerInput(getPlayerInput());
 
@@ -69,7 +69,7 @@ public class TriviaMaze {
                 break;
             }
 
-        }
+        }while(!endGame());
     }
 
     /**
@@ -94,7 +94,6 @@ public class TriviaMaze {
     }
 
     private List<Question> pickTopic(final int theInput) {
-        myGame.triviaTopics();
         List<Question> list = new ArrayList<Question>();
         switch (theInput) {
             case 1 -> {
@@ -253,6 +252,7 @@ public class TriviaMaze {
     private boolean endGame() {
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
+            return true;
         }
 //        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
 //            && myMaze.isLocked('E') && myMaze.isLocked('W')) {
