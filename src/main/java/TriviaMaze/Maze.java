@@ -43,6 +43,7 @@ public class Maze {
      */
     public Maze(List<Question> theQuestions) throws Exception {
         this(4, 4,theQuestions);
+        myQuestion = theQuestions;
     }
 
     /**
@@ -230,6 +231,20 @@ public class Maze {
         } else {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
+    }
+
+    int getQuestionType(){
+        int myInput = 0;
+        if(myQuestion.hashCode() == -1611307122){
+            myInput = 1;
+        } if (myQuestion.hashCode() == 2088514713){
+            myInput = 2;
+        } if (myQuestion.hashCode() == -1717513987){
+            myInput = 3;
+        } if (myQuestion.hashCode() == -1890575511){
+            myInput = 4;
+        }
+        return myInput;
     }
 
     /**

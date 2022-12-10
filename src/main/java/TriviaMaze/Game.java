@@ -49,6 +49,7 @@ public class Game {
      void moreOptions() {
         System.out.println("""
                 More Options:
+                N) New Game
                 L) Save Game
                 E) Exit Game
                 """);
