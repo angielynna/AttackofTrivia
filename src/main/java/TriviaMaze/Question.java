@@ -16,7 +16,8 @@ import java.io.Serializable;
  * @version Autumn 2022
  */
 
-public class Question {
+public class Question implements Serializable {
+    private static final long serialVersionUID = 1;
 
     /** holds question.*/
     private String myQuestion;
@@ -42,6 +43,7 @@ public class Question {
             this.myAnswerOptions = theAnswerOptions;
 
     }
+
 
     /**
      * Returns question.

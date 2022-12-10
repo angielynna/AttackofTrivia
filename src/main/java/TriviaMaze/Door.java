@@ -16,7 +16,8 @@ import java.io.Serializable;
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022
  */
-public class Door {
+public class Door implements Serializable {
+    private static final long serialVersionUID = 2;
     /** Holds Question object associated with this door.*/
     private final Question myQuestion;
 
@@ -62,10 +63,10 @@ public class Door {
     /**
      * lockDoor locks the current door.
      */
-    private void lockDoor() {
+    boolean lockDoor() {
         myStatus = true;
+        return true;
     }
-
     /**
      * returns the locked status of the door.
      *

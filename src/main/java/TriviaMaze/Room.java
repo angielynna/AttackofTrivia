@@ -6,7 +6,7 @@
 package TriviaMaze;
 
 import java.util.Arrays;
-
+import java.io.Serializable;
 /**
  * Room class instantiates Door objects (maximum of 4).
  * Model
@@ -15,7 +15,8 @@ import java.util.Arrays;
  * @version Autumn 2022
  */
 
-public class Room {
+public class Room implements Serializable {
+    private static final long serialVersionUID = 3;
     /** North door object.*/
     final Door myNorth;
 

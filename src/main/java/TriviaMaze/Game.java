@@ -6,7 +6,7 @@
 package TriviaMaze;
 
 import java.io.*;
-
+import java.io.Serializable;
 
 /**
  * Game displays all necessary information to the player (view), calls the
@@ -17,8 +17,8 @@ import java.io.*;
  * @version Autumn 2022
  */
 
-public class Game {
-
+public class Game implements Serializable {
+    private static final long serialVersionUID = 5;
     /**
      * Displays menu for the TriviaMaze.
      */
@@ -70,13 +70,14 @@ public class Game {
      * @param theData
      * @param theFileName
      */
-    static void saveGame(final Object theData, final String theFileName) {
+    static void saveGame(final Serializable theData, final String theFileName) {
         try {
             FileOutputStream file = new FileOutputStream(theFileName);
             ObjectOutputStream out = new ObjectOutputStream(file);
             out.writeObject(theData);
             out.close();
             file.close();
+            System.out.println("Game has been Saved");
         } catch (IOException e) {
             System.out.println("I/O exception:\n");
             e.printStackTrace();
@@ -94,6 +95,7 @@ public class Game {
             ObjectInputStream in = new ObjectInputStream(file);
             in.close();
             file.close();
+            System.out.println(in.read());
             return in.readObject();
         } catch (IOException e) {
             System.out.println("I/O exception:\n");

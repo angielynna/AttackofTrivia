@@ -3,7 +3,7 @@
  * 12/15/2022
  */
 package TriviaMaze;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,7 +20,8 @@ import java.util.Scanner;
  * @version Autumn 2022
  */
 
-public class TriviaMaze {
+public class TriviaMaze implements Serializable {
+    private static final long serialVersionUID = 6;
 
     private static final int ONE = 1;
     private static final int TWO = 2;
@@ -175,7 +176,7 @@ public class TriviaMaze {
             case "s" -> movePlayerSouth();
             case "d" -> movePlayerEast();
             case "n" -> startGame();
-            case "l" -> myGame.saveGame(this.myMaze, "TriviaMaze.ser");
+            case "l" -> Game.saveGame(this.myMaze, "TriviaMaze.ser");
             case "e" -> {System.out.println("Thank you for playing");
                 System.exit(0);
             }
@@ -205,7 +206,7 @@ public class TriviaMaze {
             myMaze.move('N');
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
-            myMaze.isLocked('N');
+            myMaze.Locked('N');
         }
     }
 
@@ -220,7 +221,7 @@ public class TriviaMaze {
             myMaze.move('W');
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
-            myMaze.isLocked('W');
+            myMaze.Locked('W');
         }
     }
 
@@ -235,7 +236,8 @@ public class TriviaMaze {
             myMaze.move('E');
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
-            myMaze.isLocked('E');
+            myMaze.Locked('E');
+
         }
     }
 
@@ -251,7 +253,7 @@ public class TriviaMaze {
                 myMaze.move('S');
             } else {
                 System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
-                myMaze.isLocked('S');
+                myMaze.Locked('S');
             }
         }
     }

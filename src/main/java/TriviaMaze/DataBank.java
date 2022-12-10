@@ -9,8 +9,9 @@ import java.util.*;
 import java.io.*;
 import java.sql.*;
 import org.sqlite.SQLiteDataSource;
+import java.io.Serializable;
 
-public class DataBank {
+public class DataBank implements Serializable  {
     // The question database.
     SQLiteDataSource myDs;
 

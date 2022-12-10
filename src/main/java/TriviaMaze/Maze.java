@@ -20,7 +20,8 @@ import java.util.List;
  * @version Autumn 2022
  */
 
-public class Maze {
+public class Maze implements Serializable {
+    private static final long serialVersionUID = 4;
 
     /** 2D array of Room.*/
     private final Room[][] myMaze;
@@ -232,18 +233,32 @@ public class Maze {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
     }
+    public boolean Locked(final char theDirection) {
+        if (Character.toUpperCase(theDirection) == 'N') {
+            return myMaze[myRow][myCol].myNorth.lockDoor();
+        } else if (Character.toUpperCase(theDirection) == 'E') {
+            return myMaze[myRow][myCol].myEast.lockDoor();
+        }  else if (Character.toUpperCase(theDirection) == 'S') {
+            return myMaze[myRow][myCol].mySouth.lockDoor();
+        } else if (Character.toUpperCase(theDirection) == 'W') {
+            return myMaze[myRow][myCol].myWest.lockDoor();
+        } else {
+            throw new IllegalArgumentException("ERROR! Direction is invalid.");
+        }
+    }
 
     int getQuestionType(){
         int myInput = 0;
-        if(myQuestion.hashCode() == -1611307122){
+        if(myQuestion.hashCode() == -1604025196){
             myInput = 1;
-        } if (myQuestion.hashCode() == 2088514713){
+        } if (myQuestion.hashCode() == -1921522889){
             myInput = 2;
-        } if (myQuestion.hashCode() == -1717513987){
+        } if (myQuestion.hashCode() == 162359501){
             myInput = 3;
         } if (myQuestion.hashCode() == -1890575511){
             myInput = 4;
         }
+        System.out.println(myInput);
         return myInput;
     }
 
