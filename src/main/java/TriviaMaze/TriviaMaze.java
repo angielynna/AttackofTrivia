@@ -84,7 +84,7 @@ public class TriviaMaze implements Serializable {
             newGame();
         } else if (input == TWO) {
             System.out.println("Loaded game.");
-            Game.loadGame("TriviaMaze.ser");
+            Game.loadGame();
         } else if (input == THREE) {
             System.out.println("Thank you for playing");
             System.exit(0);
@@ -177,7 +177,7 @@ public class TriviaMaze implements Serializable {
             case "s" -> movePlayerSouth();
             case "d" -> movePlayerEast();
             case "n" -> startGame();
-            case "l" -> Game.saveGame(this.myMaze, "TriviaMaze.ser");
+            case "l" -> Game.saveGame(this.myMaze);
             case "e" -> {System.out.println("Thank you for playing");
                 System.exit(0);
             }

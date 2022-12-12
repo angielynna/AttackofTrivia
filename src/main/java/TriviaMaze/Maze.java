@@ -288,15 +288,16 @@ public class Maze implements Serializable {
 
     int getQuestionType(){
         int myInput = 0;
-        if(myQuestion.hashCode() == -1604025196){
+        if(myQuestion.hashCode() == -1604025196 || myQuestion.hashCode() == 2011654487){
             myInput = 1;
-        } if (myQuestion.hashCode() == -1921522889){
+        } if (myQuestion.hashCode() == -1921522889 || myQuestion.hashCode() == -1018561296){
             myInput = 2;
-        } if (myQuestion.hashCode() == 162359501){
+        } if (myQuestion.hashCode() == 162359501 || myQuestion.hashCode() == 203761585){
             myInput = 3;
-        } if (myQuestion.hashCode() == -1890575511){
+        } if (myQuestion.hashCode() == -1890575511 || myQuestion.hashCode() == 2065094921){
             myInput = 4;
         }
+
         return myInput;
     }
 

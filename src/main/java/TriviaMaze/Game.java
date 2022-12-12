@@ -70,11 +70,11 @@ public class Game implements Serializable {
      * @param theData
      * @param theFileName
      */
-    static void saveGame(final Serializable theData, final String theFileName) {
+    static void saveGame(final Maze myMaze) {
         try {
-            FileOutputStream file = new FileOutputStream(theFileName);
+            FileOutputStream file = new FileOutputStream("TriviaMaze.ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(theData);
+            out.writeObject(myMaze);
             out.close();
             file.close();
             System.out.println("Game has been Saved");
@@ -89,14 +89,16 @@ public class Game implements Serializable {
      * @param theFileName
      * @return in.readObject();
      */
-    static Object loadGame(final String theFileName) {
+    static Object loadGame() {
+        Maze myMaze = null;
         try {
-            FileInputStream file = new FileInputStream(theFileName);
+            FileInputStream file = new FileInputStream("TriviaMaze.ser");
             ObjectInputStream in = new ObjectInputStream(file);
+            myMaze = (Maze) in.readObject();
             in.close();
             file.close();
-            System.out.println(in.read());
-            return in.readObject();
+
+
         } catch (IOException e) {
             System.out.println("I/O exception:\n");
             e.printStackTrace();
@@ -105,7 +107,7 @@ public class Game implements Serializable {
             e.printStackTrace();
             }
 
-        return null;
+        return myMaze;
     }
 
 }
