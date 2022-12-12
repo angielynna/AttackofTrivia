@@ -123,7 +123,7 @@ public class Maze implements Serializable {
      * @param theCol
      */
     void setLocation(final int theRow, final int theCol) {
-        if (theRow >= myMaze.length || theCol >= myMaze.length
+        if (theRow >= myMaze.length || theCol >= myMaze[0].length
                 || theRow < 0 || theCol < 0) {
             throw new IllegalArgumentException("Provided invalid row or column.");
         }
@@ -138,7 +138,7 @@ public class Maze implements Serializable {
      * @param theDirection
      */
     protected void move(final char theDirection) {
-        myMaze.toString().concat("*");
+
         char ch = Character.toUpperCase(theDirection);
         if (ch == 'S' && canMoveSouth()) {
             myRow++;
@@ -159,7 +159,16 @@ public class Maze implements Serializable {
      * @return boolean
      */
     boolean canMoveSouth() {
-        if ((myRow + 1 >= myMaze.length) || myMaze[myRow + 1][myCol].mySouth == null) {  //if it contains south door
+        if ((myRow + 1 >= myMaze.length) || myMaze[myRow + 1][myCol].mySouth == null
+                || myMaze[myRow+1][myCol].mySouth.isLocked()) {  //if it contains south door
+            return false;
+        } else {
+            return true;
+        }
+    }
+    boolean canMoveSouth(int theRow, int theCol) {
+        if ((theRow + 1 >= myMaze.length) || myMaze[theRow + 1][theCol].mySouth == null
+                || myMaze[theRow+1][theCol].mySouth.isLocked()) {  //if it contains south door
             return false;
         } else {
             return true;
@@ -172,7 +181,16 @@ public class Maze implements Serializable {
      * @return boolean
      */
     boolean canMoveNorth() {
-        if ((myRow - 1 < 0) || myMaze[myRow - 1][myCol].myNorth == null) {  //if it contains north door
+        if ((myRow - 1 < 0)
+                || myMaze[myRow-1][myCol].myNorth.isLocked()) {  //if it contains north door
+            return false;
+        } else {
+            return true;
+        }
+    }
+    boolean canMoveNorth(int theRow, int theCol) {
+        if ((theRow - 1 < 0)
+                || myMaze[theRow-1][theCol].myNorth.isLocked()) {  //if it contains north door
             return false;
         } else {
             return true;
@@ -185,7 +203,16 @@ public class Maze implements Serializable {
      * @return boolean
      */
     boolean canMoveEast() {
-        if ((myCol + 1 >= myMaze[0].length) || myMaze[myRow][myCol + 1].myEast == null) {  //if it contains east door
+        if ((myCol + 1 >= myMaze[0].length)
+                || myMaze[myRow][myCol+1].myEast.isLocked()) {  //if it contains east door
+            return false;
+        } else {
+            return true;
+        }
+    }
+    boolean canMoveEast(int theRow, int theCol) {
+        if (( theCol + 1 >= myMaze[0].length)
+                || myMaze[theRow][theCol+1].myEast.isLocked()) {  //if it contains east door
             return false;
         } else {
             return true;
@@ -198,7 +225,16 @@ public class Maze implements Serializable {
      * @return boolean
      */
     boolean canMoveWest() {
-        if ((myCol - 1 < 0) || (myMaze[myRow][myCol - 1].myWest == null)) {  //if it contains west door
+        if ((myCol - 1 < 0)
+                || myMaze[myRow][myCol-1].myWest.isLocked()) {  //if it contains west door
+            return false;
+        } else {
+            return true;
+        }
+    }
+    boolean canMoveWest(int theRow, int theCol) {
+        if ((theCol - 1 < 0)
+                || myMaze[theRow][theCol-1].myWest.isLocked()) {  //if it contains west door
             return false;
         } else {
             return true;
@@ -213,7 +249,9 @@ public class Maze implements Serializable {
     boolean atLastRoom() {
         return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
     }
-
+    boolean atLastRoom(int theRow, int theCol) {
+        return theRow == myMaze.length - 1 && theCol == myMaze[0].length - 1;
+    }
     /**
      * Checks to see if the door (specified in the parameter) is locked
      *
@@ -259,7 +297,6 @@ public class Maze implements Serializable {
         } if (myQuestion.hashCode() == -1890575511){
             myInput = 4;
         }
-        System.out.println(myInput);
         return myInput;
     }
 
@@ -289,6 +326,49 @@ public class Maze implements Serializable {
     public Room[][] getMaze() {
         return Arrays.copyOf(myMaze, myMaze.length);
     }
+
+//    public boolean outOfOptions(int theRow, int theCol) {
+//        boolean success = false;
+//        if (isValidMove(theRow, theCol)) {
+////        System.out.println("DEBUG - tried to move to " + theRow + ", " + theCol);
+////            markVisited(theRow,theCol); //drop a bread crumb to track we've been here
+//            if (atLastRoom(theRow, theCol)) {
+//                return true;
+//            }
+//            //not at exit so need to try other directions
+//
+//
+//            if (canMoveSouth(theRow,theCol)) {
+//                success = outOfOptions(theRow + 1, theCol);//South
+//                System.out.println("south");
+//
+//            }
+//            if (canMoveEast(theRow,theCol)) {
+//                success = outOfOptions(theRow, theCol + 1); //East
+//                System.out.println("east");
+//
+//            }
+//            if (canMoveNorth(theRow,theCol)) {
+//                success = outOfOptions(theRow - 1, theCol); //North
+//                System.out.println("north");
+//
+//            }
+//            if (canMoveWest(theRow,theCol)) {
+//                success = outOfOptions(theRow, theCol - 1); //West
+//                System.out.println("west");
+//
+//            }
+//
+//            //markDeadEnd(theRow, theCol);
+//        }
+//        return success;
+//    }
+    boolean isValidMove(int theRow, int theCol) {
+
+            return (theRow < myMaze.length && theCol < myMaze[0].length
+                    && theRow >= 0 && theCol >= 0);
+        }
+
 
     /**
      * returns String representation of maze

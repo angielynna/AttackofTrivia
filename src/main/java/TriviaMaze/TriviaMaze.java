@@ -300,14 +300,13 @@ public class TriviaMaze implements Serializable {
     private boolean endGame() {
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
+        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
+                && myMaze.isLocked('E') && myMaze.isLocked('W')) {
+            System.out.println("You've LOST the game");
+
             return true;
         }
-//        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
-//            && myMaze.isLocked('E') && myMaze.isLocked('W')) {
-//        System.out.println("You've LOST the game");
-
-    return false;
-
+        return false;
     }
 
 }
