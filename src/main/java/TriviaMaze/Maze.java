@@ -22,6 +22,9 @@ public class Maze {
     /** 2D array of Room.*/
     private final Room[][] myMaze;
 
+    /** 2D char array for displaying the maze*/
+    private final char[][] myDisplayMaze;
+
     /** Holds data.*/
     private String myData;  //can change, probably will lol
 
@@ -54,6 +57,8 @@ public class Maze {
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
         myCol = 0;
+        myDisplayMaze = buildDisplay(theRows, theCols);
+        
     }
 
     /**
@@ -105,6 +110,15 @@ public class Maze {
         return maze;
     }
 
+    private char[][] buildDisplay(int theRows, int theCols) {
+        final char[][] displayArr = new char[theRows][theCols];
+        for (char[] arr : displayArr) {
+            Arrays.fill(arr, '*');
+        }
+        displayArr[0][0] = 'P';
+        return displayArr;
+    }
+
     /**
      * sets the player location.
      *
@@ -116,8 +130,10 @@ public class Maze {
                 || theRow < 0 || theCol < 0) {
             throw new IllegalArgumentException("Provided invalid row or column.");
         }
+        myDisplayMaze[myRow][myCol] = ' ';
         myRow = theRow;
         myCol = theCol;
+        myDisplayMaze[theRow][theCol] = 'P';
     }
 
     /**
@@ -127,6 +143,8 @@ public class Maze {
      * @param theDirection
      */
     protected void move(final char theDirection) {
+        myDisplayMaze[myRow][myCol] = 'T';
+
         char ch = Character.toUpperCase(theDirection);
         if (ch == 'S' && canMoveSouth()) {
             myRow++;
@@ -139,6 +157,7 @@ public class Maze {
         } else {
             throw new IllegalArgumentException("Can not move in the direction provided.");
         }
+        myDisplayMaze[myRow][myCol] = 'P';
     }
 
     /**
@@ -222,6 +241,10 @@ public class Maze {
         }
     }
 
+    char[][] getDisplayMaze() {
+        return Arrays.copyOf(myDisplayMaze, myDisplayMaze.length);
+    }
+
     /**
      * returns players current row.
      *
@@ -256,7 +279,16 @@ public class Maze {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append(myMaze.toString());
+        sb.append("__________\n");
+        for(int i = 0; i < myDisplayMaze.length; i++) {
+            sb.append("|");
+            for (int j = 0; j < myDisplayMaze[0].length; j++) {
+                sb.append(myDisplayMaze[i][j]);
+                sb.append(" ");
+            }
+            sb.append("|\n");
+        }
+        sb.append("----------\n");
         return sb.toString();
     }
 
