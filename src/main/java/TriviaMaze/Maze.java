@@ -36,13 +36,15 @@ public class Maze implements Serializable {
 
     private List<Question> myQuestion;
 
+    private final String myTopic;
+
     //may need a separate private display maze
 
     /**
      * default maze constructor, for when no params are sent: 4 by 4 by default
      */
-    public Maze(List<Question> theQuestions) throws Exception {
-        this(4, 4,theQuestions);
+    public Maze(List<Question> theQuestions, String theTopic) throws Exception {
+        this(4, 4,theQuestions, theTopic);
         myQuestion = theQuestions;
     }
 
@@ -52,12 +54,13 @@ public class Maze implements Serializable {
      * @param theRows
      * @param theCols
      */
-    public Maze(final int theRows, final int theCols, List<Question> theQuestions) throws Exception {
+    public Maze(final int theRows, final int theCols, List<Question> theQuestions, String theTopic) throws Exception {
         if(theRows < 1 || theCols < 1) {
             throw new IllegalArgumentException("ERROR! Number of rows and/or columns"
                     + " cannot be zero or less!");
         }
         myQuestion = theQuestions;
+        myTopic = theTopic;
         myMaze = buildMaze(theRows, theCols);
         myRow = 0;
         myCol = 0;
@@ -286,19 +289,8 @@ public class Maze implements Serializable {
     }
 
 
-    int getQuestionType(){
-        int myInput = 0;
-        if(myQuestion.hashCode() == -1604025196 || myQuestion.hashCode() == 2011654487){
-            myInput = 1;
-        } if (myQuestion.hashCode() == -1921522889 || myQuestion.hashCode() == -1018561296){
-            myInput = 2;
-        } if (myQuestion.hashCode() == 162359501 || myQuestion.hashCode() == 203761585){
-            myInput = 3;
-        } if (myQuestion.hashCode() == -1890575511 || myQuestion.hashCode() == 2065094921){
-            myInput = 4;
-        }
-
-        return myInput;
+    String getQuestionType(){
+        return myTopic;
     }
 
     /**

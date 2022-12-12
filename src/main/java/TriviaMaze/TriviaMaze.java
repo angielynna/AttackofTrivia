@@ -57,9 +57,21 @@ public class TriviaMaze implements Serializable {
         myGame.playerMovement();
         myGame.moreOptions();
         myGame.triviaTopics();
-        List<Question> list = pickTopic(getPlayerInputInt());
-        System.out.println(list.hashCode());
-        this.myMaze = new Maze(list);
+        int topic = getPlayerInputInt();
+        List<Question> list = pickTopic(topic);
+        String str;
+        if (topic == 1) {
+            str = "Friends";
+        } else if(topic == 2) {
+            str = "Bollywood";
+        } else if(topic == 3) {
+            str = "Horror";
+        } else if(topic == 4){
+            str = "Random";
+        } else {
+            throw new Exception("Invalid Input.");
+        }
+        this.myMaze = new Maze(list, str);
         do {
 
                 System.out.print(myMaze.toString());
@@ -194,7 +206,7 @@ public class TriviaMaze implements Serializable {
 /**
 * Moves player North.
 */
-    private void movePlayerNorth() {
+    private void movePlayerNorth() throws Exception {
         if (myMaze.isLocked('N')) {
             System.out.println("You cannot move North");
         } else if (askQuestion()) {
@@ -209,7 +221,7 @@ public class TriviaMaze implements Serializable {
 /**
 * Moves player West.
 */
-    private void movePlayerWest() {
+    private void movePlayerWest() throws Exception {
         if (myMaze.isLocked('W')) {
             System.out.println("You cannot move West");
         } else if (askQuestion()) {
@@ -224,7 +236,7 @@ public class TriviaMaze implements Serializable {
 /**
 * Moves player East.
 */
-    private void movePlayerEast() {
+    private void movePlayerEast() throws Exception {
         if (myMaze.isLocked('E')) {
             System.out.println("You cannot move East");
         } else if (askQuestion()) {
@@ -240,7 +252,7 @@ public class TriviaMaze implements Serializable {
 /**
 * Moves player South.
 */
-    private void movePlayerSouth() {
+    private void movePlayerSouth() throws Exception {
         if (myMaze.isLocked('S')) {
             System.out.println("You cannot move South");
         } else {
@@ -254,32 +266,31 @@ public class TriviaMaze implements Serializable {
         }
     }
 
-    private boolean askQuestion() {
+    private boolean askQuestion() throws Exception {
 //        myMaze.[door],.promptQuestion();
 //        playerAnswer = whatever
 //        Return playerAnswer == myMaze.[door].isCorrect();
-        int myInput = myMaze.getQuestionType();
+        String myInput = myMaze.getQuestionType();
         Question question = null;
-        if (myInput == 1) {
+        if (myInput.equals("Friends")) {
             question = myDataBank.getFriendsQuestion();
             System.out.println(question.promptQuestion());
             System.out.println("Enter your answer a,b,c,d:\n");
 
-        } else if (myInput == 2) {
+        } else if (myInput.equals("Bollywood")) {
             question = myDataBank.getBollywoodQuestion();
             System.out.println(question.promptQuestion());
             System.out.println("Enter your answer a,b,c,d:\n");
-        }else if (myInput == 3) {
+        }else if (myInput.equals("Horror")) {
             question = myDataBank.getHorrorQuestion();
             System.out.println(question.promptQuestion());
             System.out.println("Enter your answer a,b,c,d:\n");
-        } else if (myInput == 4) {
+        } else if (myInput.equals("Random")) {
             question = myDataBank.getRandomQuestion();
             System.out.println(question.promptQuestion());
             System.out.println("Enter your answer a,b,c,d:\n");
         } else {
-            System.out.println("Invalid Input: Try Again");
-
+            throw new Exception("Invalid Input");
         }
         assert question != null;
         return question.isCorrect(myScanner.nextLine().toUpperCase());
