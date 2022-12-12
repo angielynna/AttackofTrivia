@@ -93,6 +93,6 @@ public class Room implements Serializable {
     }
 
     public boolean visited() {
-        return this.visited;
+        return this.visited = true;
     }
 }

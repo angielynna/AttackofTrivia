@@ -64,8 +64,7 @@ public class Door implements Serializable {
      * lockDoor locks the current door.
      */
     boolean lockDoor() {
-        myStatus = true;
-        return true;
+        return myStatus = true;
     }
     /**
      * returns the locked status of the door.

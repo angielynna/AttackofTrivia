@@ -7,7 +7,6 @@ package TriviaMaze;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -139,6 +138,7 @@ public class Maze implements Serializable {
      * @param theDirection
      */
     protected void move(final char theDirection) {
+        myMaze.toString().concat("*");
         char ch = Character.toUpperCase(theDirection);
         if (ch == 'S' && canMoveSouth()) {
             myRow++;
@@ -246,6 +246,7 @@ public class Maze implements Serializable {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
     }
+
 
     int getQuestionType(){
         int myInput = 0;

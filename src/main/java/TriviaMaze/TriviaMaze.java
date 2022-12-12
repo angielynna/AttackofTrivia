@@ -33,7 +33,7 @@ public class TriviaMaze implements Serializable {
     /** holds current game.*/
     private final Game myGame;
     /** holds Scanner for game.*/
-    private final Scanner myScanner;
+    private transient final Scanner myScanner;
     private final DataBank myDataBank;
     private Maze myMaze;
 
@@ -125,6 +125,7 @@ public class TriviaMaze implements Serializable {
     }
 
 
+
 //    private void chosenTopic(int theInput) {
 //        Question question = null;
 //        if (theInput == 1) {
@@ -188,12 +189,7 @@ public class TriviaMaze implements Serializable {
 }
 
 
-/**
-* sets player location to default location: (0, 0).
-*/
-    private void setPlayerLocation() {
-        myMaze.setLocation(0, 0);
-    }
+
 
 /**
 * Moves player North.

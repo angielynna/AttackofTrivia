@@ -8,17 +8,17 @@
 //
 //    @Test
 //    void createIllegalRowMaze() {
-//        assertThrows(IllegalArgumentException.class, () -> new Maze(0, 3));
+//        assertThrows(IllegalArgumentException.class, () -> new Maze(0, 3, null));
 //    }
 //
 //    @Test
 //    void createIllegalColMaze() {
-//        assertThrows(IllegalArgumentException.class, () -> new Maze(3, 0));
+//        assertThrows(IllegalArgumentException.class, () -> new Maze(3, 0, null));
 //    }
 //
 //    @Test
 //    void createIllegalMaze() {
-//        assertThrows(IllegalArgumentException.class, () -> new Maze(0, 0));
+//        assertThrows(IllegalArgumentException.class, () -> new Maze(0, 0, null));
 //    }
 //
 //    @Test
