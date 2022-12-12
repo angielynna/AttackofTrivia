@@ -215,6 +215,7 @@ public class TriviaMaze implements Serializable {
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.Locked('N');
+            myMaze.setLocked(myMaze.getRow()-1, myMaze.getCol());
         }
     }
 
@@ -230,6 +231,7 @@ public class TriviaMaze implements Serializable {
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.Locked('W');
+            myMaze.setLocked(myMaze.getRow(), myMaze.getCol()-1);
         }
     }
 
@@ -245,6 +247,7 @@ public class TriviaMaze implements Serializable {
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.Locked('E');
+            myMaze.setLocked(myMaze.getRow(), myMaze.getCol()+1);
 
         }
     }
@@ -262,6 +265,7 @@ public class TriviaMaze implements Serializable {
             } else {
                 System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
                 myMaze.Locked('S');
+                myMaze.setLocked(myMaze.getRow()+1, myMaze.getCol());
             }
         }
     }
@@ -313,6 +317,7 @@ public class TriviaMaze implements Serializable {
             System.out.println("You've won the game!!!");
         } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
                 && myMaze.isLocked('E') && myMaze.isLocked('W')) {
+            System.out.println(this.myMaze.toString());
             System.out.println("You've LOST the game");
 
             return true;
