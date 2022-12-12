@@ -16,7 +16,8 @@ import java.io.Serializable;
  * @version Autumn 2022
  */
 
-public class Question {
+public class Question implements Serializable {
+    private static final long serialVersionUID = 1;
 
     /** holds question.*/
     private String myQuestion;
@@ -36,14 +37,13 @@ public class Question {
      */
     public Question(final String theQuestion, final String theAnswerOptions,
                     final String theCorrectAnswer) {
-        if (theQuestion.equals(null) || theCorrectAnswer.equals(null) || theAnswerOptions.equals(null)) {
-            throw new IllegalArgumentException("Input is incorrect!");
-        } else {
-            myQuestion = theQuestion;
-            myCorrectAnswer = theCorrectAnswer;
-            myAnswerOptions = theAnswerOptions;
-        }
+
+            this.myQuestion = theQuestion;
+            this.myCorrectAnswer = theCorrectAnswer;
+            this.myAnswerOptions = theAnswerOptions;
+
     }
+
 
     /**
      * Returns question.
@@ -51,7 +51,11 @@ public class Question {
      * @return myQuestion
      */
     public String getQuestion() {
-        return myQuestion;
+        if(myQuestion.isEmpty() || myQuestion.equals(null)) {
+            throw new IllegalArgumentException("ERROR! Question is empty!");
+        } else {
+            return myQuestion;
+        }
     }
 
     /**
@@ -60,7 +64,11 @@ public class Question {
      * @return myCorrectAnswer
      */
     public String getAnswer() {
-        return myCorrectAnswer;
+        if(myCorrectAnswer.isEmpty() || myCorrectAnswer.equals(null)) {
+            throw new IllegalArgumentException("ERROR! Correct answer is empty!");
+        } else {
+            return myCorrectAnswer;
+        }
     }
 
     /**

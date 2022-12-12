@@ -16,7 +16,8 @@ import java.io.Serializable;
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022
  */
-public class Door {
+public class Door implements Serializable {
+    private static final long serialVersionUID = 2;
     /** Holds Question object associated with this door.*/
     private final Question myQuestion;
 
@@ -28,8 +29,6 @@ public class Door {
      * and sets locked status to false.
      *
      * @param theQuestion
-     * @param theAnsOptions
-     * @param theCorrectAns
      */
     public Door(final String theQuestion, final String theAnsOptions,
                 final String theCorrectAns) throws Exception {
@@ -64,10 +63,9 @@ public class Door {
     /**
      * lockDoor locks the current door.
      */
-    private void lockDoor() {
-        myStatus = true;
+    boolean lockDoor() {
+        return myStatus = true;
     }
-
     /**
      * returns the locked status of the door.
      *

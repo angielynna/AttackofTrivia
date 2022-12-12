@@ -5,13 +5,8 @@
 
 package TriviaMaze;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.io.Serializable;
-import java.io.FileOutputStream;
-import java.util.Scanner;
 
 /**
  * Game displays all necessary information to the player (view), calls the
@@ -22,8 +17,8 @@ import java.util.Scanner;
  * @version Autumn 2022
  */
 
-public class Game {
-
+public class Game implements Serializable {
+    private static final long serialVersionUID = 5;
     /**
      * Displays menu for the TriviaMaze.
      */
@@ -51,25 +46,38 @@ public class Game {
     /**
      * Displays player menu.
      */
-     void playerMenu() {
+     void moreOptions() {
         System.out.println("""
-                Menu:
+                More Options:
                 N) New Game
                 L) Save Game
                 E) Exit Game
                 """);
     }
 
+    void triviaTopics() {
+        System.out.println("""
+                Pick a Topic:
+                1) Friends
+                2) Bollywood
+                3) Horror
+                4) Random
+                """);
+    }
+
     /**
      * Saves the game.
+     * @param theData
+     * @param theFileName
      */
-    static void saveGame(final Object theData, final String theFileName) {
+    static void saveGame(final Maze myMaze) {
         try {
-            FileOutputStream file = new FileOutputStream(theFileName);
+            FileOutputStream file = new FileOutputStream("TriviaMaze.ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(theData);
+            out.writeObject(myMaze);
             out.close();
             file.close();
+            System.out.println("Game has been Saved");
         } catch (IOException e) {
             System.out.println("I/O exception:\n");
             e.printStackTrace();
@@ -78,25 +86,28 @@ public class Game {
 
     /**
      * Loads a previously saved game./
+     * @param theFileName
+     * @return in.readObject();
      */
-    static Object loadGame(final String theFileName) {
+    static Object loadGame() {
+        Maze myMaze = null;
         try {
-            FileInputStream file = new FileInputStream(theFileName);
+            FileInputStream file = new FileInputStream("TriviaMaze.ser");
             ObjectInputStream in = new ObjectInputStream(file);
+            myMaze = (Maze) in.readObject();
             in.close();
             file.close();
-            return in.readObject();
+
+
         } catch (IOException e) {
             System.out.println("I/O exception:\n");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found:\n");
             e.printStackTrace();
-        }
+            }
 
-        return null;
+        return myMaze;
     }
-
-
 
 }

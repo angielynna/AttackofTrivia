@@ -7,7 +7,7 @@ class DoorTest {
 
     @Test
     void questionException() {
-       assertThrows(Exception.class, () -> new Door(null,
+        assertThrows(Exception.class, () -> new Door(null,
                 "A. 1, B. 2, C. 3, D. 4", "B"));
     }
 
