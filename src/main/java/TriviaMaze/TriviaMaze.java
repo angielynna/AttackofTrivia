@@ -3,14 +3,10 @@
  * 12/15/2022
  */
 package TriviaMaze;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-//I was thinking we could connect our SQLite DataBase to TriviaMaze
-//So that when player is trying to move through a door I can ask a question
-//And depending on how they answer I'll either lock or unlock the door
 
 /**
  * TriviaMaze takes in player input and runs the game
@@ -21,25 +17,31 @@ import java.util.Scanner;
  */
 
 public class TriviaMaze implements Serializable {
+    /**Serial version ID.*/
     private static final long serialVersionUID = 6;
 
+    /**Initialize ONE*/
     private static final int ONE = 1;
+
+    /**Initialize TWO*/
     private static final int TWO = 2;
+
+    /**Initialize THREE*/
     private static final int THREE = 3;
-
-
-
 
     /** holds current game.*/
     private final Game myGame;
     /** holds Scanner for game.*/
     private transient final Scanner myScanner;
+
+    /** holds DataBank for game.*/
     private final DataBank myDataBank;
+
+    /** holds the maze for game.*/
     private Maze myMaze;
 
     /**
      * Constructor starts the game and initializes the maze.
-     *
      */
     public TriviaMaze(final DataBank theDataBank, final Game theGame, final Scanner theScanner) throws Exception {
         this.myDataBank = theDataBank;
@@ -96,7 +98,7 @@ public class TriviaMaze implements Serializable {
             newGame();
         } else if (input == TWO) {
             System.out.println("Loaded game.");
-            Game.loadGame();
+            loadGame();
         } else if (input == THREE) {
             System.out.println("Thank you for playing");
             System.exit(0);
@@ -105,6 +107,13 @@ public class TriviaMaze implements Serializable {
             myGame.gameMenu();
         }
     }
+    /**
+     * Returns a list of questions
+     * based on the topic chosen.
+     *
+     * @param theInput
+     * @return list
+     */
 
     private List<Question> pickTopic(final int theInput) {
         List<Question> list = new ArrayList<Question>();
@@ -136,44 +145,24 @@ public class TriviaMaze implements Serializable {
 
     }
 
-
-
-//    private void chosenTopic(int theInput) {
-//        Question question = null;
-//        if (theInput == 1) {
-//            question = myDataBank.getFriendsQuestion();
-//            System.out.println(question.promptQuestion());
-//            System.out.println("Enter your answer a,b,c,d:\n");
-//
-//        } else if (theInput == 2) {
-//            question = myDataBank.getBollywoodQuestion();
-//            System.out.println(question.promptQuestion());
-//            System.out.println("Enter your answer a,b,c,d:\n");
-//        }else if (theInput == 3) {
-//            question = myDataBank.getHorrorQuestion();
-//            System.out.println(question.promptQuestion());
-//            System.out.println("Enter your answer a,b,c,d:\n");
-//        } else if (theInput == 4) {
-//            question = myDataBank.getRandomQuestion();
-//            System.out.println(question.promptQuestion());
-//            System.out.println("Enter your answer a,b,c,d:\n");
-//        } else {
-//            System.out.println("Invalid Input: Try Again");
-//
-//        }
-//        assert question != null;
-//        return question.isCorrect(myScanner.nextLine().toUpperCase());
-//
-//    }
-
     /**
-     * gets player input.
+     * gets player input as a String.
      *
      * @return input
      */
     private String getPlayerInput() {
         String input;
         input = myScanner.nextLine().toLowerCase();
+        return input;
+    }
+    /**
+     * gets player input as an Integer.
+     *
+     * @return input
+     */
+    private int getPlayerInputInt() {
+        int input;
+        input = Integer.parseInt(myScanner.nextLine());
         return input;
     }
 
@@ -189,7 +178,7 @@ public class TriviaMaze implements Serializable {
             case "s" -> movePlayerSouth();
             case "d" -> movePlayerEast();
             case "n" -> startGame();
-            case "l" -> Game.saveGame(this.myMaze);
+            case "l" -> saveGame(this.myMaze);
             case "e" -> {System.out.println("Thank you for playing");
                 System.exit(0);
             }
@@ -203,9 +192,9 @@ public class TriviaMaze implements Serializable {
 
 
 
-/**
-* Moves player North.
-*/
+    /**
+    * Moves player North.
+    */
     private void movePlayerNorth() throws Exception {
         if (myMaze.isLocked('N')) {
             System.out.println("You cannot move North");
@@ -219,9 +208,9 @@ public class TriviaMaze implements Serializable {
         }
     }
 
-/**
-* Moves player West.
-*/
+    /**
+    * Moves player West.
+    */
     private void movePlayerWest() throws Exception {
         if (myMaze.isLocked('W')) {
             System.out.println("You cannot move West");
@@ -235,9 +224,9 @@ public class TriviaMaze implements Serializable {
         }
     }
 
-/**
-* Moves player East.
-*/
+    /**
+    * Moves player East.
+    */
     private void movePlayerEast() throws Exception {
         if (myMaze.isLocked('E')) {
             System.out.println("You cannot move East");
@@ -252,9 +241,9 @@ public class TriviaMaze implements Serializable {
         }
     }
 
-/**
-* Moves player South.
-*/
+    /**
+    * Moves player South.
+    */
     private void movePlayerSouth() throws Exception {
         if (myMaze.isLocked('S')) {
             System.out.println("You cannot move South");
@@ -269,11 +258,15 @@ public class TriviaMaze implements Serializable {
             }
         }
     }
+    /**
+     * Asks player a questions
+     * and returns true if
+     * answer is correct.
+     *
+     * @return question.isCorrect(myScanner.nextLine().toUpperCase());
+     */
 
     private boolean askQuestion() throws Exception {
-//        myMaze.[door],.promptQuestion();
-//        playerAnswer = whatever
-//        Return playerAnswer == myMaze.[door].isCorrect();
         String myInput = myMaze.getQuestionType();
         Question question = null;
         if (myInput.equals("Friends")) {
@@ -300,18 +293,12 @@ public class TriviaMaze implements Serializable {
         return question.isCorrect(myScanner.nextLine().toUpperCase());
     }
 
-    private int getPlayerInputInt() {
-        int input;
-        input = Integer.parseInt(myScanner.nextLine());
-        return input;
-    }
 
 
     /**
-* ends the game when the player has reached the end or lost.
-*
-* @return false
-*/
+    * ends the game when the player has reached the end or lost.
+    * @return false
+    */
     private boolean endGame() {
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
@@ -323,6 +310,50 @@ public class TriviaMaze implements Serializable {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Saves the game.
+     * @param theMaze
+     */
+    static void saveGame(final Maze theMaze) {
+        try {
+            FileOutputStream file = new FileOutputStream("TriviaMaze.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            out.writeObject(theMaze);
+            out.close();
+            file.close();
+            System.out.println("Game has been Saved");
+        } catch (IOException e) {
+            System.out.println("I/O exception:\n");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads a previously saved game./
+     * @return myMaze
+     */
+    static Object loadGame() {
+        Maze myMaze = null;
+        try {
+            FileInputStream file = new FileInputStream("TriviaMaze.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+            myMaze = (Maze) in.readObject();
+            in.close();
+            file.close();
+
+
+        } catch (IOException e) {
+            System.out.println("I/O exception:\n");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found:\n");
+            e.printStackTrace();
+        }
+
+        return myMaze;
     }
 
 }
