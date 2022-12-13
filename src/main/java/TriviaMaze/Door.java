@@ -17,7 +17,9 @@ import java.io.Serializable;
  * @version Autumn 2022
  */
 public class Door implements Serializable {
+    /**Serial version ID.*/
     private static final long serialVersionUID = 2;
+
     /** Holds Question object associated with this door.*/
     private final Question myQuestion;
 
@@ -75,13 +77,6 @@ public class Door implements Serializable {
         return myStatus;
     }
 
-    /**
-     * returns question associated with the Door.
-     *
-     * @return myQuestion.toString()
-     */
-    public String getQuestion() {
-        return (myQuestion.toString());
-    }
+
 
 }
