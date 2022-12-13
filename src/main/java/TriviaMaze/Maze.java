@@ -256,9 +256,7 @@ public class Maze implements Serializable {
     boolean atLastRoom() {
         return myRow == myMaze.length - 1 && myCol == myMaze[0].length - 1;
     }
-    boolean atLastRoom(int theRow, int theCol) {
-        return theRow == myMaze.length - 1 && theCol == myMaze[0].length - 1;
-    }
+
     /**
      * Checks to see if the door (specified in the parameter) is locked
      *
@@ -284,7 +282,7 @@ public class Maze implements Serializable {
      * @param theDirection
      * @return boolean
      */
-    public boolean Locked(final char theDirection) {
+    public boolean locked(final char theDirection) {
         if (Character.toUpperCase(theDirection) == 'N') {
             return myMaze[myRow][myCol].myNorth.lockDoor();
         } else if (Character.toUpperCase(theDirection) == 'E') {
