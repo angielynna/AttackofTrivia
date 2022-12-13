@@ -5,6 +5,7 @@
 
 package TriviaMaze;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -18,6 +19,7 @@ import java.io.Serializable;
  */
 public class Door implements Serializable {
     /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 2;
 
     /** Holds Question object associated with this door.*/

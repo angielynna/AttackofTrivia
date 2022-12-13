@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 public class TriviaMaze implements Serializable {
     /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 6;
 
     /**Initialize ONE*/

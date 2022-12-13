@@ -5,6 +5,7 @@
 
 package TriviaMaze;
 
+        import java.io.Serial;
         import java.io.Serializable;
         import java.util.Arrays;
         import java.util.List;
@@ -21,6 +22,7 @@ package TriviaMaze;
 
 public class Maze implements Serializable {
     /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 4;
 
     /** 2D array of Room.*/
@@ -177,7 +179,7 @@ public class Maze implements Serializable {
      * @param theDirection
      */
     protected void move(final char theDirection) {
-
+        myDisplayMaze[myRow][myCol] = 'T';
         char ch = Character.toUpperCase(theDirection);
         if (ch == 'S' && canMoveSouth()) {
             myRow++;
@@ -190,6 +192,7 @@ public class Maze implements Serializable {
         } else {
             throw new IllegalArgumentException("Can not move in the direction provided.");
         }
+        myDisplayMaze[myRow][myCol] = 'P';
     }
 
     /**
