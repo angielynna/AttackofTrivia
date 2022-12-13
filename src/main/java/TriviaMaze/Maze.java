@@ -58,7 +58,7 @@ public class Maze {
         myRow = 0;
         myCol = 0;
         myDisplayMaze = buildDisplay(theRows, theCols);
-        
+
     }
 
     /**
