@@ -221,6 +221,7 @@ public class Maze implements Serializable {
         }
     }
 
+
     /**
      * Verifies that the player can move East.
      *
@@ -335,12 +336,6 @@ public class Maze implements Serializable {
         return Arrays.copyOf(myMaze, myMaze.length);
     }
 
-    boolean isValidMove(int theRow, int theCol) {
-
-        return (theRow < myMaze.length && theCol < myMaze[0].length
-                && theRow >= 0 && theCol >= 0);
-    }
-
 
     /**
      * returns String representation of maze
@@ -377,6 +372,61 @@ public class Maze implements Serializable {
         }
         sb.append("-----------------\n");
         return sb.toString();
+    }
+
+
+
+    //traverse
+
+    boolean traverse(Maze theMaze) {
+        boolean success = false;
+        System.out.println("DEBUG - tried to move to " + theMaze.getRow() + ", " + theMaze.getCol());
+            //System.out.println("Valid");
+            //markVisited(maze, row, col); //drop a bread crumb to track we've been here
+        if (atExit(theMaze.getRow(), theMaze.getCol())) {
+            //System.out.println("exit");
+            return true;
+        } else {
+            //not at exit so need to try other directions
+            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow() + 1, theMaze.getCol())
+                && !theMaze.myMaze[theMaze.getRow() + 1][theMaze.getCol()].mySouth.isLocked()) {
+                //System.out.println("row " + row + "col" + col);
+                System.out.println("down");
+                theMaze.setLocation(theMaze.getRow() + 1, theMaze.getCol());
+                success = traverse(theMaze);
+            }
+            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow(), theMaze.getCol() + 1)
+                && !theMaze.myMaze[theMaze.getRow()][theMaze.getCol() + 1].myEast.isLocked()) {
+                //System.out.println("row " + row + "col" + col);
+                System.out.println("right");
+                theMaze.setLocation(theMaze.getRow(), theMaze.getCol() + 1);
+                success = traverse(theMaze); //right
+            }
+//            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow() - 1, theMaze.getCol())
+//                    && !theMaze.myMaze[theMaze.getRow() - 1][theMaze.getCol()].myNorth.isLocked()) {
+//                //System.out.println("row " + row + "col" + col);
+//                theMaze.setLocation(theMaze.getRow() - 1, theMaze.getCol());
+//                success = traverse(theMaze);
+//            }
+//            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow(), theMaze.getCol() - 1)
+//                    && !theMaze.myMaze[theMaze.getRow()][theMaze.getCol() - 1].myWest.isLocked()) {
+//                //System.out.println("row " + row + "col" + col);
+////                System.out.println("up");
+//                theMaze.setLocation(theMaze.getRow(), theMaze.getCol() - 1);
+//                success = traverse(theMaze); //up
+//            }
+            return false;
+        }
+    }
+
+    boolean isValidMove(Room[][] theMaze, int theRow, int theCol) {
+        return (theRow < theMaze.length && theCol < theMaze[0].length
+                && theRow >= 0 && theCol >= 0 );
+    }
+
+    private boolean atExit(int row, int col) {
+
+        return row == 3 && col == 3;
     }
 
 }

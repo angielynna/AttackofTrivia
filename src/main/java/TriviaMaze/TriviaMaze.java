@@ -301,10 +301,10 @@ public class TriviaMaze implements Serializable {
      * @return false
      */
     private boolean endGame() {
+        Maze copy = myMaze;
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
-        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
-                && myMaze.isLocked('E') && myMaze.isLocked('W')) {
+        } else if (!myMaze.traverse(copy)) {
             System.out.println(this.myMaze.toString());
             System.out.println("You've LOST the game");
 
