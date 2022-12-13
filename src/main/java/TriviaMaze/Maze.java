@@ -158,17 +158,17 @@ public class Maze implements Serializable {
         myCol = theCol;
         myDisplayMaze[theRow][theCol] = 'P';
     }
-    /**
-     * Prints 'X' in Maze to show
-     * that the door is locked.
-     *
-     * @param theRow
-     * @param theCol
-     * @return myDisplayMaze[theRow][theCol] = 'X';
-     */
-    char setLocked(final int theRow, final int theCol){
-        return myDisplayMaze[theRow][theCol] = 'X';
-    }
+//    /**
+//     * Prints 'X' in Maze to show
+//     * that the door is locked.
+//     *
+//     * @param theRow
+//     * @param theCol
+//     * @return myDisplayMaze[theRow][theCol] = 'X';
+//     */
+//    char setLocked(final int theRow, final int theCol){
+//        return myDisplayMaze[theRow][theCol] = 'X';
+//    }
 
     /**
      * Changes player location.
@@ -349,16 +349,33 @@ public class Maze implements Serializable {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("__________\n");
+        sb.append("_________________\n");
         for(int i = 0; i < myDisplayMaze.length; i++) {
             sb.append("|");
             for (int j = 0; j < myDisplayMaze[0].length; j++) {
+                sb.append(' ');
                 sb.append(myDisplayMaze[i][j]);
-                sb.append(" ");
+
+                if(myMaze[i][j].myEast.exists() && myMaze[i][j].myEast.isLocked()) {
+                    sb.append(" |");
+                } else {
+                    sb.append("  ");
+                }
+            }
+            sb.append("|\n|");
+            int temp = 0;
+            while(temp < myDisplayMaze[0].length) {
+                sb.append(' ');
+                if(myMaze[i][temp].mySouth.exists() && myMaze[i][temp].mySouth.isLocked()) {
+                    sb.append("-  ");
+                } else {
+                    sb.append("   ");
+                }
+                temp++;
             }
             sb.append("|\n");
         }
-        sb.append("----------\n");
+        sb.append("-----------------\n");
         return sb.toString();
     }
 

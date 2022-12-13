@@ -28,6 +28,9 @@ public class Door implements Serializable {
     /** Holds locked status of the door.*/
     private boolean myStatus;
 
+    /**boolean if the door exists*/
+    private boolean myExistance;
+
     /**
      * Constructor calls the Question class to instantiate a new question object
      * and sets locked status to false.
@@ -47,6 +50,7 @@ public class Door implements Serializable {
         }
         myQuestion = new Question(theQuestion, theAnsOptions, theCorrectAns);
         myStatus = false;
+        myExistance = true;
 
     }
 
@@ -56,12 +60,14 @@ public class Door implements Serializable {
         }
         myQuestion = theQuestion;
         myStatus = false;
+        myExistance = true;
 
     }
 
     public Door(boolean theLockedStatus) {
         myStatus = theLockedStatus;
         myQuestion = null;
+        myExistance = false;
     }
 
     /**
@@ -79,6 +85,8 @@ public class Door implements Serializable {
         return myStatus;
     }
 
-
+    boolean exists() {
+        return myExistance;
+    }
 
 }
