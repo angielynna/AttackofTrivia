@@ -1,13 +1,21 @@
 # AttackofTrivia
-Trivia Maze for TCSS360
+Trivia Maze for TCSS360 AU 2022
+
+## Important Notes:
+Add the sqlite-jdbc-3.34.0 to the external libraries for the project.
+To add onto IntelliJ IDEA:
+
+<sub> File -> Project Structure -> Libraries -> '+' -> add the sqlite-jdbc-3.34.0 -> apply -> OK
+</sub>
 
 ## Sprint Overviews
-Current sprint: 5
-
+#### Sprint 5
+Highlights:
+Implemented working database and serialization.
 
 #### Sprint 4
 Highlights:
-Finalized entire base of code.
+Finalized entire code base.
 
 
 #### Sprint 3
@@ -18,7 +26,7 @@ Finalized Maze, Door, Question, Room classes.
 
 #### Sprint 2
 Highlights:
-Incorporated Spilled stories from Sprint 1, added Maze.java class in src folder.
+Incorporated Spilled stories from Sprint 1
 
 
 #### Sprint 1
@@ -27,5 +35,4 @@ Story number layout: 00.00.00 - Sprint Number.Team member ID.Story Number (withi
 
 
 
-
-Last Updated: 12/1/2022
+Last Updated: 12/13/2022
