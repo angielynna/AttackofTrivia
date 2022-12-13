@@ -21,6 +21,7 @@ import java.util.List;
  */
 
 public class Maze implements Serializable {
+    /**Serial version ID.*/
     @Serial
     private static final long serialVersionUID = 4;
 
@@ -36,12 +37,17 @@ public class Maze implements Serializable {
     /** current player column index.*/
     private int myCol;
 
+    /** Holds a list of questions*/
     private List<Question> myQuestion;
 
+    /** Holds the Topic*/
     private final String myTopic;
+
 
     /**
      * default maze constructor, for when no params are sent: 4 by 4 by default
+     * @param theQuestions
+     * @param theTopic
      */
     public Maze(List<Question> theQuestions, String theTopic) throws Exception {
         this(4, 4,theQuestions, theTopic);
@@ -53,6 +59,8 @@ public class Maze implements Serializable {
      *
      * @param theRows
      * @param theCols
+     * @param theQuestions
+     * @param theTopic
      */
     public Maze(final int theRows, final int theCols, List<Question> theQuestions, String theTopic) throws Exception {
         if(theRows < 1 || theCols < 1) {
@@ -78,7 +86,6 @@ public class Maze implements Serializable {
     private Room[][] buildMaze(final int theRows, final int theCols) throws Exception {
         final Room[][] maze = new Room[theRows][theCols];
         int count = 0;
-        System.out.println(myQuestion.toString());
         for (int i = 0; i < theRows; i++) {
             for (int j = 0; j < theCols; j++) {
                 //break down of logic:
@@ -112,14 +119,20 @@ public class Maze implements Serializable {
                 }
             }
             count++;
-            System.out.println(count);
         }
         //recall: the last room is the exit point, so there are no questions
         maze[theRows - 1][theCols - 1] = new Room(null, null, null, null);
         //stuff
         return maze;
     }
-
+    /**
+     * Builds and displays
+     * the maze.
+     *
+     * @param theRows
+     * @param theCols
+     * @return displayArr
+     */
     private char[][] buildDisplay(int theRows, int theCols) {
         final char[][] displayArr = new char[theRows][theCols];
         for (char[] arr : displayArr) {
@@ -145,7 +158,14 @@ public class Maze implements Serializable {
         myCol = theCol;
         myDisplayMaze[theRow][theCol] = 'P';
     }
-
+    /**
+     * Prints 'X' in Maze to show
+     * that the door is locked.
+     *
+     * @param theRow
+     * @param theCol
+     * @return myDisplayMaze[theRow][theCol] = 'X';
+     */
     char setLocked(final int theRow, final int theCol){
         return myDisplayMaze[theRow][theCol] = 'X';
     }
@@ -157,19 +177,20 @@ public class Maze implements Serializable {
      * @param theDirection
      */
     protected void move(final char theDirection) {
-
+        myDisplayMaze[myRow][myCol] = 'T';
         char ch = Character.toUpperCase(theDirection);
-        if (ch == 'S' && canMoveSouth()) {
+        if (ch == 'S') {
             myRow++;
-        } else if (ch == 'E' && canMoveEast()) {
+        } else if (ch == 'E') {
             myCol++;
-        } else if (ch == 'W' && canMoveWest()) {
+        } else if (ch == 'W') {
             myCol--;
-        } else if (ch == 'N' && canMoveNorth()) {
+        } else if (ch == 'N') {
             myRow--;
         } else {
             throw new IllegalArgumentException("Can not move in the direction provided.");
         }
+        myDisplayMaze[myRow][myCol] = 'P';
     }
 
     /**
@@ -178,8 +199,8 @@ public class Maze implements Serializable {
      * @return boolean
      */
     boolean canMoveSouth() {
-        if ((myRow + 1 >= myMaze.length) || myMaze[myRow + 1][myCol].mySouth == null
-                || myMaze[myRow+1][myCol].mySouth.isLocked()) {  //if it contains south door
+        if ((myRow + 1 >= myMaze.length) ||
+                myMaze[myRow+1][myCol].mySouth.isLocked()) {  //if it contains south door
             return false;
         } else {
             return true;
@@ -256,6 +277,12 @@ public class Maze implements Serializable {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
     }
+    /**
+     * Locks the door (specified in the parameter).
+     *
+     * @param theDirection
+     * @return boolean
+     */
     public boolean locked(final char theDirection) {
         if (Character.toUpperCase(theDirection) == 'N') {
             return myMaze[myRow][myCol].myNorth.lockDoor();
@@ -273,7 +300,10 @@ public class Maze implements Serializable {
     char[][] getDisplayMaze() {
         return Arrays.copyOf(myDisplayMaze, myDisplayMaze.length);
     }
-
+    /**
+     * Returns the topic chosen.
+     * @return myTopic
+     */
     String getQuestionType(){
         return myTopic;
     }
@@ -306,8 +336,9 @@ public class Maze implements Serializable {
     }
 
     boolean isValidMove(int theRow, int theCol) {
+
         return (theRow < myMaze.length && theCol < myMaze[0].length
-                    && theRow >= 0 && theCol >= 0);
+                && theRow >= 0 && theCol >= 0);
     }
 
 
@@ -316,7 +347,6 @@ public class Maze implements Serializable {
      *
      * @return sb.toString()
      */
-    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("__________\n");
@@ -331,4 +361,5 @@ public class Maze implements Serializable {
         sb.append("----------\n");
         return sb.toString();
     }
+
 }
