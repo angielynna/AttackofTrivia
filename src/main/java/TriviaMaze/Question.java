@@ -17,6 +17,7 @@ import java.io.Serializable;
  */
 
 public class Question implements Serializable {
+    /**Serial version ID.*/
     private static final long serialVersionUID = 1;
 
     /** holds question.*/
