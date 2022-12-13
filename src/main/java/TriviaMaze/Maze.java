@@ -5,6 +5,7 @@
 
 package TriviaMaze;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 
 public class Maze implements Serializable {
+    @Serial
     private static final long serialVersionUID = 4;
 
     /** 2D array of Room.*/
@@ -27,9 +29,6 @@ public class Maze implements Serializable {
 
     /** 2D char array for displaying the maze*/
     private final char[][] myDisplayMaze;
-
-    /** Holds data.*/
-    private String myData;  //can change, probably will lol
 
     /** current player row index.*/
     private int myRow;
