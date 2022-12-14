@@ -181,6 +181,11 @@ public class TriviaMaze implements Serializable {
             case "d" -> movePlayerEast();
             case "n" -> startGame();
             case "l" -> saveGame(this.myMaze);
+            case "q" -> {
+                myMaze.setLocation(3, 3);
+                System.out.println(myMaze.toString());
+                endGame();
+            }
             case "e" -> {System.out.println("Thank you for playing");
                 System.exit(0);
             }
