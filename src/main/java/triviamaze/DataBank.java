@@ -1,8 +1,7 @@
 package triviamaze;
-/*
- * TriviaMaze.DataBank Class
- * Version Autumn 2022
- * 11/18/2022
+/**
+ * Attack of Trivia: DataBank.java
+ * 12/15/2022
  */
 
 import java.util.*;

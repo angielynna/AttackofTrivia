@@ -34,7 +34,7 @@ public class Room implements Serializable {
 
     /**
      * Constructor instantiates all door objects based off of information
-     * sent from parameters
+     * sent from parameters.
      * Model
      *
      * @param theNorthData
@@ -42,24 +42,25 @@ public class Room implements Serializable {
      * @param theWestData
      * @param theSouthData
      */
-    public Room(Question theNorthData, Question theEastData,
-                Question theWestData, Question theSouthData) throws Exception {
-        if(theNorthData != null) {
+    public Room(final Question theNorthData, final Question theEastData,
+                final Question theWestData, final Question theSouthData)
+            throws Exception {
+        if (theNorthData != null) {
             myNorth = new Door(theNorthData);
         } else {
             myNorth = new Door(true);
         }
-        if(theEastData != null) {
+        if (theEastData != null) {
             myEast = new Door(theEastData);
         } else {
             myEast = new Door(true);
         }
-        if(theWestData != null) {
+        if (theWestData != null) {
             myWest = new Door(theWestData);
         } else {
             myWest = new Door(true);
         }
-        if(theSouthData != null) {
+        if (theSouthData != null) {
             mySouth = new Door(theSouthData);
         } else {
             mySouth = new Door(true);
