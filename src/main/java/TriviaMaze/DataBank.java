@@ -22,7 +22,7 @@ public class DataBank implements Serializable  {
     private static final int INITIAL_QUESTION_ID = 1;
 
     //The single instance of the class.
-    private static DataBank myDataBank;
+    //private static DataBank myDataBank;
 
     // List of all the bollywood questions from the database.
     private final List<Question> bollywoodQuestions;
@@ -74,18 +74,18 @@ public class DataBank implements Serializable  {
 
     }
 
-    /**
-     * Creates instance of Data bank object.
-     *
-     * @return TriviaMaze.DataBank myDataBank
-     */
-    public static DataBank getDataBank() {
-        if(myDataBank == null){
-            myDataBank = new DataBank();
-            return myDataBank;
-        }
-        return myDataBank;
-    }
+//    /**
+//     * Creates instance of Data bank object.
+//     *
+//     * @return TriviaMaze.DataBank myDataBank
+//     */
+//    public static DataBank getDataBank() {
+//        if(myDataBank == null){
+//            myDataBank = new DataBank();
+//            return myDataBank;
+//        }
+//        return myDataBank;
+//    }
 
     /**
      * Adds Tables and questions to tables in the database created.
@@ -259,7 +259,7 @@ public class DataBank implements Serializable  {
      * @return Return a copy of the list of bollywood questions.
      */
     public List<Question> getBollywoodQuestions() {
-        return new ArrayList<Question>(bollywoodQuestions);
+        return new ArrayList<>(bollywoodQuestions);
     }
 
     /**
@@ -276,7 +276,7 @@ public class DataBank implements Serializable  {
      * @return Return a copy of the list of Friends questions.
      */
     public List<Question> getFriendsQuestions() {
-        return new ArrayList<Question>(friendsQuestions);
+        return new ArrayList<>(friendsQuestions);
     }
 
     /**
@@ -293,7 +293,7 @@ public class DataBank implements Serializable  {
      * @return Return a copy of the list of horror questions.
      */
     public List<Question> getHorrorQuestions() {
-        return new ArrayList<Question>(horrorQuestions);
+        return new ArrayList<>(horrorQuestions);
     }
 
     /**
@@ -309,7 +309,7 @@ public class DataBank implements Serializable  {
      * @return Return a copy of the list of horror questions.
      */
     public List<Question> getRandomQuestions() {
-        return new ArrayList<Question>(randomQuestions);
+        return new ArrayList<>(randomQuestions);
     }
 
     /**
