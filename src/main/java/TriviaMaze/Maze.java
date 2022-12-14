@@ -375,29 +375,29 @@ public class Maze implements Serializable {
         }else if(theCount > 64){
             return false;
         } else {
-            //not at exit so need to try other directions
-            if (!success && isValidMove(theMaze, theRow + 1, theCol)
-                    && canMoveSouth(theMaze, theRow, theCol)) {
-                System.out.println(theCount);
-                theCount++;
-                success = traverse(theMaze, theRow + 1, theCol, theCount);
-            }
-            if (!success && isValidMove(theMaze, theRow, theCol + 1)
-                    && canMoveEast(theMaze, theRow, theCol)) {
-                System.out.println(theCount);
-                theCount++;
-                success = traverse(theMaze, theRow, theCol + 1, theCount); //right
-            }
-            if (!success && isValidMove(theMaze, theRow, theCol - 1)
-                    && canMoveWest(theMaze, theRow, theCol)) {
-                theCount++;
-                success = traverse(theMaze, theRow, theCol - 1, theCount);
-            }
-            if (!success && isValidMove(theMaze, theRow - 1, theCol)
-                    && canMoveNorth(theMaze, theRow, theCol)) {
-                theCount++;
-                success = traverse(theMaze, theRow - 1, theCol, theCount); //up
-            }
+                //not at exit so need to try other directions
+                if (!success && isValidMove(theMaze, theRow + 1, theCol)
+                        && canMoveSouth(theMaze, theRow, theCol)) {
+                    System.out.println(theCount);
+                    theCount++;
+                    success = traverse(theMaze, theRow + 1, theCol, theCount);
+                }
+                if (!success && isValidMove(theMaze, theRow, theCol + 1)
+                        && canMoveEast(theMaze, theRow, theCol)) {
+                    System.out.println(theCount);
+                    theCount++;
+                    success = traverse(theMaze, theRow, theCol + 1, theCount); //right
+                }
+                if (!success && isValidMove(theMaze, theRow, theCol - 1)
+                        && canMoveWest(theMaze, theRow, theCol)) {
+                    theCount++;
+                    success = traverse(theMaze, theRow, theCol - 1, theCount);
+                }
+                if (!success && isValidMove(theMaze, theRow - 1, theCol)
+                        && canMoveNorth(theMaze, theRow, theCol)) {
+                    theCount++;
+                    success = traverse(theMaze, theRow - 1, theCol, theCount); //up
+                }
 
         }
         return success;
