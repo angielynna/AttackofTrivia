@@ -2,15 +2,17 @@
  * Attack of Trivia: TriviaMaze.java
  * 12/15/2022
  */
+
 package triviamaze;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * TriviaMaze takes in player input and runs the game
- * Controller
+ * Controller.
+ * TriviaMaze takes in player input and runs the game.
  *
  * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
  * @version Autumn 2022
@@ -21,19 +23,22 @@ public class TriviaMaze implements Serializable {
     @Serial
     private static final long serialVersionUID = 6;
 
-    /**Initialize ONE*/
+    /**Initialize ONE.*/
     private static final int ONE = 1;
 
-    /**Initialize TWO*/
+    /**Initialize TWO.*/
     private static final int TWO = 2;
 
-    /**Initialize THREE*/
+    /**Initialize THREE.*/
     private static final int THREE = 3;
+
+    /** Initialize FOUR.*/
+    private static final int FOUR = 4;
 
     /** holds current game.*/
     private final Game myGame;
     /** holds Scanner for game.*/
-    private transient final Scanner myScanner;
+    private transient Scanner myScanner;
 
     /** holds DataBank for game.*/
     private final DataBank myDataBank;
@@ -43,8 +48,14 @@ public class TriviaMaze implements Serializable {
 
     /**
      * Constructor starts the game and initializes the maze.
+     *
+     * @param theDataBank
+     * @param theGame
+     * @param theScanner
+     * @throws Exception
      */
-    public TriviaMaze(final DataBank theDataBank, final Game theGame, final Scanner theScanner) throws Exception {
+    public TriviaMaze(final DataBank theDataBank, final Game theGame,
+                      final Scanner theScanner) throws Exception {
         this.myDataBank = theDataBank;
         this.myGame = theGame;
         this.myScanner = theScanner;
@@ -64,13 +75,13 @@ public class TriviaMaze implements Serializable {
         int topic = getPlayerInputInt();
         List<Question> list = pickTopic(topic);
         String str;
-        if (topic == 1) {
+        if (topic == ONE) {
             str = "Friends";
-        } else if(topic == 2) {
+        } else if (topic == TWO) {
             str = "Bollywood";
-        } else if(topic == 3) {
+        } else if (topic == THREE) {
             str = "Horror";
-        } else if(topic == 4){
+        } else if (topic == FOUR) {
             str = "Random";
         } else {
             throw new Exception("Invalid Input.");
@@ -82,11 +93,11 @@ public class TriviaMaze implements Serializable {
             System.out.println("\nWhich direction do you want to move:");
             playerInput(getPlayerInput());
 
-            if(getPlayerInput() == "e"){
+            if (getPlayerInput() == "e") {
                 break;
             }
 
-        }while(!endGame());
+        } while (!endGame());
     }
 
     /**
@@ -120,27 +131,25 @@ public class TriviaMaze implements Serializable {
     private List<Question> pickTopic(final int theInput) {
         List<Question> list = new ArrayList<Question>();
         switch (theInput) {
-            case 1 -> {
+            case ONE -> {
                 System.out.println("Topic: Friends");
                 list = myDataBank.getFriendsQuestions();
 
-            } case 2 -> {
+            } case TWO -> {
                 System.out.println("Topic: Bollywood");
                 list = myDataBank.getBollywoodQuestions();
 
-            } case 3 -> {
+            } case THREE -> {
                 System.out.println("Topic: Horror");
                 list = myDataBank.getHorrorQuestions();
 
-            } case 4 -> {
+            } case FOUR -> {
                 System.out.println("Topic: Random");
                 list = myDataBank.getRandomQuestions();
 
             } default -> {
                 System.out.println("INVALID INPUT(Select a valid option):\n");
                 myGame.triviaTopics();
-
-
             }
         }
         return list;
@@ -182,14 +191,16 @@ public class TriviaMaze implements Serializable {
             case "n" -> startGame();
             case "l" -> saveGame(this.myMaze);
             case "q" -> {
-                myMaze.setLocation(3, 3);
+                myMaze.setLocation(THREE, THREE);
                 System.out.println(myMaze.toString());
                 endGame();
             }
-            case "e" -> {System.out.println("Thank you for playing");
+            case "e" -> {
+                System.out.println("Thank you for playing");
                 System.exit(0);
             }
-            default -> {playerInput(theInput);
+            default -> {
+                playerInput(theInput);
                 System.out.println("INVALID INPUT(Select a valid option)");
             }
         }
@@ -212,7 +223,7 @@ public class TriviaMaze implements Serializable {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('N');
             myMaze.locked('S', myMaze.getRow() - 1, myMaze.getCol());
-            myMaze.getLocked(myMaze.getRow()-1, myMaze.getCol());
+            myMaze.getLocked(myMaze.getRow() - 1, myMaze.getCol());
         }
     }
 
@@ -229,7 +240,7 @@ public class TriviaMaze implements Serializable {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('W');
             myMaze.locked('E', myMaze.getRow(), myMaze.getCol() - 1);
-            myMaze.getLocked(myMaze.getRow(), myMaze.getCol()-1);
+            myMaze.getLocked(myMaze.getRow(), myMaze.getCol() - 1);
         }
     }
 
@@ -265,7 +276,7 @@ public class TriviaMaze implements Serializable {
                 System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
                 myMaze.locked('S');
                 myMaze.locked('N', myMaze.getRow() + 1, myMaze.getCol());
-                myMaze.getLocked(myMaze.getRow()+1, myMaze.getCol());
+                myMaze.getLocked(myMaze.getRow() + 1, myMaze.getCol());
             }
         }
     }
@@ -289,7 +300,7 @@ public class TriviaMaze implements Serializable {
             question = myDataBank.getBollywoodQuestion();
             System.out.println(question.promptQuestion());
             System.out.println("Enter your answer a,b,c,d:\n");
-        }else if (myInput.equals("Horror")) {
+        } else if (myInput.equals("Horror")) {
             question = myDataBank.getHorrorQuestion();
             System.out.println(question.promptQuestion());
             System.out.println("Enter your answer a,b,c,d:\n");
@@ -315,7 +326,8 @@ public class TriviaMaze implements Serializable {
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
             return true;
-        } else if (!myMaze.traverse(myMaze.getMaze(), myMaze.getRow(), myMaze.getCol(),0)) {
+        } else if (!myMaze.traverse(myMaze.getMaze(), myMaze.getRow(),
+                myMaze.getCol(), 0)) {
             System.out.println(this.myMaze.toString());
             System.out.println("You've LOST the game");
 
@@ -344,7 +356,7 @@ public class TriviaMaze implements Serializable {
     }
 
     /**
-     * Loads a previously saved game./
+     * Loads a previously saved game.
      * @return myMaze
      */
     static Object loadGame() {
