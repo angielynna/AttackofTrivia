@@ -1,4 +1,4 @@
-package TriviaMaze;
+package triviamaze;
 
 import java.util.Scanner;
 

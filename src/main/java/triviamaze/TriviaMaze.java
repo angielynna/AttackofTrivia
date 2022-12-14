@@ -2,7 +2,7 @@
  * Attack of Trivia: TriviaMaze.java
  * 12/15/2022
  */
-package TriviaMaze;
+package triviamaze;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -212,7 +212,7 @@ public class TriviaMaze implements Serializable {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('N');
             myMaze.locked('S', myMaze.getRow() - 1, myMaze.getCol());
-            myMaze.setLocked(myMaze.getRow()-1, myMaze.getCol());
+            myMaze.getLocked(myMaze.getRow()-1, myMaze.getCol());
         }
     }
 
@@ -229,7 +229,7 @@ public class TriviaMaze implements Serializable {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('W');
             myMaze.locked('E', myMaze.getRow(), myMaze.getCol() - 1);
-            myMaze.setLocked(myMaze.getRow(), myMaze.getCol()-1);
+            myMaze.getLocked(myMaze.getRow(), myMaze.getCol()-1);
         }
     }
 
@@ -246,7 +246,7 @@ public class TriviaMaze implements Serializable {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('E');
             myMaze.locked('W', myMaze.getRow(), myMaze.getCol() + 1);
-            myMaze.setLocked(myMaze.getRow(), myMaze.getCol() + 1);
+            myMaze.getLocked(myMaze.getRow(), myMaze.getCol() + 1);
 
         }
     }
@@ -265,7 +265,7 @@ public class TriviaMaze implements Serializable {
                 System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
                 myMaze.locked('S');
                 myMaze.locked('N', myMaze.getRow() + 1, myMaze.getCol());
-                myMaze.setLocked(myMaze.getRow()+1, myMaze.getCol());
+                myMaze.getLocked(myMaze.getRow()+1, myMaze.getCol());
             }
         }
     }

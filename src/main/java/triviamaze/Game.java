@@ -3,7 +3,7 @@
  * 12/15/2022
  */
 
-package TriviaMaze;
+package triviamaze;
 
 import java.io.*;
 import java.io.Serializable;

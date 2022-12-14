@@ -1,4 +1,4 @@
-package TriviaMaze;
+package triviamaze;
 /*
  * TriviaMaze.DataBank Class
  * Version Autumn 2022
