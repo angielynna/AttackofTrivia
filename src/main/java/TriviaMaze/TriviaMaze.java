@@ -58,6 +58,7 @@ public class TriviaMaze implements Serializable {
      */
     private void newGame() throws Exception {
         myGame.playerMovement();
+        myGame.gameGuide();
         myGame.moreOptions();
         myGame.triviaTopics();
         int topic = getPlayerInputInt();

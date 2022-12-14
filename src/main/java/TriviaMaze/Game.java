@@ -69,5 +69,17 @@ public class Game implements Serializable {
                 4) Random
                 """);
     }
+    /**
+     * Displays Game guide.
+     */
+    void gameGuide() {
+        System.out.println("""
+                More Options:
+                "P" Player
+                "T" You've been there
+                "*" Haven't been there
+                "(#)" number of doors that are still not locked for that room
+                """);
+    }
 
 }
