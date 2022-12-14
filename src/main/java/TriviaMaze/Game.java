@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 public class Game implements Serializable {
     /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 5;
 
     /**
@@ -66,6 +67,18 @@ public class Game implements Serializable {
                 2) Bollywood
                 3) Horror
                 4) Random
+                """);
+    }
+    /**
+     * Displays Game guide.
+     */
+    void gameGuide() {
+        System.out.println("""
+                More Options:
+                "P" Player
+                "T" You've been there
+                "*" Haven't been there
+                "(#)" number of doors that are still not locked for that room
                 """);
     }
 

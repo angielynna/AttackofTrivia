@@ -5,6 +5,7 @@
 
 package TriviaMaze;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.List;
  */
 
 public class Maze implements Serializable {
+    /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 4;
 
     /** 2D array of Room.*/
@@ -28,21 +31,23 @@ public class Maze implements Serializable {
     /** 2D char array for displaying the maze*/
     private final char[][] myDisplayMaze;
 
-    /** Holds data.*/
-    private String myData;  //can change, probably will lol
-
     /** current player row index.*/
     private int myRow;
 
     /** current player column index.*/
     private int myCol;
 
+    /** Holds a list of questions*/
     private List<Question> myQuestion;
 
+    /** Holds the Topic*/
     private final String myTopic;
+
 
     /**
      * default maze constructor, for when no params are sent: 4 by 4 by default
+     * @param theQuestions
+     * @param theTopic
      */
     public Maze(List<Question> theQuestions, String theTopic) throws Exception {
         this(4, 4,theQuestions, theTopic);
@@ -54,6 +59,8 @@ public class Maze implements Serializable {
      *
      * @param theRows
      * @param theCols
+     * @param theQuestions
+     * @param theTopic
      */
     public Maze(final int theRows, final int theCols, List<Question> theQuestions, String theTopic) throws Exception {
         if(theRows < 1 || theCols < 1) {
@@ -79,7 +86,6 @@ public class Maze implements Serializable {
     private Room[][] buildMaze(final int theRows, final int theCols) throws Exception {
         final Room[][] maze = new Room[theRows][theCols];
         int count = 0;
-        System.out.println(myQuestion.toString());
         for (int i = 0; i < theRows; i++) {
             for (int j = 0; j < theCols; j++) {
                 //break down of logic:
@@ -113,14 +119,20 @@ public class Maze implements Serializable {
                 }
             }
             count++;
-            System.out.println(count);
         }
         //recall: the last room is the exit point, so there are no questions
         maze[theRows - 1][theCols - 1] = new Room(null, null, null, null);
         //stuff
         return maze;
     }
-
+    /**
+     * Builds and displays
+     * the maze.
+     *
+     * @param theRows
+     * @param theCols
+     * @return displayArr
+     */
     private char[][] buildDisplay(int theRows, int theCols) {
         final char[][] displayArr = new char[theRows][theCols];
         for (char[] arr : displayArr) {
@@ -147,9 +159,6 @@ public class Maze implements Serializable {
         myDisplayMaze[theRow][theCol] = 'P';
     }
 
-    char setLocked(final int theRow, final int theCol){
-        return myDisplayMaze[theRow][theCol] = 'X';
-    }
 
     /**
      * Changes player location.
@@ -158,19 +167,20 @@ public class Maze implements Serializable {
      * @param theDirection
      */
     protected void move(final char theDirection) {
-
+        myDisplayMaze[myRow][myCol] = 'T';
         char ch = Character.toUpperCase(theDirection);
-        if (ch == 'S' && canMoveSouth()) {
+        if (ch == 'S') {
             myRow++;
-        } else if (ch == 'E' && canMoveEast()) {
+        } else if (ch == 'E') {
             myCol++;
-        } else if (ch == 'W' && canMoveWest()) {
+        } else if (ch == 'W') {
             myCol--;
-        } else if (ch == 'N' && canMoveNorth()) {
+        } else if (ch == 'N') {
             myRow--;
         } else {
             throw new IllegalArgumentException("Can not move in the direction provided.");
         }
+        myDisplayMaze[myRow][myCol] = 'P';
     }
 
     /**
@@ -178,37 +188,37 @@ public class Maze implements Serializable {
      *
      * @return boolean
      */
-    boolean canMoveSouth() {
-        if ((myRow + 1 >= myMaze.length) || myMaze[myRow + 1][myCol].mySouth == null
-                || myMaze[myRow+1][myCol].mySouth.isLocked()) {  //if it contains south door
+    boolean canMoveSouth(Room[][] theMaze, int theRow, int theCol) {
+        if ((theRow + 1 >= theMaze.length) ||
+                theMaze[theRow][theCol].mySouth.isLocked()) {  //if it contains south door
+            return false;
+        } else {
+            return true;
+        }
+    }
+    /**
+     * Verifies that the player can move North.
+     *
+     * @return boolean
+     */
+    boolean canMoveNorth(Room[][] theMaze, int theRow, int theCol) {
+        if ((theRow - 1 < 0)
+                || theMaze[theRow][theCol].myNorth.isLocked()) {  //if it contains north door
             return false;
         } else {
             return true;
         }
     }
 
-    /**
-     * Verifies that the player can move North.
-     *
-     * @return boolean
-     */
-    boolean canMoveNorth() {
-        if ((myRow - 1 < 0)
-                || myMaze[myRow-1][myCol].myNorth.isLocked()) {  //if it contains north door
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     /**
      * Verifies that the player can move East.
      *
      * @return boolean
      */
-    boolean canMoveEast() {
-        if ((myCol + 1 >= myMaze[0].length)
-                || myMaze[myRow][myCol+1].myEast.isLocked()) {  //if it contains east door
+    boolean canMoveEast(Room[][] theMaze, int theRow, int theCol) {
+        if ((theCol + 1 >= theMaze[0].length)
+                || theMaze[theRow][theCol].myEast.isLocked()) {  //if it contains east door
             return false;
         } else {
             return true;
@@ -220,14 +230,15 @@ public class Maze implements Serializable {
      *
      * @return boolean
      */
-    boolean canMoveWest() {
-        if ((myCol - 1 < 0)
-                || myMaze[myRow][myCol-1].myWest.isLocked()) {  //if it contains west door
+    boolean canMoveWest(Room[][] theMaze, int theRow, int theCol) {
+        if ((theCol - 1 < 0)
+                || theMaze[theRow][theCol].myWest.isLocked()) {  //if it contains west door
             return false;
         } else {
             return true;
         }
     }
+
 
     /**
      * Determines whether the player has made it to the last room in the maze.
@@ -257,6 +268,12 @@ public class Maze implements Serializable {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
     }
+    /**
+     * Locks the door (specified in the parameter).
+     *
+     * @param theDirection
+     * @return boolean
+     */
     public boolean locked(final char theDirection) {
         if (Character.toUpperCase(theDirection) == 'N') {
             return myMaze[myRow][myCol].myNorth.lockDoor();
@@ -271,10 +288,56 @@ public class Maze implements Serializable {
         }
     }
 
+    /**
+     * Locks the door at a specific row and column (specified in the parameter).
+     *
+     * @param theDirection
+     * @param theRow
+     * @param theCol
+     * @return boolean
+     */
+    public boolean locked(final char theDirection, int theRow, int theCol) {
+        if (Character.toUpperCase(theDirection) == 'N') {
+            return myMaze[theRow][theCol].myNorth.lockDoor();
+        } else if (Character.toUpperCase(theDirection) == 'E') {
+            return myMaze[theRow][theCol].myEast.lockDoor();
+        }  else if (Character.toUpperCase(theDirection) == 'S') {
+            return myMaze[theRow][theCol].mySouth.lockDoor();
+        } else if (Character.toUpperCase(theDirection) == 'W') {
+            return myMaze[theRow][theCol].myWest.lockDoor();
+        } else {
+            throw new IllegalArgumentException("ERROR! Direction is invalid.");
+        }
+    }
+
     char[][] getDisplayMaze() {
         return Arrays.copyOf(myDisplayMaze, myDisplayMaze.length);
     }
 
+    char setLocked(final int theRow, final int theCol) {
+        int numDoors = 0;
+        if(!myMaze[theRow][theCol].myNorth.isLocked()) {
+            //System.out.println("North");
+            numDoors++;
+        }
+        if(!myMaze[theRow][theCol].mySouth.isLocked()) {
+            //System.out.println("South");
+            numDoors++;
+        }
+        if(!myMaze[theRow][theCol].myWest.isLocked()) {
+            //System.out.println("west");
+            numDoors++;
+        }
+        if(!myMaze[theRow][theCol].myEast.isLocked()) {
+            //System.out.println("east");
+            numDoors++;
+        }
+        return myDisplayMaze[theRow][theCol] = (char) (numDoors + '0');
+    }
+    /**
+     * Returns the topic chosen.
+     * @return myTopic
+     */
     String getQuestionType(){
         return myTopic;
     }
@@ -306,30 +369,74 @@ public class Maze implements Serializable {
         return Arrays.copyOf(myMaze, myMaze.length);
     }
 
-    boolean isValidMove(int theRow, int theCol) {
-        return (theRow < myMaze.length && theCol < myMaze[0].length
-                    && theRow >= 0 && theCol >= 0);
-    }
-
 
     /**
      * returns String representation of maze
      *
      * @return sb.toString()
      */
-    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("__________\n");
+        sb.append("______\n");
         for(int i = 0; i < myDisplayMaze.length; i++) {
             sb.append("|");
             for (int j = 0; j < myDisplayMaze[0].length; j++) {
                 sb.append(myDisplayMaze[i][j]);
-                sb.append(" ");
             }
             sb.append("|\n");
         }
-        sb.append("----------\n");
+        sb.append("------\n");
         return sb.toString();
     }
+
+
+
+    //traverse
+
+    boolean traverse(Room[][] theMaze, int theRow, int theCol, int theCount) {
+        boolean success = false;
+        System.out.println("DEBUG - tried to move to " + theRow+ ", " + theCol);
+        if (atExit(theRow, theCol)) {
+            return true;
+        }else if(theCount > 64){
+            return false;
+        } else {
+                //not at exit so need to try other directions
+                if (!success && isValidMove(theMaze, theRow + 1, theCol)
+                        && canMoveSouth(theMaze, theRow, theCol)) {
+                    System.out.println(theCount);
+                    theCount++;
+                    success = traverse(theMaze, theRow + 1, theCol, theCount);
+                }
+                if (!success && isValidMove(theMaze, theRow, theCol + 1)
+                        && canMoveEast(theMaze, theRow, theCol)) {
+                    System.out.println(theCount);
+                    theCount++;
+                    success = traverse(theMaze, theRow, theCol + 1, theCount); //right
+                }
+                if (!success && isValidMove(theMaze, theRow, theCol - 1)
+                        && canMoveWest(theMaze, theRow, theCol)) {
+                    theCount++;
+                    success = traverse(theMaze, theRow, theCol - 1, theCount);
+                }
+                if (!success && isValidMove(theMaze, theRow - 1, theCol)
+                        && canMoveNorth(theMaze, theRow, theCol)) {
+                    theCount++;
+                    success = traverse(theMaze, theRow - 1, theCol, theCount); //up
+                }
+
+        }
+        return success;
+    }
+
+    boolean isValidMove(Room[][] theMaze, int theRow, int theCol) {
+        return (theRow < theMaze.length && theCol < theMaze[0].length
+                && theRow >= 0 && theCol >= 0 );
+    }
+
+    private boolean atExit(int row, int col) {
+
+        return row == 3 && col == 3;
+    }
+
 }

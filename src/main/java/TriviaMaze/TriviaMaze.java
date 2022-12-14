@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 public class TriviaMaze implements Serializable {
     /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 6;
 
     /**Initialize ONE*/
@@ -57,6 +58,7 @@ public class TriviaMaze implements Serializable {
      */
     private void newGame() throws Exception {
         myGame.playerMovement();
+        myGame.gameGuide();
         myGame.moreOptions();
         myGame.triviaTopics();
         int topic = getPlayerInputInt();
@@ -204,6 +206,7 @@ public class TriviaMaze implements Serializable {
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('N');
+            myMaze.locked('S', myMaze.getRow() - 1, myMaze.getCol());
             myMaze.setLocked(myMaze.getRow()-1, myMaze.getCol());
         }
     }
@@ -220,6 +223,7 @@ public class TriviaMaze implements Serializable {
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('W');
+            myMaze.locked('E', myMaze.getRow(), myMaze.getCol() - 1);
             myMaze.setLocked(myMaze.getRow(), myMaze.getCol()-1);
         }
     }
@@ -236,7 +240,8 @@ public class TriviaMaze implements Serializable {
         } else {
             System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
             myMaze.locked('E');
-            myMaze.setLocked(myMaze.getRow(), myMaze.getCol()+1);
+            myMaze.locked('W', myMaze.getRow(), myMaze.getCol() + 1);
+            myMaze.setLocked(myMaze.getRow(), myMaze.getCol() + 1);
 
         }
     }
@@ -254,6 +259,7 @@ public class TriviaMaze implements Serializable {
             } else {
                 System.out.println("INCORRECT ANSWER, DOOR HAS BEEN LOCKED");
                 myMaze.locked('S');
+                myMaze.locked('N', myMaze.getRow() + 1, myMaze.getCol());
                 myMaze.setLocked(myMaze.getRow()+1, myMaze.getCol());
             }
         }
@@ -300,10 +306,11 @@ public class TriviaMaze implements Serializable {
      * @return false
      */
     private boolean endGame() {
+
         if (myMaze.atLastRoom()) {
             System.out.println("You've won the game!!!");
-        } else if (myMaze.isLocked('N') && myMaze.isLocked('S')
-                && myMaze.isLocked('E') && myMaze.isLocked('W')) {
+            return true;
+        } else if (!myMaze.traverse(myMaze.getMaze(), myMaze.getRow(), myMaze.getCol(),0)) {
             System.out.println(this.myMaze.toString());
             System.out.println("You've LOST the game");
 

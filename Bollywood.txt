@@ -41,7 +41,7 @@ Guess the movie based on the following three words: Reincarnation, Movie Set Dea
 A. Karan Arjun, B. Housefull 4, C. Makkhi, D. Om Shanti Om
 D
 Guess the movie based on the following three words: Cricket, Cross-dressing , Love?
-A. MS. Dhoni, B. 1983, C.Dil Bole Hadippa, D. The Zoya Factor
+A. MS. Dhoni, B. 1983, C. Dil Bole Hadippa, D. The Zoya Factor
 C
 Guess the movie based on the following three words: Bomb, Mumbai, Normal Looking Man?
 A. The Attacks of 26/11, B. A Wednesday, C. Mumbai Meri Jaan, D. Parmanu
@@ -89,7 +89,7 @@ Guess the movie based on the following three words: Reincarnation, Movie Set Dea
 A. Karan Arjun, B. Housefull 4, C. Makkhi, D. Om Shanti Om
 D
 Guess the movie based on the following three words: Cricket, Cross-dressing , Love?
-A. MS. Dhoni, B. 1983, C.Dil Bole Hadippa, D. The Zoya Factor
+A. MS. Dhoni, B. 1983, C. Dil Bole Hadippa, D. The Zoya Factor
 C
 Guess the movie based on the following three words: Bomb, Mumbai, Normal Looking Man?
 A. The Attacks of 26/11, B. A Wednesday, C. Mumbai Meri Jaan, D. Parmanu
@@ -137,7 +137,7 @@ Guess the movie based on the following three words: Reincarnation, Movie Set Dea
 A. Karan Arjun, B. Housefull 4, C. Makkhi, D. Om Shanti Om
 D
 Guess the movie based on the following three words: Cricket, Cross-dressing , Love?
-A. MS. Dhoni, B. 1983, C.Dil Bole Hadippa, D. The Zoya Factor
+A. MS. Dhoni, B. 1983, C. Dil Bole Hadippa, D. The Zoya Factor
 C
 Guess the movie based on the following three words: Bomb, Mumbai, Normal Looking Man?
 A. The Attacks of 26/11, B. A Wednesday, C. Mumbai Meri Jaan, D. Parmanu

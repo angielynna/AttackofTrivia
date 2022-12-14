@@ -5,6 +5,7 @@
 
 package TriviaMaze;
 
+import java.io.Serial;
 import java.util.Arrays;
 import java.io.Serializable;
 /**
@@ -17,6 +18,7 @@ import java.io.Serializable;
 
 public class Room implements Serializable {
     /**Serial version ID.*/
+    @Serial
     private static final long serialVersionUID = 3;
     /** North door object.*/
     final Door myNorth;
