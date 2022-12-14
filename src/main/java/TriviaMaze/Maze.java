@@ -239,6 +239,7 @@ public class Maze implements Serializable {
         }
     }
 
+
     /**
      * Determines whether the player has made it to the last room in the maze.
      *
@@ -287,8 +288,51 @@ public class Maze implements Serializable {
         }
     }
 
+    /**
+     * Locks the door at a specific row and column (specified in the parameter).
+     *
+     * @param theDirection
+     * @param theRow
+     * @param theCol
+     * @return boolean
+     */
+    public boolean locked(final char theDirection, int theRow, int theCol) {
+        if (Character.toUpperCase(theDirection) == 'N') {
+            return myMaze[theRow][theCol].myNorth.lockDoor();
+        } else if (Character.toUpperCase(theDirection) == 'E') {
+            return myMaze[theRow][theCol].myEast.lockDoor();
+        }  else if (Character.toUpperCase(theDirection) == 'S') {
+            return myMaze[theRow][theCol].mySouth.lockDoor();
+        } else if (Character.toUpperCase(theDirection) == 'W') {
+            return myMaze[theRow][theCol].myWest.lockDoor();
+        } else {
+            throw new IllegalArgumentException("ERROR! Direction is invalid.");
+        }
+    }
+
     char[][] getDisplayMaze() {
         return Arrays.copyOf(myDisplayMaze, myDisplayMaze.length);
+    }
+
+    char setLocked(final int theRow, final int theCol) {
+        int numDoors = 0;
+        if(!myMaze[theRow][theCol].myNorth.isLocked()) {
+            //System.out.println("North");
+            numDoors++;
+        }
+        if(!myMaze[theRow][theCol].mySouth.isLocked()) {
+            //System.out.println("South");
+            numDoors++;
+        }
+        if(!myMaze[theRow][theCol].myWest.isLocked()) {
+            //System.out.println("west");
+            numDoors++;
+        }
+        if(!myMaze[theRow][theCol].myEast.isLocked()) {
+            //System.out.println("east");
+            numDoors++;
+        }
+        return myDisplayMaze[theRow][theCol] = (char) (numDoors + '0');
     }
     /**
      * Returns the topic chosen.
@@ -333,33 +377,15 @@ public class Maze implements Serializable {
      */
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("_________________\n");
+        sb.append("______\n");
         for(int i = 0; i < myDisplayMaze.length; i++) {
             sb.append("|");
             for (int j = 0; j < myDisplayMaze[0].length; j++) {
-                sb.append(' ');
                 sb.append(myDisplayMaze[i][j]);
-
-                if(myMaze[i][j].myEast.exists() && myMaze[i][j].myEast.isLocked()) {
-                    sb.append(" |");
-                } else {
-                    sb.append("  ");
-                }
-            }
-            sb.append("|\n|");
-            int temp = 0;
-            while(temp < myDisplayMaze[0].length) {
-                sb.append(' ');
-                if(myMaze[i][temp].mySouth.exists() && myMaze[i][temp].mySouth.isLocked()) {
-                    sb.append("-  ");
-                } else {
-                    sb.append("   ");
-                }
-                temp++;
             }
             sb.append("|\n");
         }
-        sb.append("-----------------\n");
+        sb.append("------\n");
         return sb.toString();
     }
 
