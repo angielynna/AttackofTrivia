@@ -158,17 +158,7 @@ public class Maze implements Serializable {
         myCol = theCol;
         myDisplayMaze[theRow][theCol] = 'P';
     }
-//    /**
-//     * Prints 'X' in Maze to show
-//     * that the door is locked.
-//     *
-//     * @param theRow
-//     * @param theCol
-//     * @return myDisplayMaze[theRow][theCol] = 'X';
-//     */
-//    char setLocked(final int theRow, final int theCol){
-//        return myDisplayMaze[theRow][theCol] = 'X';
-//    }
+
 
     /**
      * Changes player location.
@@ -198,23 +188,22 @@ public class Maze implements Serializable {
      *
      * @return boolean
      */
-    boolean canMoveSouth() {
-        if ((myRow + 1 >= myMaze.length) ||
-                myMaze[myRow+1][myCol].mySouth.isLocked()) {  //if it contains south door
+    boolean canMoveSouth(Room[][] theMaze, int theRow, int theCol) {
+        if ((theRow + 1 >= theMaze.length) ||
+                theMaze[theRow][theCol].mySouth.isLocked()) {  //if it contains south door
             return false;
         } else {
             return true;
         }
     }
-
     /**
      * Verifies that the player can move North.
      *
      * @return boolean
      */
-    boolean canMoveNorth() {
-        if ((myRow - 1 < 0)
-                || myMaze[myRow-1][myCol].myNorth.isLocked()) {  //if it contains north door
+    boolean canMoveNorth(Room[][] theMaze, int theRow, int theCol) {
+        if ((theRow - 1 < 0)
+                || theMaze[theRow][theCol].myNorth.isLocked()) {  //if it contains north door
             return false;
         } else {
             return true;
@@ -227,9 +216,9 @@ public class Maze implements Serializable {
      *
      * @return boolean
      */
-    boolean canMoveEast() {
-        if ((myCol + 1 >= myMaze[0].length)
-                || myMaze[myRow][myCol+1].myEast.isLocked()) {  //if it contains east door
+    boolean canMoveEast(Room[][] theMaze, int theRow, int theCol) {
+        if ((theCol + 1 >= theMaze[0].length)
+                || theMaze[theRow][theCol].myEast.isLocked()) {  //if it contains east door
             return false;
         } else {
             return true;
@@ -241,9 +230,9 @@ public class Maze implements Serializable {
      *
      * @return boolean
      */
-    boolean canMoveWest() {
-        if ((myCol - 1 < 0)
-                || myMaze[myRow][myCol-1].myWest.isLocked()) {  //if it contains west door
+    boolean canMoveWest(Room[][] theMaze, int theRow, int theCol) {
+        if ((theCol - 1 < 0)
+                || theMaze[theRow][theCol].myWest.isLocked()) {  //if it contains west door
             return false;
         } else {
             return true;
@@ -378,45 +367,40 @@ public class Maze implements Serializable {
 
     //traverse
 
-    boolean traverse(Maze theMaze) {
+    boolean traverse(Room[][] theMaze, int theRow, int theCol, int theCount) {
         boolean success = false;
-        System.out.println("DEBUG - tried to move to " + theMaze.getRow() + ", " + theMaze.getCol());
-            //System.out.println("Valid");
-            //markVisited(maze, row, col); //drop a bread crumb to track we've been here
-        if (atExit(theMaze.getRow(), theMaze.getCol())) {
-            //System.out.println("exit");
+        System.out.println("DEBUG - tried to move to " + theRow+ ", " + theCol);
+        if (atExit(theRow, theCol)) {
             return true;
+        }else if(theCount > 64){
+            return false;
         } else {
             //not at exit so need to try other directions
-            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow() + 1, theMaze.getCol())
-                && !theMaze.myMaze[theMaze.getRow() + 1][theMaze.getCol()].mySouth.isLocked()) {
-                //System.out.println("row " + row + "col" + col);
-                System.out.println("down");
-                theMaze.setLocation(theMaze.getRow() + 1, theMaze.getCol());
-                success = traverse(theMaze);
+            if (!success && isValidMove(theMaze, theRow + 1, theCol)
+                    && canMoveSouth(theMaze, theRow, theCol)) {
+                System.out.println(theCount);
+                theCount++;
+                success = traverse(theMaze, theRow + 1, theCol, theCount);
             }
-            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow(), theMaze.getCol() + 1)
-                && !theMaze.myMaze[theMaze.getRow()][theMaze.getCol() + 1].myEast.isLocked()) {
-                //System.out.println("row " + row + "col" + col);
-                System.out.println("right");
-                theMaze.setLocation(theMaze.getRow(), theMaze.getCol() + 1);
-                success = traverse(theMaze); //right
+            if (!success && isValidMove(theMaze, theRow, theCol + 1)
+                    && canMoveEast(theMaze, theRow, theCol)) {
+                System.out.println(theCount);
+                theCount++;
+                success = traverse(theMaze, theRow, theCol + 1, theCount); //right
             }
-//            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow() - 1, theMaze.getCol())
-//                    && !theMaze.myMaze[theMaze.getRow() - 1][theMaze.getCol()].myNorth.isLocked()) {
-//                //System.out.println("row " + row + "col" + col);
-//                theMaze.setLocation(theMaze.getRow() - 1, theMaze.getCol());
-//                success = traverse(theMaze);
-//            }
-//            if (!success && isValidMove(theMaze.getMaze(), theMaze.getRow(), theMaze.getCol() - 1)
-//                    && !theMaze.myMaze[theMaze.getRow()][theMaze.getCol() - 1].myWest.isLocked()) {
-//                //System.out.println("row " + row + "col" + col);
-////                System.out.println("up");
-//                theMaze.setLocation(theMaze.getRow(), theMaze.getCol() - 1);
-//                success = traverse(theMaze); //up
-//            }
-            return false;
+            if (!success && isValidMove(theMaze, theRow, theCol - 1)
+                    && canMoveWest(theMaze, theRow, theCol)) {
+                theCount++;
+                success = traverse(theMaze, theRow, theCol - 1, theCount);
+            }
+            if (!success && isValidMove(theMaze, theRow - 1, theCol)
+                    && canMoveNorth(theMaze, theRow, theCol)) {
+                theCount++;
+                success = traverse(theMaze, theRow - 1, theCol, theCount); //up
+            }
+
         }
+        return success;
     }
 
     boolean isValidMove(Room[][] theMaze, int theRow, int theCol) {
