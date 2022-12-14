@@ -139,6 +139,7 @@ public class Maze implements Serializable {
             Arrays.fill(arr, '*');
         }
         displayArr[0][0] = 'P';
+        displayArr[3][3] = 'E';
         return displayArr;
     }
 
@@ -395,7 +396,7 @@ public class Maze implements Serializable {
 
     boolean traverse(Room[][] theMaze, int theRow, int theCol, int theCount) {
         boolean success = false;
-        System.out.println("DEBUG - tried to move to " + theRow+ ", " + theCol);
+        //System.out.println("DEBUG - tried to move to " + theRow+ ", " + theCol);
         if (atExit(theRow, theCol)) {
             return true;
         }else if(theCount > 64){
@@ -404,13 +405,13 @@ public class Maze implements Serializable {
                 //not at exit so need to try other directions
                 if (!success && isValidMove(theMaze, theRow + 1, theCol)
                         && canMoveSouth(theMaze, theRow, theCol)) {
-                    System.out.println(theCount);
+                    //System.out.println(theCount);
                     theCount++;
                     success = traverse(theMaze, theRow + 1, theCol, theCount);
                 }
                 if (!success && isValidMove(theMaze, theRow, theCol + 1)
                         && canMoveEast(theMaze, theRow, theCol)) {
-                    System.out.println(theCount);
+                    //System.out.println(theCount);
                     theCount++;
                     success = traverse(theMaze, theRow, theCol + 1, theCount); //right
                 }
