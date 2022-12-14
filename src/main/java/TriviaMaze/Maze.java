@@ -399,7 +399,7 @@ public class Maze implements Serializable {
         //System.out.println("DEBUG - tried to move to " + theRow+ ", " + theCol);
         if (atExit(theRow, theCol)) {
             return true;
-        }else if(theCount > 64){
+        }else if(theCount >= 20){
             return false;
         } else {
                 //not at exit so need to try other directions
