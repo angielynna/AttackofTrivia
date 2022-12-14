@@ -83,10 +83,11 @@ public class Game implements Serializable {
      */
     void gameGuide() {
         System.out.println("""
-                More Options:
+                Game Guide:
                 "P" Player
                 "T" You've been there
                 "*" Haven't been there
+                "E" Exit point of the maze
                 "(#)" number of doors that are still not locked for that room
                 """);
     }
