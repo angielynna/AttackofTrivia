@@ -50,11 +50,12 @@ public class Maze implements Serializable {
     /** Holds the topic.*/
     private final String myTopic;
 
-
     /**
-     * default maze constructor, for when no params are sent: 4 by 4 by default.
+     * Default maze constructor, for when no params are sent: 4 by 4 by default.
+     *
      * @param theQuestions
      * @param theTopic
+     * @throws Exception
      */
     public Maze(final List<Question> theQuestions,
                 final String theTopic) throws Exception {
@@ -303,13 +304,17 @@ public class Maze implements Serializable {
      */
     public boolean locked(final char theDirection) {
         if (Character.toUpperCase(theDirection) == 'N') {
-            return myMaze[myRow][myCol].myNorth.lockDoor();
+            myMaze[myRow][myCol].myNorth.lockDoor();
+            return myMaze[myRow][myCol].myNorth.isLocked();
         } else if (Character.toUpperCase(theDirection) == 'E') {
-            return myMaze[myRow][myCol].myEast.lockDoor();
+            myMaze[myRow][myCol].myEast.lockDoor();
+            return myMaze[myRow][myCol].myEast.isLocked();
         }  else if (Character.toUpperCase(theDirection) == 'S') {
-            return myMaze[myRow][myCol].mySouth.lockDoor();
+            myMaze[myRow][myCol].mySouth.lockDoor();
+            return myMaze[myRow][myCol].mySouth.isLocked();
         } else if (Character.toUpperCase(theDirection) == 'W') {
-            return myMaze[myRow][myCol].myWest.lockDoor();
+            myMaze[myRow][myCol].myWest.lockDoor();
+            return myMaze[myRow][myCol].myWest.isLocked();
         } else {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
@@ -326,13 +331,17 @@ public class Maze implements Serializable {
     public boolean locked(final char theDirection, final int theRow,
                           final int theCol) {
         if (Character.toUpperCase(theDirection) == 'N') {
-            return myMaze[theRow][theCol].myNorth.lockDoor();
+            myMaze[theRow][theCol].myNorth.lockDoor();
+            return myMaze[theRow][theCol].myNorth.isLocked();
         } else if (Character.toUpperCase(theDirection) == 'E') {
-            return myMaze[theRow][theCol].myEast.lockDoor();
+            myMaze[theRow][theCol].myEast.lockDoor();
+            return myMaze[theRow][theCol].myEast.isLocked();
         }  else if (Character.toUpperCase(theDirection) == 'S') {
-            return myMaze[theRow][theCol].mySouth.lockDoor();
+            myMaze[theRow][theCol].mySouth.lockDoor();
+            return myMaze[theRow][theCol].mySouth.isLocked();
         } else if (Character.toUpperCase(theDirection) == 'W') {
-            return myMaze[theRow][theCol].myWest.lockDoor();
+            myMaze[theRow][theCol].myWest.lockDoor();
+            return myMaze[theRow][theCol].myWest.isLocked();
         } else {
             throw new IllegalArgumentException("ERROR! Direction is invalid.");
         }
