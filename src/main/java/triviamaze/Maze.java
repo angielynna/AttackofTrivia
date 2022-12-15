@@ -349,10 +349,17 @@ public class Maze implements Serializable {
 
     /**
      * Returns a copy of the display maze array.
-     * @return Arrays.copyOf(myDisplayMaze, myDisplayMaze.length);
+     * @return sb.toString();
      */
-    char[][] getDisplayMaze() {
-        return Arrays.copyOf(myDisplayMaze, myDisplayMaze.length);
+    String getDisplayMaze() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < myDisplayMaze.length; i++) {
+            for (int j = 0; j < myDisplayMaze[0].length; j++) {
+                sb.append(myDisplayMaze[i][j]);
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     /**
@@ -493,6 +500,7 @@ public class Maze implements Serializable {
 
     /**
      * Determines whether the location sent in is a valid location in the maze.
+     * For the purpose of traversing the maze.
      *
      * @param theMaze
      * @param theRow
@@ -507,7 +515,9 @@ public class Maze implements Serializable {
     }
 
     /**
-     * Determines whether the location sent in is the exit in the maze.
+     * Determines whether the location sent in is the exit in the maze
+     * based off the default value.
+     * For the purpose of traversing the maze.
      *
      * @param theRow
      * @param theCol

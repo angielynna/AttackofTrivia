@@ -25,21 +25,21 @@ class QuestionTest {
     }
 
     @Test
-    void isCorrect() {
+    void isCorrect() throws Exception {
         Question q = new Question("Have you ever...?",
                 "A. Hi, B. Hello, C. Bye, D. Goodbye", "B");
         assertEquals(true, q.isCorrect("B"));
     }
 
     @Test
-    void isNotCorrect() {
+    void isNotCorrect() throws Exception {
         Question q = new Question("Have you ever...?",
                 "A. Hi, B. Hello, C. Bye, D. Goodbye", "B");
         assertEquals(false, q.isCorrect("C"));
     }
 
     @Test
-    void promptQuestion() {
+    void promptQuestion() throws Exception {
         Question q = new Question("Have you ever...?",
                 "A. Hi, B. Hello, C. Bye, D. Goodbye", "B");
         assertEquals("Have you ever...?\nA. Hi\nB. Hello\nC. Bye\nD. Goodbye\n", q.promptQuestion());

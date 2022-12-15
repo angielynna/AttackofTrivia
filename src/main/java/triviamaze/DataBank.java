@@ -60,7 +60,7 @@ public class DataBank implements Serializable  {
      * Private Constructor, which sets up the database
      * as well as creates a connection with the SQLiteDataSource.
      */
-    public DataBank() {
+    public DataBank() throws Exception {
         try {
             myDs = new SQLiteDataSource();
             myDs.setUrl("jdbc:sqlite:AOTQuestions.db");
@@ -198,7 +198,7 @@ public class DataBank implements Serializable  {
      * @param theTableName
      * @return List<String>
      */
-    private List<Question> makeList(final String theTableName) {
+    private List<Question> makeList(final String theTableName) throws Exception {
         final String questionFieldName = "question";
         final String optionsFieldName = "options";
         final String answerFieldName = "answer";

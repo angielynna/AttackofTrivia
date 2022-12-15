@@ -67,6 +67,7 @@ public class Game implements Serializable {
                 N) New Game
                 L) Save Game
                 E) Exit Game
+                Q) Immediately win the game (cheat)
                 """);
     }
     /**

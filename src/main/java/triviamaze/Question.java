@@ -42,8 +42,12 @@ public class Question implements Serializable {
      * @param theCorrectAnswer
      */
     public Question(final String theQuestion, final String theAnswerOptions,
-                    final String theCorrectAnswer) {
-
+                    final String theCorrectAnswer) throws Exception {
+            if (theQuestion == null || theQuestion.isEmpty()
+                || theAnswerOptions == null || theAnswerOptions.isEmpty()
+                || theCorrectAnswer == null || theCorrectAnswer.isEmpty()) {
+                throw new Exception("ERROR! Insufficient values!");
+            }
             this.myQuestion = theQuestion;
             this.myCorrectAnswer = theCorrectAnswer;
             this.myAnswerOptions = theAnswerOptions;

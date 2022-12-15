@@ -110,4 +110,13 @@ public class Door implements Serializable {
         return myExistence;
     }
 
+    /**
+     * Asks the question associated with the door.
+     *
+     * @return myQuestion.promptQuestion();
+     */
+    String askQuestion() {
+        return myQuestion.promptQuestion();
+    }
+
 }

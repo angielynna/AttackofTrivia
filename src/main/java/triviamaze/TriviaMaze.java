@@ -161,7 +161,7 @@ public class TriviaMaze implements Serializable {
      *
      * @return input
      */
-    private String getPlayerInput() {
+    String getPlayerInput() {
         String input;
         input = myScanner.nextLine().toLowerCase();
         return input;
@@ -206,9 +206,6 @@ public class TriviaMaze implements Serializable {
         }
 
     }
-
-
-
 
     /**
      * Moves player North.
