@@ -1,55 +1,64 @@
-package triviamaze;
 /**
  * Attack of Trivia: DataBank.java
  * 12/15/2022
  */
 
-import java.util.*;
-import java.io.*;
-import java.sql.*;
+package triviamaze;
+
+
 import org.sqlite.SQLiteDataSource;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class DataBank implements Serializable  {
-    // The question database.
-    SQLiteDataSource myDs;
+    /** The question database.*/
+    private SQLiteDataSource myDs;
 
-    // Statement object for database.
-    Statement myStmt;
+    /** Statement object for database.*/
+    private Statement myStmt;
 
-    // Initial id for all questions that will be incremented.
+    /** Initial id for all questions that will be incremented.*/
     private static final int INITIAL_QUESTION_ID = 1;
 
     //The single instance of the class.
     //private static DataBank myDataBank;
 
-    // List of all the bollywood questions from the database.
+    /** List of all the bollywood questions from the database.*/
     private final List<Question> bollywoodQuestions;
 
-    // List of all the Friends questions from the database.
+    /** List of all the Friends questions from the database.*/
     private final List<Question> friendsQuestions;
 
-    // List of all the horror questions from the database.
+    /** List of all the horror questions from the database.*/
     private final List<Question> horrorQuestions;
 
-    // List of all the random questions from the database.
+    /** List of all the random questions from the database.*/
     private final List<Question> randomQuestions;
 
-    // The index which keeps track of the questions in the bollywood array.
+    /** The index which keeps track of the questions in the bollywood array.*/
     private int bollywoodIndex = 0;
 
-    // The index which keeps track of the questions in the friends array.
+    /** The index which keeps track of the questions in the friends array.*/
     private int friendsIndex = 0;
 
-    // The index which keeps track of the questions in the horror array.
+    /** The index which keeps track of the questions in the horror array.*/
     private int horrorIndex = 0;
 
-    // The index which keeps track of the questions in the random array.
+    /** The index which keeps track of the questions in the random array.*/
     private int randomIndex = 0;
 
     /**
-     * Private Constructor, which sets up the database as well as creates a connection
-     * with the SQLiteDataSource.
+     * Private Constructor, which sets up the database
+     * as well as creates a connection with the SQLiteDataSource.
      */
     public DataBank() {
         try {
@@ -57,7 +66,7 @@ public class DataBank implements Serializable  {
             myDs.setUrl("jdbc:sqlite:AOTQuestions.db");
             final Connection conn = myDs.getConnection();
             myStmt = conn.createStatement();
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -111,20 +120,25 @@ public class DataBank implements Serializable  {
             String query2 = "Friends";
             String query3 = "Horror";
             String query4 = "Random";
-            String multiChoiceReqs = " (id integer, question string, options string, answer string)";
+            String multiChoiceReqs = " (id integer, question string,"
+                    + " options string, answer string)";
             // Just to make sure the table is the most updated version of itself
-            // the following code will delete the table if it already exists and
-            // make a new table. This is because we send all data at once to the
-            // database from text files. After that we will create that table again
-            // to store the data into.
+            // the following code will delete the table if it already exists
+            // and make a new table. This is because we send all data at once
+            // to the database from text files. After that we will create that
+            // table again to store the data into.
             myStmt.executeUpdate("DROP TABLE IF EXISTS " + query1);
-            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + query1 + multiChoiceReqs);
+            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + query1
+                    + multiChoiceReqs);
             myStmt.executeUpdate("DROP TABLE IF EXISTS " + query2);
-            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query2 + multiChoiceReqs);
+            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query2
+                    + multiChoiceReqs);
             myStmt.executeUpdate("DROP TABLE IF EXISTS " + query3);
-            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query3 + multiChoiceReqs);
+            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query3
+                    + multiChoiceReqs);
             myStmt.executeUpdate("DROP TABLE IF EXISTS " + query4);
-            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query4 + multiChoiceReqs);
+            myStmt.executeUpdate("CREATE TABLE IF NOT EXISTS  " + query4
+                    + multiChoiceReqs);
         } catch (final SQLException e) {
             System.err.println("Error: tables not created properly.");
             e.printStackTrace();
@@ -168,7 +182,8 @@ public class DataBank implements Serializable  {
      */
     private void addQuery(final String theTableName, final String theQuery) {
         try {
-            myStmt.executeUpdate("INSERT INTO " + theTableName + " VALUES" +theQuery);
+            myStmt.executeUpdate("INSERT INTO " + theTableName
+                    + " VALUES" + theQuery);
         } catch (final SQLException e) {
             System.err.println("Error: data not inserted into table properly.");
             e.printStackTrace();
@@ -181,7 +196,7 @@ public class DataBank implements Serializable  {
      * stores it in a list.
      *
      * @param theTableName
-     * @return List</String>
+     * @return List<String>
      */
     private List<Question> makeList(final String theTableName) {
         final String questionFieldName = "question";
@@ -191,9 +206,12 @@ public class DataBank implements Serializable  {
 
         final List<Question> list = new ArrayList<>();
         while (entryAvailable(questionID, theTableName)) {
-            final String question = fetchInfo(questionID, questionFieldName, theTableName);
-            final String options = fetchInfo(questionID, optionsFieldName, theTableName);
-            final String answer = fetchInfo(questionID, answerFieldName, theTableName);
+            final String question = fetchInfo(questionID,
+                    questionFieldName, theTableName);
+            final String options = fetchInfo(questionID,
+                    optionsFieldName, theTableName);
+            final String answer = fetchInfo(questionID,
+                    answerFieldName, theTableName);
             final Question q = new Question(question, options, answer);
             list.add(q);
             questionID++;
@@ -209,11 +227,13 @@ public class DataBank implements Serializable  {
      * @param theTable
      * @return String result
      */
-    private String fetchInfo(final int theQuestionID, final String theField, final String theTable) {
+    private String fetchInfo(final int theQuestionID, final String theField,
+                             final String theTable) {
 
         String result = "";
         try {
-            final ResultSet rs = myStmt.executeQuery("SELECT " + theField + " FROM " + theTable + " WHERE ID = " + theQuestionID);
+            final ResultSet rs = myStmt.executeQuery("SELECT " + theField
+                    + " FROM " + theTable + " WHERE ID = " + theQuestionID);
             result = rs.getString(theField);
         } catch (final SQLException e) {
             e.printStackTrace();
@@ -221,16 +241,18 @@ public class DataBank implements Serializable  {
         return result;
     }
     /**
-     * Checks if the entry with the question id exists in the table or not
+     * Checks if the entry with the question id exists in the table or not.
      *
      * @param theQuestionID
      * @param theTable
      * @return boolean
      */
-    private boolean entryAvailable(final int theQuestionID, final String theTable) {
+    private boolean entryAvailable(final int theQuestionID,
+                                   final String theTable) {
         boolean result = true;
         try {
-            final ResultSet rs = myStmt.executeQuery("SELECT * FROM " + theTable + " WHERE ID =" + theQuestionID);
+            final ResultSet rs = myStmt.executeQuery("SELECT * FROM "
+                    + theTable + " WHERE ID =" + theQuestionID);
             if (!rs.next()) {
                 result = false;
             }
