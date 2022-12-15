@@ -28,14 +28,16 @@ public class Door implements Serializable {
     /** Holds locked status of the door.*/
     private boolean myStatus;
 
-    /**boolean if the door exists*/
-    private boolean myExistance;
+    /**boolean if the door exists.*/
+    private boolean myExistence;
 
     /**
-     * Constructor calls the Question class to instantiate a new question object
-     * and sets locked status to false.
+     * Door constructor that instantiates a Question.
      *
      * @param theQuestion
+     * @param theAnsOptions
+     * @param theCorrectAns
+     * @throws Exception
      */
     public Door(final String theQuestion, final String theAnsOptions,
                 final String theCorrectAns) throws Exception {
@@ -50,43 +52,62 @@ public class Door implements Serializable {
         }
         myQuestion = new Question(theQuestion, theAnsOptions, theCorrectAns);
         myStatus = false;
-        myExistance = true;
+        myExistence = true;
 
     }
 
-    public Door(Question theQuestion) throws Exception {
-        if(theQuestion == null) {
+    /**
+     * Door constructor for Question object.
+     * @param theQuestion
+     * @throws Exception
+     */
+    public Door(final Question theQuestion) throws Exception {
+        if (theQuestion == null) {
             throw new Exception("ERROR! Question is null!");
         }
         myQuestion = theQuestion;
         myStatus = false;
-        myExistance = true;
+        myExistence = true;
 
     }
 
-    public Door(boolean theLockedStatus) {
+    /**
+     * Constructor for a Door that does not exist.
+     *
+     * @param theLockedStatus
+     */
+    public Door(final boolean theLockedStatus) {
         myStatus = theLockedStatus;
         myQuestion = null;
-        myExistance = false;
+        myExistence = false;
     }
 
     /**
      * lockDoor locks the current door.
      */
-    boolean lockDoor() {
-        return myStatus = true;
+    void lockDoor() {
+
+        myStatus = true;
     }
+
     /**
      * returns the locked status of the door.
      *
      * @return myStatus
      */
     boolean isLocked() {
+
         return myStatus;
     }
 
+    /**
+     * Returns whether the door exists or not.
+     *
+     * @return myExistence
+     */
     boolean exists() {
-        return myExistance;
+
+        return myExistence;
     }
 
 }
