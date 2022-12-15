@@ -19,6 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * DataBank interacts with the database and saves the data.
+ *
+ * @author Amtoj Kaur, Angelynna Pyeatt, Leyla Ahmed
+ * @version Autumn 2022
+ */
 public class DataBank implements Serializable  {
     /** The question database.*/
     private SQLiteDataSource myDs;
@@ -28,9 +34,6 @@ public class DataBank implements Serializable  {
 
     /** Initial id for all questions that will be incremented.*/
     private static final int INITIAL_QUESTION_ID = 1;
-
-    //The single instance of the class.
-    //private static DataBank myDataBank;
 
     /** List of all the bollywood questions from the database.*/
     private final List<Question> bollywoodQuestions;
@@ -81,19 +84,6 @@ public class DataBank implements Serializable  {
         closeDB();
 
     }
-
-//    /**
-//     * Creates instance of Data bank object.
-//     *
-//     * @return TriviaMaze.DataBank myDataBank
-//     */
-//    public static DataBank getDataBank() {
-//        if(myDataBank == null){
-//            myDataBank = new DataBank();
-//            return myDataBank;
-//        }
-//        return myDataBank;
-//    }
 
     /**
      * Adds Tables and questions to tables in the database created.
@@ -198,7 +188,8 @@ public class DataBank implements Serializable  {
      * @param theTableName
      * @return List<String>
      */
-    private List<Question> makeList(final String theTableName) throws Exception {
+    private List<Question> makeList(final String theTableName)
+            throws Exception {
         final String questionFieldName = "question";
         final String optionsFieldName = "options";
         final String answerFieldName = "answer";
